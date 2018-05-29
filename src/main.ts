@@ -12,3 +12,5 @@ new Vue({
     router,
     render: (h) => h(App)
 });
+
+// app is adopted to ts: https://medium.com/coding-blocks/using-typescript-in-your-vue-app-c4aba0bbc8bc
