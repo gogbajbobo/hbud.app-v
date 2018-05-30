@@ -1,30 +1,60 @@
 <script>
 
     export default {
+
         name: "Login",
+
         data() {
             return {
-                visible: false
+                visible: false,
+                formLabelAlign: {
+                    username: '',
+                    password: ''
+                }
+            }
+        },
+
+        methods: {
+            onSubmit() {
+                console.log('submit!');
             }
         }
+
     }
 
 </script>
 
 <template>
 
-    <div>
+    <div class="login">
+
         <h1>Login</h1>
 
-        <el-button @click="visible = true">Button</el-button>
-        <el-dialog :visible.sync="visible" title="Hello world">
-            <p>Try Element</p>
-        </el-dialog>
+        <el-form label-position="left" label-width="100px" :model="formLabelAlign">
+
+            <el-form-item label="Username">
+                <el-input v-model="formLabelAlign.username" placeholder="Please enter username"></el-input>
+            </el-form-item>
+
+            <el-form-item label="Password">
+                <el-input v-model="formLabelAlign.password" type="password" placeholder="Please enter username"></el-input>
+            </el-form-item>
+
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit">Login</el-button>
+            </el-form-item>
+
+        </el-form>
 
     </div>
 
 </template>
 
 <style scoped>
+
+    .login {
+        width: 512px;
+        margin: auto;
+    }
 
 </style>
