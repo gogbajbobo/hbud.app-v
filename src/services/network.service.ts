@@ -6,7 +6,7 @@ axiosInstance.defaults.baseURL = 'http://localhost:8002';
 
 class NetworkService {
 
-    login(username, password) {
+    login(username: string, password: string): void {
 
         const userAgent = navigator.userAgent;
 
