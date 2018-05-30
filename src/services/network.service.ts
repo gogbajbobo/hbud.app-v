@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, {AxiosPromise} from 'axios'
 
 const axiosInstance = axios.create();
 
@@ -6,26 +6,19 @@ axiosInstance.defaults.baseURL = 'http://localhost:8002';
 
 class NetworkService {
 
-    login(username: string, password: string): void {
+    static login(username: string, password: string): AxiosPromise {
 
         const userAgent = navigator.userAgent;
-
-        axiosInstance.post('login', {
+        const data = {
             username,
             password,
             userAgent
-        })
-            .then(response => {
-                console.log(response);
-            })
-            .catch(e => {
-                console.log(e)
-            })
+        };
+
+        return axiosInstance.post('login', data)
 
     }
 
 }
 
-const networkService = new NetworkService();
-
-export default networkService;
+export default NetworkService;
