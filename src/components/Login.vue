@@ -23,17 +23,19 @@
                     .login(this.username, this.password)
                     .then(result => {
 
-                        function isAuthState(state: any): state is AuthState {
+                        auth.commitAuthorized(result.data as AuthState)
 
-                            return state.user !== undefined
-                                && state.accessToken !== undefined
-                                && state.expirationTime !== undefined;
-
-                        }
-
-                        if (isAuthState(result.data)) {
-                            auth.commitAuthorized(result.data as AuthState)
-                        }
+                        // function isAuthState(state: any): state is AuthState {
+                        //
+                        //     return state.user !== undefined
+                        //         && state.accessToken !== undefined
+                        //         && state.expirationTime !== undefined;
+                        //
+                        // }
+                        //
+                        // if (isAuthState(result.data)) {
+                        //     auth.commitAuthorized(result.data as AuthState)
+                        // }
 
                     })
                     .catch(err => console.error(err.toLocaleString()))
