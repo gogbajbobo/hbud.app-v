@@ -7,6 +7,14 @@ export interface AuthState {
     expirationTime?: Date
 }
 
+// function isAuthState(state: any): state is AuthState {
+//
+//     return state.user !== undefined
+//         && state.accessToken !== undefined
+//         && state.expirationTime !== undefined;
+//
+// }
+
 const initialAuthState: AuthState = {
     user: undefined,
     accessToken: undefined,
