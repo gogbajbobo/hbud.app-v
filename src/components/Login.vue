@@ -23,19 +23,8 @@
                     .login(this.username, this.password)
                     .then(result => {
 
-                        auth.commitAuthorized(result.data as AuthState)
-
-                        // function isAuthState(state: any): state is AuthState {
-                        //
-                        //     return state.user !== undefined
-                        //         && state.accessToken !== undefined
-                        //         && state.expirationTime !== undefined;
-                        //
-                        // }
-                        //
-                        // if (isAuthState(result.data)) {
-                        //     auth.commitAuthorized(result.data as AuthState)
-                        // }
+                        auth.commitAuthorized(result.data as AuthState);
+                        router.push('/')
 
                     })
                     .catch(err => console.error(err.toLocaleString()))
