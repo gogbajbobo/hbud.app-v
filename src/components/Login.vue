@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
+
+    import Vue from "vue";
 
     import networkService from '../services/network.service'
 
-    export default {
+    export default Vue.extend({
 
         name: "Login",
 
@@ -19,7 +21,7 @@
             }
         }
 
-    }
+    })
 
 </script>
 
