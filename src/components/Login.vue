@@ -2,7 +2,9 @@
 
     import Vue from "vue";
 
-    import networkService from '../services/network.service'
+    import NetworkService from '../services/network.service'
+    import auth, { AuthState } from '../store/modules/auth'
+    import router from '../router'
 
     export default Vue.extend({
 
@@ -17,7 +19,24 @@
 
         methods: {
             onSubmit() {
-                networkService.login(this.username, this.password)
+                NetworkService
+                    .login(this.username, this.password)
+                    .then(result => {
+
+                        function isAuthState(state: any): state is AuthState {
+
+                            return state.user !== undefined
+                                && state.accessToken !== undefined
+                                && state.expirationTime !== undefined;
+
+                        }
+
+                        if (isAuthState(result.data)) {
+                            auth.commitAuthorized(result.data as AuthState)
+                        }
+
+                    })
+                    .catch(err => console.error(err.toLocaleString()))
             }
         }
 
