@@ -72,8 +72,6 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
 
-    console.log(to.name);
-
     const isAuthorized: boolean = !!auth.state.user;
 
     if (!isAuthorized && to.name !== 'Login')
