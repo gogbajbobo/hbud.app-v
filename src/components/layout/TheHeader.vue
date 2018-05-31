@@ -2,6 +2,7 @@
 
     import Vue from 'vue'
     import auth from '../../store/modules/auth'
+    import router from '../../router'
 
     export default Vue.extend({
 
@@ -12,8 +13,8 @@
             }
         },
         methods: {
-            handleSelect(key, keyPath) {
-                console.log(key, keyPath);
+            handleCommand(command) {
+                router.push({name: command})
             }
         }
 
@@ -30,21 +31,21 @@
             </el-col>
             <el-col :span="16">
                 <el-row type="flex" justify="end">
-                    <el-dropdown>
+                    <el-dropdown v-if="user" @command="handleCommand">
                         <div class="el-dropdown-link">
                             <span>{{ user.username }}</span>
                             <i class="el-icon-arrow-down el-icon--right"></i>
                         </div>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>
+                            <el-dropdown-item command="Profile">
                                 <i class="el-icon-info el-icon--left"></i>
                                 <span>Profile</span>
                             </el-dropdown-item>
-                            <el-dropdown-item>
+                            <el-dropdown-item command="Settings">
                                 <i class="el-icon-setting el-icon--left"></i>
                                 <span>Settings</span>
                             </el-dropdown-item>
-                            <el-dropdown-item divided>
+                            <el-dropdown-item command="Logout" divided>
                                 <i class="el-icon-arrow-right el-icon--left"></i>
                                 <span>Logout</span>
                             </el-dropdown-item>
