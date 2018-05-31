@@ -14,9 +14,9 @@
 
         data() {
             return {
-                username: '',
-                password: '',
-                logining: false
+                username: <string> '',
+                password: <string> '',
+                logining: <boolean> false
             }
         },
 
