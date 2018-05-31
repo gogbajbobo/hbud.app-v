@@ -4,26 +4,51 @@ import auth from '../store/modules/auth'
 
 import {
     Main,
-    Login
+    Login,
+    Logout,
+    Profile,
+    Settings
 } from '../components/'
+import {RouteConfig} from "vue-router/types/router";
 
 Vue.use(Router);
 
-const main = {
+const main: RouteConfig = {
     path: '/',
     name: 'Main',
     component: Main
 };
 
-const login = {
+const login: RouteConfig = {
     path: '/login',
     name: 'Login',
     component: Login
 };
 
-const routes = [
+const logout: RouteConfig = {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout
+};
+
+const profile: RouteConfig = {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
+};
+
+const settings: RouteConfig = {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings
+};
+
+const routes: RouteConfig[] = [
     main,
-    login
+    login,
+    logout,
+    profile,
+    settings
 ];
 
 const router = new Router({
@@ -31,6 +56,8 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+
+    console.log(to.name);
 
     const isAuthorized: boolean = !!auth.state.user;
 
