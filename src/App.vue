@@ -1,14 +1,38 @@
-<template>
-    <div id="app">
-        <router-view/>
-    </div>
-</template>
-
 <script lang='ts'>
-    export default {
-        name: 'App'
-    }
+
+    import Vue from 'vue'
+
+    import { TheHeader, TheAside, TheMain, TheFooter } from './components/layout/'
+
+    export default Vue.extend({
+        name: 'App',
+        components: { TheHeader, TheAside, TheMain, TheFooter }
+    })
+
 </script>
+
+<template>
+
+    <div id="app">
+
+        <el-container>
+            <el-header>
+                <the-header></the-header>
+            </el-header>
+            <el-aside>
+                <the-aside></the-aside>
+            </el-aside>
+            <el-main>
+                <the-main></the-main>
+            </el-main>
+            <el-footer>
+                <the-footer></the-footer>
+            </el-footer>
+        </el-container>
+
+    </div>
+
+</template>
 
 <style>
     #app {

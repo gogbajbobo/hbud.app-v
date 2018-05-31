@@ -1,15 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import auth from '../store/modules/auth'
-import Login from '@/components/Login.vue'
-import Layout from '@/components/Layout.vue'
+
+import {
+    Main,
+    Login
+} from '../components/'
 
 Vue.use(Router);
 
 const main = {
     path: '/',
-    name: 'Layout',
-    component: Layout
+    name: 'Main',
+    component: Main
 };
 
 const login = {
