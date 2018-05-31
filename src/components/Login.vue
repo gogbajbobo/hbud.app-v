@@ -2,10 +2,11 @@
 
     import Vue from "vue"
 
+    import { Message } from 'element-ui'
+
     import NetworkService from '../services/network.service'
     import auth, { AuthState } from '../store/modules/auth'
     import router from '../router'
-    import helpers from '../helpers'
 
     export default Vue.extend({
 
@@ -24,20 +25,16 @@
 
                 this.logining = true;
 
-                helpers.delayReject(2000, "err")
-                    .catch(err => { console.log(err.toLocaleString())})
-                    .then(() => { this.logining = false })
+                NetworkService
+                    .login(this.username, this.password)
+                    .then(result => {
 
-                // NetworkService
-                //     .login(this.username, this.password)
-                //     .then(result => {
-                //
-                //         auth.commitAuthorized(result.data as AuthState);
-                //         router.push('/')
-                //
-                //     })
-                //     .catch(err => console.error(err.toLocaleString()))
-                //     .then(() => { this.logining = false })
+                        auth.commitAuthorized(result.data as AuthState);
+                        router.push('/')
+
+                    })
+                    .catch(err => Message.error(err.toLocaleString()))
+                    .then(() => this.logining = false)
 
             }
         }
