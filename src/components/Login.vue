@@ -5,6 +5,7 @@
     import NetworkService from '../services/network.service'
     import auth, { AuthState } from '../store/modules/auth'
     import router from '../router'
+    import helpers from '../helpers'
 
     export default Vue.extend({
 
@@ -13,21 +14,31 @@
         data() {
             return {
                 username: '',
-                password: ''
+                password: '',
+                logining: false
             }
         },
 
         methods: {
             onSubmit() {
-                NetworkService
-                    .login(this.username, this.password)
-                    .then(result => {
 
-                        auth.commitAuthorized(result.data as AuthState);
-                        router.push('/')
+                this.logining = true;
 
-                    })
-                    .catch(err => console.error(err.toLocaleString()))
+                helpers.delayReject(2000, "err")
+                    .catch(err => { console.log(err.toLocaleString())})
+                    .then(() => { this.logining = false })
+
+                // NetworkService
+                //     .login(this.username, this.password)
+                //     .then(result => {
+                //
+                //         auth.commitAuthorized(result.data as AuthState);
+                //         router.push('/')
+                //
+                //     })
+                //     .catch(err => console.error(err.toLocaleString()))
+                //     .then(() => { this.logining = false })
+
             }
         }
 
@@ -39,7 +50,7 @@
 
     <div class="login">
 
-        <el-form>
+        <el-form v-loading="logining">
 
             <h1>Login</h1>
 
