@@ -31,13 +31,13 @@ router.beforeEach((to, from, next) => {
 
     const isAuthorized: boolean = !!auth.state.user;
 
-    if (!isAuthorized && to.name !== 'Login') {
-
+    if (!isAuthorized && to.name !== 'Login')
         return next('/login');
 
-    }
+    if (isAuthorized && to.name === 'Login')
+        return next('/');
 
-    next();
+    next()
 
 });
 
