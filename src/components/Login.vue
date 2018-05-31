@@ -2,8 +2,6 @@
 
     import Vue from "vue"
 
-    import { Message } from 'element-ui'
-
     import NetworkService from '../services/network.service'
     import auth, { AuthState } from '../store/modules/auth'
     import router from '../router'
@@ -30,10 +28,10 @@
                     .then(result => {
 
                         auth.commitAuthorized(result.data as AuthState);
-                        router.push('/')
+                        router.push({name: 'Main'})
 
                     })
-                    .catch(err => Message.error(err.toLocaleString()))
+                    .catch(err => this.$message.error(err.toLocaleString()))
                     .then(() => this.logining = false)
 
             }
