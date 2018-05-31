@@ -39,16 +39,16 @@
 
     <div class="login">
 
-        <h1>Login</h1>
+        <el-form>
 
-        <el-form label-position="left" label-width="100px">
+            <h1>Login</h1>
 
-            <el-form-item label="Username">
-                <el-input v-model="username" placeholder="Please enter username"></el-input>
+            <el-form-item>
+                <el-input v-model="username" placeholder="Username"></el-input>
             </el-form-item>
 
-            <el-form-item label="Password">
-                <el-input v-model="password" type="password" placeholder="Please enter username"></el-input>
+            <el-form-item>
+                <el-input v-model="password" type="password" placeholder="Password"></el-input>
             </el-form-item>
 
             <el-form-item>
@@ -64,7 +64,7 @@
 <style scoped>
 
     .login {
-        width: 512px;
+        width: 256px;
         margin: auto;
     }
 
