@@ -7,6 +7,7 @@
     import { TheHeader, TheAside, TheMain, TheFooter } from './components/layout/'
 
     export default Vue.extend({
+
         name: 'App',
 
         components: { TheHeader, TheAside, TheMain, TheFooter },
@@ -47,6 +48,7 @@
 </template>
 
 <style>
+
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -55,4 +57,9 @@
         color: #2c3e50;
         margin-top: 60px;
     }
+
+    aside {
+        max-width: 200px;
+    }
+
 </style>
