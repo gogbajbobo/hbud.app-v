@@ -4,7 +4,6 @@
 
     import NetworkService from '../services/network.service'
     import auth, { AuthState } from '../store/modules/auth'
-    import router from '../router'
 
     export default Vue.extend({
 
@@ -28,7 +27,7 @@
                     .then(result => {
 
                         auth.commitAuthorized(result.data as AuthState);
-                        router.push({name: 'Main'})
+                        this.$router.push({name: 'Main'})
 
                     })
                     .catch(err => this.$message.error(err.toLocaleString()))
