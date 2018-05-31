@@ -2,11 +2,21 @@
 
     import Vue from 'vue'
 
+    import auth from './store/modules/auth'
+
     import { TheHeader, TheAside, TheMain, TheFooter } from './components/layout/'
 
     export default Vue.extend({
         name: 'App',
-        components: { TheHeader, TheAside, TheMain, TheFooter }
+
+        components: { TheHeader, TheAside, TheMain, TheFooter },
+
+        computed: {
+            isAuthorized(): boolean {
+                return !!auth.state.user
+            }
+        }
+
     })
 
 </script>
@@ -19,7 +29,7 @@
             <el-header>
                 <the-header></the-header>
             </el-header>
-            <el-aside>
+            <el-aside v-if="isAuthorized">
                 <the-aside></the-aside>
             </el-aside>
             <el-main>
