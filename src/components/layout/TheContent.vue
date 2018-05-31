@@ -19,4 +19,8 @@
 
 <style scoped>
 
+    div {
+        background-color: bisque;
+    }
+
 </style>

@@ -27,20 +27,20 @@
     <div id="app">
 
         <el-container>
-            <el-aside v-if="isAuthorized">
-                <the-aside></the-aside>
-            </el-aside>
+            <el-header>
+                <the-header></the-header>
+            </el-header>
             <el-container>
-                <el-header>
-                    <the-header></the-header>
-                </el-header>
+                <el-aside v-if="isAuthorized">
+                    <the-aside></the-aside>
+                </el-aside>
                 <el-main>
                     <the-main></the-main>
                 </el-main>
-                <el-footer>
-                    <the-footer></the-footer>
-                </el-footer>
             </el-container>
+            <el-footer>
+                <the-footer></the-footer>
+            </el-footer>
         </el-container>
 
     </div>
@@ -49,17 +49,21 @@
 
 <style>
 
-    #app {
+    body {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 60px;
+        color: black;
     }
 
     aside {
         max-width: 200px;
+    }
+
+    header {
+        width: 100%;
+        max-height: 60px;
+        padding: 0;
     }
 
 </style>

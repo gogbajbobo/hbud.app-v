@@ -18,4 +18,8 @@
 
 <style scoped>
 
+    div {
+        background-color: blue;
+    }
+
 </style>
