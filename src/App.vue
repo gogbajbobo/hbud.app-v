@@ -4,13 +4,13 @@
 
     import auth from './store/modules/auth'
 
-    import { TheHeader, TheAside, TheMain, TheFooter } from './components/layout/'
+    import { TheHeader, TheAside, TheMain, TheFooter, TheBreadcrumb } from './components/layout/'
 
     export default Vue.extend({
 
         name: 'App',
 
-        components: { TheHeader, TheAside, TheMain, TheFooter },
+        components: { TheHeader, TheAside, TheMain, TheFooter, TheBreadcrumb },
 
         computed: {
             isAuthorized(): boolean {
@@ -35,6 +35,7 @@
                     <the-aside></the-aside>
                 </el-aside>
                 <el-main>
+                    <the-breadcrumb></the-breadcrumb>
                     <the-main></the-main>
                 </el-main>
             </el-container>
