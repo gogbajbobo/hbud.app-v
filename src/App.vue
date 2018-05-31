@@ -26,18 +26,20 @@
     <div id="app">
 
         <el-container>
-            <el-header>
-                <the-header></the-header>
-            </el-header>
             <el-aside v-if="isAuthorized">
                 <the-aside></the-aside>
             </el-aside>
-            <el-main>
-                <the-main></the-main>
-            </el-main>
-            <el-footer>
-                <the-footer></the-footer>
-            </el-footer>
+            <el-container>
+                <el-header>
+                    <the-header></the-header>
+                </el-header>
+                <el-main>
+                    <the-main></the-main>
+                </el-main>
+                <el-footer>
+                    <the-footer></the-footer>
+                </el-footer>
+            </el-container>
         </el-container>
 
     </div>
