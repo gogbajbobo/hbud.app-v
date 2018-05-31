@@ -16,31 +16,46 @@ Vue.use(Router);
 const main: RouteConfig = {
     path: '/',
     name: 'Main',
-    component: Main
+    component: Main,
+    meta: {
+        localname: 'Main page'
+    }
 };
 
 const login: RouteConfig = {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: {
+        localname: 'Login page'
+    }
 };
 
 const logout: RouteConfig = {
     path: '/logout',
     name: 'Logout',
-    component: Logout
+    component: Logout,
+    meta: {
+        localname: 'Logout page'
+    }
 };
 
 const profile: RouteConfig = {
     path: '/profile',
     name: 'Profile',
-    component: Profile
+    component: Profile,
+    meta: {
+        localname: 'Profile page'
+    }
 };
 
 const settings: RouteConfig = {
     path: '/settings',
     name: 'Settings',
-    component: Settings
+    component: Settings,
+    meta: {
+        localname: 'Settings page'
+    }
 };
 
 const routes: RouteConfig[] = [

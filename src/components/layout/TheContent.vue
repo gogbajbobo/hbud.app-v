@@ -11,7 +11,7 @@
 <template>
 
     <div>
-        <h1>The Content</h1>
+        <h1>{{ this.$router.currentRoute.meta.localname }}</h1>
         <router-view/>
     </div>
 

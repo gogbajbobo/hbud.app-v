@@ -47,8 +47,6 @@
 
         <el-form v-loading="logining">
 
-            <h1>Login</h1>
-
             <el-form-item>
                 <el-input v-model="username" placeholder="Username"></el-input>
             </el-form-item>

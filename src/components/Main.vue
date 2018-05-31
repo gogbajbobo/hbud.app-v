@@ -11,7 +11,6 @@
 <template>
 
     <div>
-        <h4>Router View</h4>
     </div>
 
 </template>
