@@ -1,17 +1,54 @@
-<template>
-    <div id="app">
-        <img src="./assets/logo.png">
-        <router-view/>
-    </div>
-</template>
-
 <script lang='ts'>
-    export default {
-        name: 'App'
-    }
+
+    import Vue from 'vue'
+
+    import auth from './store/modules/auth'
+
+    import { TheHeader, TheAside, TheMain, TheFooter } from './components/layout/'
+
+    export default Vue.extend({
+
+        name: 'App',
+
+        components: { TheHeader, TheAside, TheMain, TheFooter },
+
+        computed: {
+            isAuthorized(): boolean {
+                return !!auth.state.user
+            }
+        }
+
+    })
+
 </script>
 
+<template>
+
+    <div id="app">
+
+        <el-container>
+            <el-aside v-if="isAuthorized">
+                <the-aside></the-aside>
+            </el-aside>
+            <el-container>
+                <el-header>
+                    <the-header></the-header>
+                </el-header>
+                <el-main>
+                    <the-main></the-main>
+                </el-main>
+                <el-footer>
+                    <the-footer></the-footer>
+                </el-footer>
+            </el-container>
+        </el-container>
+
+    </div>
+
+</template>
+
 <style>
+
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -20,4 +57,9 @@
         color: #2c3e50;
         margin-top: 60px;
     }
+
+    aside {
+        max-width: 200px;
+    }
+
 </style>
