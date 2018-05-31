@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import Vue from "vue";
+    import Vue from "vue"
 
     import NetworkService from '../services/network.service'
     import auth, { AuthState } from '../store/modules/auth'
