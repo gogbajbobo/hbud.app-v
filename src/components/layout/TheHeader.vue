@@ -24,7 +24,7 @@
 
 <template>
 
-    <div class="the-header">
+    <el-header class="the-header">
         <el-row>
             <el-col :span="8">
                 <h4>The Header</h4>
@@ -54,16 +54,11 @@
                 </el-row>
             </el-col>
         </el-row>
-    </div>
+    </el-header>
 
 </template>
 
 <style scoped>
-
-    .the-header {
-        border-bottom: thin solid lightgray;
-        padding: 0 20px;
-    }
 
     .el-dropdown-link {
         padding-top: 20px;

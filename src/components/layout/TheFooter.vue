@@ -10,16 +10,12 @@
 
 <template>
 
-    <div>
+    <el-footer>
         <h3>The Footer</h3>
-    </div>
+    </el-footer>
 
 </template>
 
 <style scoped>
-
-    div {
-        background-color: darkgrey;
-    }
 
 </style>

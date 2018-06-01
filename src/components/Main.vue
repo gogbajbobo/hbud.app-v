@@ -39,9 +39,4 @@
 
 <style scoped>
 
-    .main-content {
-        height: 70vh;
-        overflow-y: scroll;
-    }
-
 </style>

@@ -17,46 +17,59 @@
 <template>
 
     <el-container>
-        <el-header>
-            <the-header></the-header>
-        </el-header>
+        <the-header></the-header>
         <el-container>
-            <el-aside>
-                <the-aside></the-aside>
-            </el-aside>
+            <the-aside></the-aside>
             <el-main>
                 <the-breadcrumb></the-breadcrumb>
                 <h1>{{ this.$router.currentRoute.meta.localname }}</h1>
                 <slot></slot>
             </el-main>
         </el-container>
-        <el-footer>
-            <the-footer></the-footer>
-        </el-footer>
+        <the-footer></the-footer>
     </el-container>
 
 </template>
 
 <style scoped>
 
-    /*aside {*/
-    /*max-width: 200px;*/
-    /*padding-left: 20px;*/
-    /*padding-top: 20px;*/
-    /*}*/
+    .el-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 60px;
+        background-color: white;
+        border-bottom: thin solid lightgray;
+        padding: 0 20px;
+    }
 
-    /*@media (max-width: 768px) {*/
+    .el-aside {
+        position: fixed;
+        top: 60px;
+        bottom: 60px;
+        max-width: 240px;
+        padding-left: 20px;
+        overflow-y: scroll;
+        background-color: white;
+    }
 
-    /*aside {*/
-    /*max-width: 100px;*/
-    /*}*/
+    .el-main {
 
-    /*}*/
+    }
 
-    /*header {*/
-    /*width: 100%;*/
-    /*max-height: 60px;*/
-    /*padding: 0;*/
-    /*}*/
+    .el-footer {
+        position: fixed;
+        height: 60px;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        border-top: thin solid lightgray;
+    }
+
+    @media (max-width: 768px) {
+        .el-aside {
+            max-width: 100px
+        }
+    }
 
 </style>

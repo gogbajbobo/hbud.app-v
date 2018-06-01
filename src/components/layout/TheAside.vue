@@ -53,8 +53,7 @@
 
 <template>
 
-    <div>
-
+    <el-aside>
         <el-menu ref="asideMenu"
                  @open="accountsClicked"
                  @close="accountsClicked"
@@ -88,12 +87,15 @@
                 </el-menu-item>
             </el-submenu>
         </el-menu>
-
-    </div>
+    </el-aside>
 
 </template>
 
 <style scoped>
+
+    .el-menu {
+        height: 100%;
+    }
 
     .el-icon--green {
         color: green !important;
