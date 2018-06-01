@@ -8,7 +8,14 @@
 
         data() {
             return {
-                activeIndex: this.$router.currentRoute.path
+                activeIndex: <string> this.$router.currentRoute.path,
+                isCollapse: <boolean> (window.innerWidth < 768)
+            }
+        },
+
+        created() {
+            window.onresize = () => {
+                this.isCollapse = (window.innerWidth < 768)
             }
         },
 
@@ -16,6 +23,10 @@
             if (this.$router.currentRoute.path === '/accounts') {
                 (this.$refs.asideMenu as any).open('/accounts');
             }
+        },
+
+        destroyed() {
+            window.onresize = null
         },
 
         methods: {
@@ -44,7 +55,12 @@
 
     <div>
 
-        <el-menu @open="accountsClicked" @close="accountsClicked" :default-active="activeIndex" ref="asideMenu" :router="true">
+        <el-menu ref="asideMenu"
+                 @open="accountsClicked"
+                 @close="accountsClicked"
+                 :default-active="activeIndex"
+                 :router="true"
+                 :collapse="isCollapse">
             <el-menu-item index="/">
                 <i class="el-icon-menu"></i>
                 <span>Main</span>

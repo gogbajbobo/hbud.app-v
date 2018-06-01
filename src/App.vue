@@ -63,6 +63,14 @@
         padding-top: 20px;
     }
 
+    @media (max-width: 768px) {
+
+        aside {
+            max-width: 100px;
+        }
+
+    }
+
     header {
         width: 100%;
         max-height: 60px;
