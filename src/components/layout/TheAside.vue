@@ -8,10 +8,10 @@
 
         methods: {
             handleSelect(key, keyPath) {
-                // console.log(key, keyPath);
+                // console.log(key, keyPath)
             },
             accountsClicked(key, keyPath) {
-                this.$router.push(key);
+                this.$router.push(key)
             }
         }
 

@@ -6,11 +6,13 @@
     export default Vue.extend({
 
         name: "TheBreadcrumb",
+
         data() {
             return {
                 currentRoute: router.currentRoute
             }
         },
+
         watch:{
             $route (to, from){
                 this.currentRoute = to
