@@ -36,7 +36,7 @@
                 </el-menu-item>
                 <el-menu-item index="2-2">
                     <i class="el-icon-menu el-icon--blue"></i>
-                    <span>Active</span>
+                    <span>Current</span>
                 </el-menu-item>
                 <el-menu-item index="2-3">
                     <i class="el-icon-menu el-icon--red"></i>
