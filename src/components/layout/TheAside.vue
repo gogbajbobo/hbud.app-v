@@ -6,12 +6,33 @@
 
         name: "TheAside",
 
+        data() {
+            return {
+                activeIndex: this.$router.currentRoute.path
+            }
+        },
+
+        mounted() {
+            if (this.$router.currentRoute.path === '/accounts') {
+                (this.$refs.asideMenu as any).open('/accounts');
+            }
+        },
+
         methods: {
-            handleSelect(key, keyPath) {
-                // console.log(key, keyPath)
-            },
             accountsClicked(key, keyPath) {
                 this.$router.push(key)
+            }
+        },
+
+        watch:{
+            $route (to, from){
+
+                if (to.path !== '/accounts') {
+                    (this.$refs.asideMenu as any).close('/accounts');
+                }
+
+                this.activeIndex = to.path;
+
             }
         }
 
@@ -23,29 +44,29 @@
 
     <div>
 
-        <el-menu @select="handleSelect" @open="accountsClicked" @close="accountsClicked" :router="true">
+        <el-menu @open="accountsClicked" @close="accountsClicked" :default-active="activeIndex" ref="asideMenu" :router="true">
             <el-menu-item index="/">
                 <i class="el-icon-menu"></i>
                 <span>Main</span>
             </el-menu-item>
-            <el-menu-item index="transactions">
+            <el-menu-item index="/transactions">
                 <i class="el-icon-tickets"></i>
                 <span>Transactions</span>
             </el-menu-item>
-            <el-submenu index="accounts">
+            <el-submenu index="/accounts">
                 <template slot="title">
                     <i class="el-icon-goods"></i>
                     <span>Accounts</span>
                 </template>
-                <el-menu-item index="accounts-income">
+                <el-menu-item index="/accounts-income">
                     <i class="el-icon-menu el-icon--green"></i>
                     <span>Income</span>
                 </el-menu-item>
-                <el-menu-item index="accounts-current">
+                <el-menu-item index="/accounts-current">
                     <i class="el-icon-menu el-icon--blue"></i>
                     <span>Current</span>
                 </el-menu-item>
-                <el-menu-item index="accounts-expense">
+                <el-menu-item index="/accounts-expense">
                     <i class="el-icon-menu el-icon--red"></i>
                     <span>Exspense</span>
                 </el-menu-item>
