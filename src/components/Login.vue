@@ -42,33 +42,38 @@
 
 <template>
 
-    <div class="login">
+    <el-form v-loading="logining">
 
-        <el-form v-loading="logining">
+        <h1>Login page</h1>
 
-            <el-form-item>
-                <el-input v-model="username" placeholder="Username"></el-input>
-            </el-form-item>
+        <el-form-item>
+            <el-input v-model="username" placeholder="Username"></el-input>
+        </el-form-item>
 
-            <el-form-item>
-                <el-input v-model="password" type="password" placeholder="Password"></el-input>
-            </el-form-item>
+        <el-form-item>
+            <el-input v-model="password" type="password" placeholder="Password"></el-input>
+        </el-form-item>
 
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">Login</el-button>
-            </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">Login</el-button>
+        </el-form-item>
 
-        </el-form>
-
-    </div>
+    </el-form>
 
 </template>
 
 <style scoped>
 
-    .login {
+    .el-form {
         width: 256px;
         margin: auto;
+        text-align: center;
+    }
+
+    @media (max-width: 512px) {
+        .el-form {
+            width: 80%;
+        }
     }
 
 </style>
