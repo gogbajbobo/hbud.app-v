@@ -18,14 +18,12 @@
 
     <el-container>
         <the-header></the-header>
-        <el-container>
-            <the-aside></the-aside>
-            <el-main>
-                <the-breadcrumb></the-breadcrumb>
-                <h1>{{ this.$router.currentRoute.meta.localname }}</h1>
-                <slot></slot>
-            </el-main>
-        </el-container>
+        <the-aside></the-aside>
+        <!--<the-breadcrumb></the-breadcrumb>-->
+        <el-main>
+            <h1>{{ this.$router.currentRoute.meta.localname }}</h1>
+            <slot></slot>
+        </el-main>
         <the-footer></the-footer>
     </el-container>
 
@@ -47,14 +45,28 @@
         position: fixed;
         top: 60px;
         bottom: 60px;
-        max-width: 240px;
-        padding-left: 20px;
+        max-width: 200px;
         overflow-y: scroll;
         background-color: white;
     }
 
-    .el-main {
+    /*.el-breadcrumb {*/
+        /*position: fixed;*/
+        /*top: 60px;*/
+        /*left: 220px;*/
+        /*width: 100%;*/
+        /*height: 25px;*/
+        /*padding: 5px;*/
+        /*background-color: blue;*/
+    /*}*/
 
+    .el-main {
+        position: fixed;
+        left: 200px;
+        top: 60px;
+        bottom: 60px;
+        right: 0;
+        overflow-y: scroll;
     }
 
     .el-footer {
@@ -68,7 +80,10 @@
 
     @media (max-width: 768px) {
         .el-aside {
-            max-width: 100px
+            max-width: 70px;
+        }
+        .el-main {
+            left: 70px;
         }
     }
 

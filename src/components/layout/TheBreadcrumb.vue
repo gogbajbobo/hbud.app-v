@@ -25,19 +25,13 @@
 
 <template>
 
-    <div class="el-breadcrumb">
-        <el-breadcrumb v-if="currentRoute.name !== 'Main'" separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ name: 'Main' }">homepage</el-breadcrumb-item>
-            <el-breadcrumb-item>{{ currentRoute.meta.localname }}</el-breadcrumb-item>
-        </el-breadcrumb>
-    </div>
+    <el-breadcrumb v-if="currentRoute.name !== 'Main'" separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{ name: 'Main' }">homepage</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ currentRoute.meta.localname }}</el-breadcrumb-item>
+    </el-breadcrumb>
 
 </template>
 
 <style scoped>
-
-    .el-breadcrumb {
-        height: 15px;
-    }
 
 </style>
