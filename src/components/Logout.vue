@@ -2,16 +2,22 @@
 
     import Vue from 'vue'
 
+    import TheLayout from './layout/TheLayout.vue'
+
     export default Vue.extend({
-        name: "Logout"
+
+        name: "Logout",
+
+        components: { TheLayout }
+
     })
 
 </script>
 
 <template>
 
-    <div>
-    </div>
+    <the-layout>
+    </the-layout>
 
 </template>
 

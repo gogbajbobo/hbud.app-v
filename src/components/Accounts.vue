@@ -2,17 +2,23 @@
 
     import Vue from 'vue'
 
+    import TheLayout from './layout/TheLayout.vue'
+
     export default Vue.extend({
-        name: "Accounts"
+
+        name: "Accounts",
+
+        components: { TheLayout }
+
     })
 
 </script>
 
 <template>
 
-    <div>
+    <the-layout>
         <h1>Accounts</h1>
-    </div>
+    </the-layout>
 
 </template>
 
