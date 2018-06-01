@@ -24,14 +24,18 @@
 
 <template>
 
-    <el-container>
+    <el-container v-if="isAuthorized">
         <the-header></the-header>
-        <the-aside v-if="isAuthorized"></the-aside>
+        <the-aside></the-aside>
         <el-main>
             <h1>{{ this.$router.currentRoute.meta.localname }}</h1>
             <slot></slot>
         </el-main>
         <the-footer></the-footer>
+    </el-container>
+
+    <el-container v-else>
+        <slot></slot>
     </el-container>
 
 </template>
