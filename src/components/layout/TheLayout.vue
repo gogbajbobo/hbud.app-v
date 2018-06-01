@@ -2,13 +2,21 @@
 
     import Vue from 'vue'
 
-    import { TheHeader, TheAside, TheFooter, TheBreadcrumb } from '.'
+    import auth from '../../store/modules/auth'
+
+    import { TheHeader, TheAside, TheFooter } from '.'
 
     export default Vue.extend({
 
         name: "TheLayout",
 
-        components: { TheHeader, TheAside, TheFooter, TheBreadcrumb }
+        components: { TheHeader, TheAside, TheFooter },
+
+        computed: {
+            isAuthorized(): boolean {
+                return !!auth.state.user
+            }
+        }
 
     })
 
@@ -18,8 +26,7 @@
 
     <el-container>
         <the-header></the-header>
-        <the-aside></the-aside>
-        <!--<the-breadcrumb></the-breadcrumb>-->
+        <the-aside v-if="isAuthorized"></the-aside>
         <el-main>
             <h1>{{ this.$router.currentRoute.meta.localname }}</h1>
             <slot></slot>
@@ -49,16 +56,6 @@
         overflow-y: scroll;
         background-color: white;
     }
-
-    /*.el-breadcrumb {*/
-        /*position: fixed;*/
-        /*top: 60px;*/
-        /*left: 220px;*/
-        /*width: 100%;*/
-        /*height: 25px;*/
-        /*padding: 5px;*/
-        /*background-color: blue;*/
-    /*}*/
 
     .el-main {
         position: fixed;

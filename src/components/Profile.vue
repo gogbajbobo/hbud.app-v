@@ -2,22 +2,15 @@
 
     import Vue from 'vue'
 
-    import TheLayout from './layout/TheLayout.vue'
-
     export default Vue.extend({
-
-        name: "Profile",
-
-        components: { TheLayout }
-
+        name: "Profile"
     })
 
 </script>
 
 <template>
 
-    <the-layout>
-    </the-layout>
+    <h1>Profile</h1>
 
 </template>
 

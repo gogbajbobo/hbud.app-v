@@ -2,8 +2,14 @@
 
     import Vue from 'vue'
 
+    import TheLayout from './components/layout/TheLayout.vue'
+
     export default Vue.extend({
-        name: 'App'
+
+        name: 'App',
+
+        components: { TheLayout }
+
     })
 
 </script>
@@ -11,7 +17,9 @@
 <template>
 
     <div id="app">
-        <router-view></router-view>
+        <the-layout>
+            <router-view></router-view>
+        </the-layout>
     </div>
 
 </template>
