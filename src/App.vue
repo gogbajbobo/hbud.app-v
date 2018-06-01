@@ -59,7 +59,8 @@
 
     aside {
         max-width: 200px;
-        padding: 20px;
+        padding-left: 20px;
+        padding-top: 20px;
     }
 
     header {
