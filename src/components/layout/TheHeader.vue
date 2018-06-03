@@ -1,8 +1,10 @@
 <script lang="ts">
 
-    import MobileDetect from 'mobile-detect'
-
     import Vue from 'vue'
+
+    import MobileDetect from 'mobile-detect'
+    import { MessageBox } from 'mint-ui'
+    import { ElMessageBoxOptions } from 'element-ui/lib'
     import auth from '../../store/modules/auth'
     import router from '../../router'
 
@@ -24,13 +26,19 @@
 
                 if (command === 'Logout') {
 
-                    console.log(this.md.phone());
+                    const
+                        title = 'Logout',
+                        text = 'Are you sure to logout?',
+                        options: ElMessageBoxOptions = {
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            type: 'warning'
+                        },
+                        messageBoxPromise = this.md.phone()
+                            ? MessageBox.confirm(text, title, options)
+                            : this.$confirm(text, title, options);
 
-                    return this.$confirm('Are you sure to logout?', 'Logout', {
-                        confirmButtonText: 'Yes',
-                        cancelButtonText: 'No',
-                        type: 'warning'
-                    })
+                    return messageBoxPromise
                         .then(() => {
                             auth.commitLogout();
                             router.push({name: 'Login'})
