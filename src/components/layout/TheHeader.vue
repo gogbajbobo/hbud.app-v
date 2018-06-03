@@ -49,7 +49,7 @@
 
                 if (command === 'Logout')
                     return confirmLogout(this);
-                
+
                 router.push({name: command})
 
             }
@@ -69,7 +69,7 @@
             <el-col :span="16">
                 <el-row type="flex" justify="end">
 
-                    <el-dropdown v-if="user" @command="handleCommand">
+                    <el-dropdown v-if="user" @command="handleCommand" :trigger="md.phone() ? 'click' : 'hover'">
 
                         <div class="el-dropdown-link">
                             <span>{{ user.username }}</span>
