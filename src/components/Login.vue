@@ -42,7 +42,7 @@
 
 <template>
 
-    <el-form v-loading="logining">
+    <el-form v-loading="logining" @keyup.enter.native="onSubmit">
 
         <h1>Login page</h1>
 
