@@ -14,7 +14,24 @@
         },
         methods: {
             handleCommand(command) {
+
+                if (command === 'Logout') {
+
+                    return this.$confirm('Are you sure to logout?', 'Logout', {
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                        type: 'warning'
+                    })
+                        .then(() => {
+                            auth.commitLogout();
+                            router.push({name: 'Login'})
+                        })
+                        .catch(() => {})
+
+                }
+
                 router.push({name: command})
+
             }
         }
 
