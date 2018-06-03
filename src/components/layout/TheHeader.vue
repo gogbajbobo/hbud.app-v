@@ -8,6 +8,29 @@
     import auth from '../../store/modules/auth'
     import router from '../../router'
 
+    function confirmLogout(that) {
+
+        const
+            title = 'Logout',
+            text = 'Are you sure to logout?',
+            options: ElMessageBoxOptions = {
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                type: 'warning'
+            },
+            messageBoxPromise = that.md.phone()
+                ? MessageBox.confirm(text, title, options)
+                : that.$confirm(text, title, options);
+
+        return messageBoxPromise
+            .then(() => {
+                auth.commitLogout();
+                router.push({name: 'Login'})
+            })
+            .catch(() => {})
+
+    }
+
     export default Vue.extend({
 
         name: "TheHeader",
@@ -24,29 +47,9 @@
         methods: {
             handleCommand(command) {
 
-                if (command === 'Logout') {
-
-                    const
-                        title = 'Logout',
-                        text = 'Are you sure to logout?',
-                        options: ElMessageBoxOptions = {
-                            confirmButtonText: 'Yes',
-                            cancelButtonText: 'No',
-                            type: 'warning'
-                        },
-                        messageBoxPromise = this.md.phone()
-                            ? MessageBox.confirm(text, title, options)
-                            : this.$confirm(text, title, options);
-
-                    return messageBoxPromise
-                        .then(() => {
-                            auth.commitLogout();
-                            router.push({name: 'Login'})
-                        })
-                        .catch(() => {})
-
-                }
-
+                if (command === 'Logout')
+                    return confirmLogout(this);
+                
                 router.push({name: command})
 
             }
