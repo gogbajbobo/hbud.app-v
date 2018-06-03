@@ -2,7 +2,7 @@ import axios, {AxiosPromise} from 'axios'
 
 const axiosInstance = axios.create();
 
-axiosInstance.defaults.baseURL = 'http://localhost:8002';
+axiosInstance.defaults.baseURL = 'http://maxbook.local:8002';
 
 class NetworkService {
 
