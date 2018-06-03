@@ -7,7 +7,6 @@ import auth from '../store/modules/auth'
 import {
     Main,
     Login,
-    Logout,
     Profile,
     Settings,
     Accounts,
@@ -34,15 +33,6 @@ const login: RouteConfig = {
     component: Login,
     meta: {
         localname: 'Login page'
-    }
-};
-
-const logout: RouteConfig = {
-    path: '/logout',
-    name: 'Logout',
-    component: Logout,
-    meta: {
-        localname: 'Logout page'
     }
 };
 
@@ -112,7 +102,6 @@ const transactions: RouteConfig = {
 const routes: RouteConfig[] = [
     main,
     login,
-    logout,
     profile,
     settings,
     accounts,
