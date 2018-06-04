@@ -26,26 +26,26 @@ const authState = getStoreBuilder<RootState>().module("auth", initialAuthState);
 function logout(state: AuthState) {
 
     console.log('logout');
-    Object.assign(state, initialAuthState);
+    Object.assign(state, initialAuthState)
 
 }
 
 function authorized(state: AuthState, data: AuthState) {
 
     console.log('authorized');
-    fillUpAuthStore(state, data);
+    fillUpAuthStore(state, data)
 
 }
 
 function tokenRecieved(state: AuthState, data: AuthState) {
 
     console.log('tokenRecieved');
-    fillUpAuthStore(state, data);
+    fillUpAuthStore(state, data)
 
 }
 
 function fillUpAuthStore(state: AuthState, data: AuthState) {
-    Object.assign(state, data);
+    Object.assign(state, data)
 }
 
 const stateGetter = authState.state();
@@ -56,7 +56,7 @@ const auth = {
 
     commitAuthorized: authState.commit(authorized),
     commitTokenRecieved: authState.commit(tokenRecieved),
-    commitLogout: authState.commit(logout),
+    commitLogout: authState.commit(logout)
 
 };
 
