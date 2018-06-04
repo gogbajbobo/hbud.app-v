@@ -54,9 +54,9 @@ const auth = {
 
     get state() { return stateGetter() },
 
-    commitAuthorized: authState.commit(authorized),
-    commitTokenRecieved: authState.commit(tokenRecieved),
-    commitLogout: authState.commit(logout)
+    commitAuthorized: authState.commit(authorized, 'authorized'),
+    commitTokenRecieved: authState.commit(tokenRecieved, 'tokenRecieved'),
+    commitLogout: authState.commit(logout, 'logout')
 
 };
 
