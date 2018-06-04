@@ -13,7 +13,7 @@ app.on('ready', function () {
     // Specify entry point to default entry point of vue.js
 
     // serve from development server
-    // win.loadURL('http://localhost:8003');
+    // win.loadURL('http://maxbook.local:8003');
 
     // serve from build folder
     win.loadURL(url.format({
