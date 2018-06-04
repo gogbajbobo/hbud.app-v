@@ -28,17 +28,17 @@ const initialAsideMenuState: AsideMenuState = {
                     {
                         index: '/accounts-income',
                         title: 'Income',
-                        icon: 'el-icon-menu el-icon--green'
+                        icon: 'el-icon-goods el-icon--green'
                     },
                     {
                         index: '/accounts-current',
                         title: 'Current',
-                        icon: 'el-icon-menu el-icon--blue'
+                        icon: 'el-icon-goods el-icon--blue'
                     },
                     {
                         index: '/accounts-expense',
                         title: 'Expense',
-                        icon: 'el-icon-menu el-icon--red'
+                        icon: 'el-icon-goods el-icon--red'
                     }
                 ]
             }
