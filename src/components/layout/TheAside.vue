@@ -4,8 +4,6 @@
 
     import asideMenu from '../../store/modules/asideMenu'
 
-    import MobileDetect from 'mobile-detect' // may be just use window.innerWidth
-
     export default Vue.extend({
 
         name: "TheAside",
@@ -13,8 +11,7 @@
         data() {
             return {
                 activeIndex: <string> this.$router.currentRoute.path,
-                isCollapse: <boolean> (window.innerWidth <= 768),
-                md: new MobileDetect(navigator.userAgent)
+                isCollapse: <boolean> (window.innerWidth <= 768)
             }
         },
 
