@@ -2,6 +2,8 @@
 
     import Vue from 'vue'
 
+    import asideMenu from '../../store/modules/asideMenu'
+
     import MobileDetect from 'mobile-detect' // may be just use window.innerWidth
 
     export default Vue.extend({
@@ -32,6 +34,12 @@
             window.onresize = null
         },
 
+        computed: {
+            menuData() {
+                return asideMenu.state.menu
+            }
+        },
+
         methods: {
             accountsClicked(key, keyPath) {
                 this.$router.push(key)
@@ -56,40 +64,47 @@
 
 <template>
 
-    <el-aside>
-        <el-menu ref="asideMenu"
+    <el-aside v-if="menuData">
+
+        <el-menu :ref="menuData.ref"
                  @open="accountsClicked"
                  @close="accountsClicked"
                  :default-active="activeIndex"
-                 :router="true"
+                 :router="menuData.router"
                  :collapse="isCollapse">
-            <el-menu-item index="/">
-                <i class="el-icon-menu"></i>
-                <span>Main</span>
-            </el-menu-item>
-            <el-menu-item index="/transactions">
-                <i class="el-icon-tickets"></i>
-                <span>Transactions</span>
-            </el-menu-item>
-            <el-submenu index="/accounts">
-                <template slot="title">
-                    <i class="el-icon-goods"></i>
-                    <span>Accounts</span>
+
+            <template v-for="item in menuData.items">
+                <template v-if="item.subitems">
+
+                    <el-submenu :index="item.index">
+
+                        <template slot="title">
+                            <i class="item.icon"></i>
+                            <span>{{ item.title }}</span>
+                        </template>
+
+                        <template v-for="subitem in item.subitems">
+                            <el-menu-item :index="subitem.index">
+                                <i :class="subitem.icon"></i>
+                                <span>{{ subitem.title }}</span>
+                            </el-menu-item>
+                        </template>
+
+                    </el-submenu>
+
                 </template>
-                <el-menu-item index="/accounts-income">
-                    <i class="el-icon-menu el-icon--green"></i>
-                    <span>Income</span>
-                </el-menu-item>
-                <el-menu-item index="/accounts-current">
-                    <i class="el-icon-menu el-icon--blue"></i>
-                    <span>Current</span>
-                </el-menu-item>
-                <el-menu-item index="/accounts-expense">
-                    <i class="el-icon-menu el-icon--red"></i>
-                    <span>Exspense</span>
-                </el-menu-item>
-            </el-submenu>
+                <template v-else>
+
+                    <el-menu-item :index="item.index">
+                        <i :class="item.icon"></i>
+                        <span>{{ item.title }}</span>
+                    </el-menu-item>
+
+                </template>
+            </template>
+
         </el-menu>
+
     </el-aside>
 
 </template>
