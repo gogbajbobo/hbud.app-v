@@ -46,7 +46,7 @@ const initialAsideMenuState: AsideMenuState = {
     }
 };
 
-const asideMenuState = getStoreBuilder<RootState>().module("asideMenu", initialAsideMenuState);
+const asideMenuState = getStoreBuilder<RootState>().module<AsideMenuState>("asideMenu", initialAsideMenuState);
 
 const stateGetter = asideMenuState.state();
 
