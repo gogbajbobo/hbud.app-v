@@ -2,7 +2,7 @@
 
     import Vue from 'vue'
 
-    import MobileDetect from 'mobile-detect'
+    import MobileDetect from 'mobile-detect' // may be just use window.innerWidth
     import { MessageBox } from 'mint-ui'
     import { ElMessageBoxOptions } from 'element-ui/lib'
     import auth from '../../store/modules/auth'

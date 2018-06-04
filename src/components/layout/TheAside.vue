@@ -2,6 +2,8 @@
 
     import Vue from 'vue'
 
+    import MobileDetect from 'mobile-detect' // may be just use window.innerWidth
+
     export default Vue.extend({
 
         name: "TheAside",
@@ -9,13 +11,14 @@
         data() {
             return {
                 activeIndex: <string> this.$router.currentRoute.path,
-                isCollapse: <boolean> (window.innerWidth < 768)
+                isCollapse: <boolean> (window.innerWidth <= 768),
+                md: new MobileDetect(navigator.userAgent)
             }
         },
 
         created() {
             window.onresize = () => {
-                this.isCollapse = (window.innerWidth < 768)
+                this.isCollapse = (window.innerWidth <= 768)
             }
         },
 
