@@ -21,7 +21,7 @@ const initialAuthState: AuthState = {
     expirationTime: undefined
 };
 
-const authState = getStoreBuilder<RootState>().module("auth", initialAuthState);
+const authState = getStoreBuilder<RootState>().module<AuthState>("auth", initialAuthState);
 
 function logout(state: AuthState) {
 
