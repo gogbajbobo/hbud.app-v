@@ -69,7 +69,7 @@
             <el-col :span="16">
                 <el-row type="flex" justify="end">
 
-                    <el-dropdown v-if="user" @command="handleCommand" :trigger="md.phone() ? 'click' : 'hover'">
+                    <el-dropdown v-if="user" @command="handleCommand" :trigger="md.mobile() ? 'click' : 'hover'">
 
                         <div class="el-dropdown-link">
                             <span>{{ user.username }}</span>
