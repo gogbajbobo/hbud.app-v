@@ -3,17 +3,14 @@
     import Vue from 'vue'
 
     export default Vue.extend({
-        name: "TheContent"
+        name: "Accounts"
     })
 
 </script>
 
 <template>
 
-    <div>
-        <h1>The Content</h1>
-        <router-view/>
-    </div>
+    <h1>Accounts</h1>
 
 </template>
 

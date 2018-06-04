@@ -2,21 +2,13 @@
 
     import Vue from 'vue'
 
-    import auth from './store/modules/auth'
-
-    import { TheHeader, TheAside, TheMain, TheFooter } from './components/layout/'
+    import TheLayout from './components/layout/TheLayout.vue'
 
     export default Vue.extend({
 
         name: 'App',
 
-        components: { TheHeader, TheAside, TheMain, TheFooter },
-
-        computed: {
-            isAuthorized(): boolean {
-                return !!auth.state.user
-            }
-        }
+        components: { TheLayout }
 
     })
 
@@ -25,41 +17,20 @@
 <template>
 
     <div id="app">
-
-        <el-container>
-            <el-aside v-if="isAuthorized">
-                <the-aside></the-aside>
-            </el-aside>
-            <el-container>
-                <el-header>
-                    <the-header></the-header>
-                </el-header>
-                <el-main>
-                    <the-main></the-main>
-                </el-main>
-                <el-footer>
-                    <the-footer></the-footer>
-                </el-footer>
-            </el-container>
-        </el-container>
-
+        <the-layout>
+            <router-view></router-view>
+        </the-layout>
     </div>
 
 </template>
 
 <style>
 
-    #app {
+    body {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 60px;
-    }
-
-    aside {
-        max-width: 200px;
+        color: black;
     }
 
 </style>

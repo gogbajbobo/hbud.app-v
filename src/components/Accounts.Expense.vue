@@ -3,16 +3,14 @@
     import Vue from 'vue'
 
     export default Vue.extend({
-        name: "TheFooter"
+        name: "AccountsExpense"
     })
 
 </script>
 
 <template>
 
-    <el-footer>
-        <h3>The Footer</h3>
-    </el-footer>
+    <h1>Accounts.Expense</h1>
 
 </template>
 

@@ -2,11 +2,8 @@
 
     import Vue from "vue"
 
-    import { Message } from 'element-ui'
-
     import NetworkService from '../services/network.service'
     import auth, { AuthState } from '../store/modules/auth'
-    import router from '../router'
 
     export default Vue.extend({
 
@@ -30,10 +27,10 @@
                     .then(result => {
 
                         auth.commitAuthorized(result.data as AuthState);
-                        router.push('/')
+                        this.$router.push({name: 'Main'})
 
                     })
-                    .catch(err => Message.error(err.toLocaleString()))
+                    .catch(err => this.$message.error(err.toLocaleString()))
                     .then(() => this.logining = false)
 
             }
@@ -45,35 +42,38 @@
 
 <template>
 
-    <div class="login">
+    <el-form v-loading="logining" @keyup.enter.native="onSubmit">
 
-        <el-form v-loading="logining">
+        <h1>Login page</h1>
 
-            <h1>Login</h1>
+        <el-form-item>
+            <el-input v-model="username" placeholder="Username"></el-input>
+        </el-form-item>
 
-            <el-form-item>
-                <el-input v-model="username" placeholder="Username"></el-input>
-            </el-form-item>
+        <el-form-item>
+            <el-input v-model="password" type="password" placeholder="Password"></el-input>
+        </el-form-item>
 
-            <el-form-item>
-                <el-input v-model="password" type="password" placeholder="Password"></el-input>
-            </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">Login</el-button>
+        </el-form-item>
 
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">Login</el-button>
-            </el-form-item>
-
-        </el-form>
-
-    </div>
+    </el-form>
 
 </template>
 
 <style scoped>
 
-    .login {
+    .el-form {
         width: 256px;
         margin: auto;
+        text-align: center;
+    }
+
+    @media (max-width: 512px) {
+        .el-form {
+            width: 80%;
+        }
     }
 
 </style>
