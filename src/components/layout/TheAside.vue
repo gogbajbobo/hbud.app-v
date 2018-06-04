@@ -22,7 +22,7 @@
         },
 
         mounted() {
-            if (this.$router.currentRoute.path === '/accounts') {
+            if (this.$router.currentRoute.name === 'Accounts' && !this.isCollapse) {
                 (this.$refs.asideMenu as any).open('/accounts');
             }
         },
@@ -40,7 +40,7 @@
         watch:{
             $route (to, from){
 
-                if (to.path !== '/accounts') {
+                if (to.name !== 'Accounts') {
                     (this.$refs.asideMenu as any).close('/accounts');
                 }
 
@@ -65,21 +65,34 @@
             <template v-for="item in menuData.items">
                 <template v-if="item.subitems">
 
-                    <el-submenu :index="item.index">
+                    <template v-if="isCollapse">
 
-                        <template slot="title">
-                            <i class="item.icon"></i>
-                            <span>{{ item.title }}</span>
-                        </template>
+                        <el-menu-item v-for="subitem in item.subitems" :index="subitem.index" :key="subitem.index">
+                            <i :class="subitem.icon"></i>
+                            <span>{{ subitem.title }}</span>
+                        </el-menu-item>
 
-                        <template v-for="subitem in item.subitems">
-                            <el-menu-item :index="subitem.index">
-                                <i :class="subitem.icon"></i>
-                                <span>{{ subitem.title }}</span>
-                            </el-menu-item>
-                        </template>
+                    </template>
 
-                    </el-submenu>
+                    <template v-else>
+
+                        <el-submenu :index="item.index">
+
+                            <template slot="title">
+                                <i :class="item.icon"></i>
+                                <span>{{ item.title }}</span>
+                            </template>
+
+                            <template v-for="subitem in item.subitems">
+                                <el-menu-item :index="subitem.index">
+                                    <i :class="subitem.icon"></i>
+                                    <span>{{ subitem.title }}</span>
+                                </el-menu-item>
+                            </template>
+
+                        </el-submenu>
+
+                    </template>
 
                 </template>
                 <template v-else>
