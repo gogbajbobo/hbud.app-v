@@ -37,12 +37,6 @@
             }
         },
 
-        methods: {
-            accountsClicked(key, keyPath) {
-                this.$router.push(key)
-            }
-        },
-
         watch:{
             $route (to, from){
 
@@ -64,8 +58,6 @@
     <el-aside v-if="menuData">
 
         <el-menu :ref="menuData.ref"
-                 @open="accountsClicked"
-                 @close="accountsClicked"
                  :default-active="activeIndex"
                  :router="menuData.router"
                  :collapse="isCollapse">
