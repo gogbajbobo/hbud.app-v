@@ -19,6 +19,21 @@ class NetworkService {
 
     }
 
+    static exchangeToken(): AxiosPromise {
+
+        return axiosInstance.get(`token`)
+            // .then(response => {
+            //     store.commit('auth/tokenRecieved', response.data);
+            // })
+            // .catch(error => {
+            //     return { error }
+            // })
+            // .then(() => {
+            //     tokenExchanging = false;
+            // })
+
+    }
+
 }
 
 export default NetworkService;
