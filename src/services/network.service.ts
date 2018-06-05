@@ -25,9 +25,6 @@ class NetworkService {
 
         return axiosInstance.get(`token`)
             .then(response => auth.commitTokenRecieved(response.data))
-            // .then(() => {
-            //     tokenExchanging = false;
-            // })
 
     }
 
