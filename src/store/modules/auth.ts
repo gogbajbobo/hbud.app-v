@@ -4,7 +4,7 @@ import { RootState } from "../"
 export interface AuthState {
     user?: Object,
     accessToken?: string,
-    expirationTime?: Date
+    expirationTime?: number
 }
 
 // function isAuthState(state: any): state is AuthState {
