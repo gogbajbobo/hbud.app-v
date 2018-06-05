@@ -3,7 +3,6 @@
     import Vue from "vue"
 
     import NetworkService from '../services/network.service'
-    import auth, { AuthState } from '../store/modules/auth'
 
     export default Vue.extend({
 
@@ -24,13 +23,8 @@
 
                 NetworkService
                     .login(this.username, this.password)
-                    .then(result => {
-
-                        auth.commitAuthorized(result.data as AuthState);
-                        this.$router.push({name: 'Main'})
-
-                    })
-                    .catch(err => this.$message.error(err.toLocaleString()))
+                    .then(() => this.$router.push({name: 'Main'}))
+                    .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
                     .then(() => this.logining = false)
 
             }
