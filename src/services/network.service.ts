@@ -16,7 +16,7 @@ class NetworkService {
             userAgent
         };
 
-        return axiosInstance.post('login', data)
+        return axiosInstance.post(`login`, data)
             .then(response => auth.commitAuthorized(response.data))
 
     }
