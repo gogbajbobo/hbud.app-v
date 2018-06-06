@@ -29,7 +29,7 @@ class TokenService {
             if (tokenRemainingLifetime > tokenRefreshThreshold)
                 return resolve();
 
-            console.log('token expire at', expirationDate);
+            console.log('token expire at', new Date(expirationDate));
             console.log('have to exchange access token');
 
             return NetworkService.exchangeToken()
