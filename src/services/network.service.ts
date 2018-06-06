@@ -2,8 +2,9 @@ import axios from 'axios'
 import auth from '../store/modules/auth'
 import TokenService from "./token.service";
 
-const loginUrl = 'login';
-const exchangeTokenUrl = 'token';
+const authPath = '/auth';
+const loginUrl = `${ authPath }/login`;
+const exchangeTokenUrl = `${ authPath }/token`;
 
 const axiosInstance = axios.create();
 
