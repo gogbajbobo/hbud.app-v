@@ -2,7 +2,49 @@
 
     import Vue from 'vue'
 
-    import asideMenu from '../../store/modules/asideMenu'
+    const asideMenu: Object = {
+        ref: 'asideMenu',
+        router: true,
+        items: [
+            {
+                index: '/',
+                title: 'Main',
+                icon: 'el-icon-menu'
+            },
+            {
+                index: '/users',
+                title: 'Users',
+                icon: 'fas fa-users'
+            },
+            {
+                index: '/transactions',
+                title: 'Transactions',
+                icon: 'el-icon-tickets'
+            },
+            {
+                index: '/accounts',
+                title: 'Accounts',
+                icon: 'el-icon-goods',
+                subitems: [
+                    {
+                        index: '/accounts-income',
+                        title: 'Income',
+                        icon: 'el-icon-goods el-icon--green'
+                    },
+                    {
+                        index: '/accounts-current',
+                        title: 'Current',
+                        icon: 'el-icon-goods el-icon--blue'
+                    },
+                    {
+                        index: '/accounts-expense',
+                        title: 'Expense',
+                        icon: 'el-icon-goods el-icon--red'
+                    }
+                ]
+            }
+        ]
+    };
 
     export default Vue.extend({
 
@@ -11,7 +53,8 @@
         data() {
             return {
                 activeIndex: <string> this.$router.currentRoute.path,
-                isCollapse: <boolean> (window.innerWidth <= 768)
+                isCollapse: <boolean> (window.innerWidth <= 768),
+                asideMenu
             }
         },
 
@@ -31,20 +74,13 @@
             window.onresize = null
         },
 
-        computed: {
-            menuData() {
-                return asideMenu.state.menu
-            }
-        },
-
         watch:{
             $route (to, from){
 
                 if (to.name !== 'Accounts') {
                     (this.$refs.asideMenu as any).close('/accounts');
                 }
-
-                this.activeIndex = to.path;
+                this.activeIndex = to.path
 
             }
         }
@@ -55,14 +91,14 @@
 
 <template>
 
-    <el-aside v-if="menuData">
+    <el-aside v-if="asideMenu">
 
-        <el-menu :ref="menuData.ref"
+        <el-menu :ref="asideMenu.ref"
                  :default-active="activeIndex"
-                 :router="menuData.router"
+                 :router="asideMenu.router"
                  :collapse="isCollapse">
 
-            <template v-for="item in menuData.items">
+            <template v-for="item in asideMenu.items">
                 <template v-if="item.subitems">
 
                     <template v-if="isCollapse">
