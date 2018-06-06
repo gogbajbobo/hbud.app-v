@@ -54,6 +54,7 @@ class NetworkService {
 
         return axiosInstance.post(loginUrl, data)
             .then(response => auth.commitAuthorized(response.data))
+            .catch(err => Promise.reject(err))
 
     }
 
@@ -61,7 +62,14 @@ class NetworkService {
 
         return axiosInstance.get(exchangeTokenUrl)
             .then(response => auth.commitTokenReceived(response.data))
+            .catch(err => Promise.reject(err))
 
+    }
+
+    static getUsers(): Promise<any> {
+        return axiosInstance.get('/api/users')
+            .then(response => console.log(response))
+            .catch(err => Promise.reject(err))
     }
 
 }

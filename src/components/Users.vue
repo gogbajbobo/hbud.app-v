@@ -1,16 +1,29 @@
 <script lang="ts">
 
-  import Vue from "vue";
+    import Vue from "vue"
+    import NetworkService from '../services/network.service'
 
-  export default Vue.extend({
-    name: "Users"
-  });
+    export default Vue.extend({
+
+        name: "Users",
+
+        data() {
+            return {
+                busy: <boolean> false
+            }
+        },
+
+        created() {
+            NetworkService.getUsers()
+        }
+
+    });
 
 </script>
 
 <template>
 
-    <div>
+    <div v-loading="busy">
         <h1>Users</h1>
     </div>
 
