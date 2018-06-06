@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import {RouteConfig} from "vue-router/types/router";
 
 import auth from '../store/modules/auth'
+import TokenService from '../services/token.service'
 
 import {
     Main,
@@ -119,13 +120,22 @@ router.beforeEach((to, from, next) => {
 
     const isAuthorized: boolean = !!auth.state.user;
 
-    if (!isAuthorized && to.name !== 'Login')
-        return next('/login');
+    if (!isAuthorized) {
+        return to.name !== 'Login' ? next({name: 'Login'}) : next()
+    }
 
-    if (isAuthorized && to.name === 'Login')
-        return next('/');
+    if (isAuthorized) {
 
-    next()
+        return TokenService.checkLifetime()
+            .then(() =>
+                to.name === 'Login' ? next({name: 'Main'}) : next()
+            )
+            .catch(err => {
+                auth.commitLogout();
+                return next({name: 'Login'})
+            })
+
+    }
 
 });
 

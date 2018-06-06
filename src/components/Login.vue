@@ -3,7 +3,6 @@
     import Vue from "vue"
 
     import NetworkService from '../services/network.service'
-    import auth, { AuthState } from '../store/modules/auth'
 
     export default Vue.extend({
 
@@ -11,27 +10,38 @@
 
         data() {
             return {
-                username: <string> '',
-                password: <string> '',
-                logining: <boolean> false
+                loginForm: {
+                    username: <string> '',
+                    password: <string> ''
+                },
+                busy: <boolean> false,
+                rules: {
+                    username: [
+                        { required: true, message: 'Please input username', trigger: 'blur' }
+                    ],
+                    password: [
+                        { required: true, message: 'Please enter password', trigger: 'blur' }
+                    ]
+                }
             }
         },
 
         methods: {
-            onSubmit() {
+            submitForm() {
 
-                this.logining = true;
+                (this.$refs['loginForm'] as any).validate()
+                    .then(() => {
 
-                NetworkService
-                    .login(this.username, this.password)
-                    .then(result => {
+                        this.busy = true;
 
-                        auth.commitAuthorized(result.data as AuthState);
-                        this.$router.push({name: 'Main'})
+                        NetworkService
+                            .login(this.loginForm.username, this.loginForm.password)
+                            .then(() => this.$router.push({name: 'Main'}))
+                            .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
+                            .then(() => this.busy = false)
 
                     })
-                    .catch(err => this.$message.error(err.toLocaleString()))
-                    .then(() => this.logining = false)
+                    .catch(() => console.error('login form validation fail'))
 
             }
         }
@@ -42,20 +52,20 @@
 
 <template>
 
-    <el-form v-loading="logining" @keyup.enter.native="onSubmit">
+    <el-form v-loading="busy" @keyup.enter.native="submitForm" :model="loginForm" :rules="rules" ref="loginForm">
 
         <h1>Login page</h1>
 
-        <el-form-item>
-            <el-input v-model="username" placeholder="Username"></el-input>
+        <el-form-item prop="username">
+            <el-input v-model="loginForm.username" placeholder="Username"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="password">
+            <el-input v-model="loginForm.password" type="password" placeholder="Password"></el-input>
         </el-form-item>
 
         <el-form-item>
-            <el-input v-model="password" type="password" placeholder="Password"></el-input>
-        </el-form-item>
-
-        <el-form-item>
-            <el-button type="primary" @click="onSubmit">Login</el-button>
+            <el-button type="primary" @click="submitForm">Login</el-button>
         </el-form-item>
 
     </el-form>
