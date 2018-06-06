@@ -7,7 +7,7 @@ const exchangeTokenUrl = 'token';
 
 const axiosInstance = axios.create();
 
-axiosInstance.defaults.baseURL = 'http://maxbook.local:8002';
+axiosInstance.defaults.baseURL = 'http://maxbook.local:8001';
 
 axiosInstance.interceptors.request.use(config => {
 
