@@ -67,9 +67,11 @@ class NetworkService {
     }
 
     static getUsers(): Promise<any> {
+
         return axiosInstance.get('/api/users')
             .then(response => console.log(response))
             .catch(err => Promise.reject(err))
+        
     }
 
 }
