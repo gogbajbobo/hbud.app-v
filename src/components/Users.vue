@@ -35,29 +35,24 @@
 
 <template>
 
-    <div>
+    <el-table :data="usersData"
+              :default-sort = "{prop: 'id', order: 'descending'}"
+              v-loading="busy"
+              height="250">
 
-        <h1>Users</h1>
+        <el-table-column v-for="field in tableFields"
+                         :prop="field.prop"
+                         :label="field.label"
+                         :fixed="field.fixed"
+                         :key="field.prop"
+                         :width="field.width"
+                         sortable>
+        </el-table-column>
 
-        <el-table :data="usersData"
-                  :default-sort = "{prop: 'id', order: 'descending'}"
-                  v-loading="busy"
-                  height="250">
-
-            <el-table-column v-for="field in tableFields"
-                             :prop="field.prop"
-                             :label="field.label"
-                             :fixed="field.fixed"
-                             :key="field.prop"
-                             :width="field.width"
-                             sortable>
-            </el-table-column>
-
-        </el-table>
-    </div>
+    </el-table>
 
 </template>
 
 <style scoped>
-
+    
 </style>
