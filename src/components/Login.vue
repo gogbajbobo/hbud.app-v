@@ -12,20 +12,20 @@
             return {
                 username: <string> '',
                 password: <string> '',
-                logining: <boolean> false
+                busy: <boolean> false,
             }
         },
 
         methods: {
             onSubmit() {
 
-                this.logining = true;
+                this.busy = true;
 
                 NetworkService
                     .login(this.username, this.password)
                     .then(() => this.$router.push({name: 'Main'}))
                     .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
-                    .then(() => this.logining = false)
+                    .then(() => this.busy = false)
 
             }
         }
@@ -36,7 +36,7 @@
 
 <template>
 
-    <el-form v-loading="logining" @keyup.enter.native="onSubmit">
+    <el-form v-loading="busy" @keyup.enter.native="onSubmit">
 
         <h1>Login page</h1>
 
