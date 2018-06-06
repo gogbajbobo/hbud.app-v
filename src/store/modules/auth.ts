@@ -37,9 +37,9 @@ function authorized(state: AuthState, data: AuthState) {
 
 }
 
-function tokenRecieved(state: AuthState, data: AuthState) {
+function tokenReceived(state: AuthState, data: AuthState) {
 
-    console.log('tokenRecieved');
+    console.log('tokenReceived');
     fillUpAuthStore(state, data)
 
 }
@@ -55,7 +55,7 @@ const auth = {
     get state() { return stateGetter() },
 
     commitAuthorized: authState.commit(authorized, 'authorized'),
-    commitTokenRecieved: authState.commit(tokenRecieved, 'tokenRecieved'),
+    commitTokenReceived: authState.commit(tokenReceived, 'tokenReceived'),
     commitLogout: authState.commit(logout, 'logout')
 
 };

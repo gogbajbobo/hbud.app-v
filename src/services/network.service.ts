@@ -59,7 +59,7 @@ class NetworkService {
     static exchangeToken(): Promise<any> {
 
         return axiosInstance.get(exchangeTokenUrl)
-            .then(response => auth.commitTokenRecieved(response.data))
+            .then(response => auth.commitTokenReceived(response.data))
 
     }
 
