@@ -14,7 +14,8 @@ import {
     AccountsIncome,
     AccountsCurrent,
     AccountsExpense,
-    Transactions
+    Transactions,
+    Users
 } from '../components/'
 
 Vue.use(Router);
@@ -100,6 +101,15 @@ const transactions: RouteConfig = {
     }
 };
 
+const users: RouteConfig = {
+    path: '/users',
+    name: 'Users',
+    component: Users,
+    meta: {
+        localname: 'Users page'
+    }
+};
+
 const routes: RouteConfig[] = [
     main,
     login,
@@ -109,7 +119,8 @@ const routes: RouteConfig[] = [
     accountsIncome,
     accountsCurrent,
     accountsExpense,
-    transactions
+    transactions,
+    users
 ];
 
 const router = new Router({

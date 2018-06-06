@@ -7,6 +7,7 @@ import AccountsIncome from './Accounts.Income.vue'
 import AccountsCurrent from './Accounts.Current.vue'
 import AccountsExpense from './Accounts.Expense.vue'
 import Transactions from './Transactions.vue'
+import Users from './Users.vue'
 
 export {
     Main,
@@ -17,5 +18,6 @@ export {
     AccountsIncome,
     AccountsCurrent,
     AccountsExpense,
-    Transactions
+    Transactions,
+    Users
 }
