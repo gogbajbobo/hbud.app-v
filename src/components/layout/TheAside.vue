@@ -165,4 +165,12 @@
         color: red !important;
     }
 
+    .el-menu-item [class^='fas fa-'] {
+        margin-right: 5px;
+        width: 24px;
+        text-align: center;
+        font-size: 18px;
+        vertical-align: middle;
+    }
+
 </style>
