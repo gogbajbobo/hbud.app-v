@@ -14,7 +14,7 @@
                 registerForm: {
                     username: <string> '',
                     password: <string> '',
-                    role: <string> ''
+                    role: <string> 'visitor'
                 },
                 rules: {
                     username: [
@@ -26,7 +26,21 @@
                     role: [
                         { required: true, message: 'Please select role', trigger: 'blur' }
                     ]
-                }
+                },
+                rolesList: [
+                    {
+                        value: 'visitor',
+                        label: 'Visitor'
+                    },
+                    {
+                        value: 'user',
+                        label: 'User'
+                    },
+                    {
+                        value: 'admin',
+                        label: 'Administrator'
+                    }
+                ]
             }
         },
 
@@ -67,7 +81,13 @@
         </el-form-item>
 
         <el-form-item prop="role">
-            <el-input v-model="registerForm.role" placeholder="Role"></el-input>
+            <el-select v-model="registerForm.role" placeholder="Role">
+                <el-option v-for="role in rolesList"
+                           :key="role.value"
+                           :label="role.label"
+                           :value="role.value">
+                </el-option>
+            </el-select>
         </el-form-item>
 
         <el-form-item>
@@ -84,6 +104,10 @@
         width: 256px;
         margin: auto;
         text-align: center;
+    }
+
+    .el-select {
+        width: 100%;
     }
 
     @media (max-width: 512px) {
