@@ -1,8 +1,15 @@
 import { getStoreBuilder } from "vuex-typex"
 import { RootState } from "../"
 
+export interface UserModel {
+    id: number,
+    username: string,
+    role: string,
+    exp: number
+}
+
 export interface AuthState {
-    user?: Object,
+    user?: UserModel,
     accessToken?: string,
     expirationTime?: number
 }
