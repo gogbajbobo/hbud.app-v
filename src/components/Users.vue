@@ -14,9 +14,28 @@
                 busy: <boolean> false,
                 usersData: <Array<Object>> [],
                 tableFields: <Array<Object>> [
-                    {prop: 'id', label: 'Id', width: '64', fixed: true},
-                    {prop: 'username', label: 'Name'},
-                    {prop: 'role', label: 'Role'}
+                    {
+                        prop: 'id',
+                        label: 'Id',
+                        width: '64',
+                        fixed: true,
+                        sortable: true
+                    },
+                    {
+                        prop: 'username',
+                        label: 'Name',
+                        sortable: true
+                    },
+                    {
+                        prop: 'role',
+                        label: 'Role',
+                        filters: [
+                            { text: 'Visitor', value: 'visitor' },
+                            { text: 'User', value: 'user' },
+                            { text: 'Administrator', value: 'admin' }
+                        ],
+                        filterMethod: (value, row) => row.role === value
+                    }
                 ],
                 isAdmin: <boolean> false
             }
@@ -53,7 +72,11 @@
             },
             addNewUser() {
                 this.$router.push({name: 'Register'})
+            },
+            filterRole(value, row) {
+                return row.role === value;
             }
+
         }
 
     });
@@ -75,7 +98,10 @@
                              :fixed="field.fixed"
                              :key="field.prop"
                              :width="field.width"
-                             sortable>
+                             :sortable="field.sortable"
+                             :filters="field.filters"
+                             :filter-method="field.filterMethod"
+                             filter-placement="bottom-end">
             </el-table-column>
 
             <el-table-column fixed="right" width="96">
