@@ -12,9 +12,9 @@
                 busy: <boolean> false,
                 usersData: <Array<Object>> [],
                 tableFields: <Array<Object>> [
-                    {prop: 'id', label: 'Id', width: '80', fixed: true},
-                    {prop: 'username', label: 'Name', width: '512px'},
-                    {prop: 'role', label: 'Role', width: '512px'}
+                    {prop: 'id', label: 'Id', width: '64', fixed: true},
+                    {prop: 'username', label: 'Name'},
+                    {prop: 'role', label: 'Role'}
                 ]
             }
         },
@@ -54,5 +54,5 @@
 </template>
 
 <style scoped>
-    
+
 </style>
