@@ -3,6 +3,7 @@
     import Vue from 'vue'
 
     import auth, { UserModel } from '../store/modules/auth'
+    import NetworkService from '../services/network.service'
 
     export default Vue.extend({
 
@@ -30,15 +31,43 @@
             }
         },
 
+        props: ['id'],
+
         created() {
 
-            this.isAdmin = this.user.role === 'admin';
-
-            this.profileForm.username = this.user.username
+            this.isAdmin = auth.state.user!.role === 'admin';
+            this.setupComponent()
 
         },
 
         methods: {
+            setupComponent() {
+
+                if (this.isAdmin && this.id && (this.id !== auth.state.user!.id)) {
+
+                    NetworkService.getUserById(this.id)
+                        .then(user => {
+
+                            if (user) {
+
+                                this.user = user;
+                                this.profileForm.username = this.user.username
+
+                            } else {
+                                this.profileForm.username = auth.state.user!.username
+                            }
+
+                        })
+                        .catch(err => console.error(err.message))
+
+                } else {
+
+                    this.user = auth.state.user!;
+                    this.profileForm.username = auth.state.user!.username
+
+                }
+
+            },
             editButtonPressed() {
                 this.editMode = this.isAdmin
             },
@@ -47,6 +76,12 @@
             },
             cancelForm() {
                 this.editMode = false
+            }
+        },
+
+        watch: {
+            $route (to, from) {
+                if (from.params.id !== to.params.id) this.setupComponent()
             }
         }
 
@@ -71,7 +106,7 @@
         <template v-if="editMode">
             <el-form v-loading="busy" @keyup.enter.native="submitForm" :model="profileForm" :rules="rules" ref="profileForm">
 
-                <el-form-item prop="username" label="You can change your username">
+                <el-form-item prop="username" label="You can change username">
                     <el-input v-model="profileForm.username" placeholder="Username"></el-input>
                 </el-form-item>
 
