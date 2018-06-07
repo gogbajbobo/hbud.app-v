@@ -2,6 +2,7 @@
 
     import Vue from "vue"
     import NetworkService from '../services/network.service'
+    import auth, { UserModel } from '../store/modules/auth'
 
     export default Vue.extend({
 
@@ -9,24 +10,43 @@
 
         data() {
             return {
+                user: <UserModel> auth.state.user,
                 busy: <boolean> false,
                 usersData: <Array<Object>> [],
                 tableFields: <Array<Object>> [
                     {prop: 'id', label: 'Id', width: '64', fixed: true},
                     {prop: 'username', label: 'Name'},
                     {prop: 'role', label: 'Role'}
-                ]
+                ],
+                isAdmin: <boolean> false
             }
         },
 
         created() {
 
-            this.busy = true;
+            if (this.user.role === 'admin') {
 
-            NetworkService.getUsers()
-                .then(users => this.usersData = users)
-                .catch(err => this.$message.error(err.message))
-                .then(() => this.busy = false)
+                this.isAdmin = true;
+                this.busy = true;
+
+                NetworkService.getUsers()
+                    .then(users => this.usersData = users)
+                    .catch(err => this.$message.error(err.message))
+                    .then(() => this.busy = false)
+
+            } else {
+                this.usersData = [this.user];
+            }
+
+        },
+
+        methods: {
+            detailClick(userId) {
+                console.log('detailClick', userId)
+            },
+            editClick(userId) {
+                console.log('editClick', userId)
+            }
         }
 
     });
@@ -36,7 +56,7 @@
 <template>
 
     <el-table :data="usersData"
-              :default-sort = "{prop: 'id', order: 'descending'}"
+              :default-sort = "{prop: 'id', order: 'ascending'}"
               v-loading="busy"
               height="250">
 
@@ -47,6 +67,21 @@
                          :key="field.prop"
                          :width="field.width"
                          sortable>
+        </el-table-column>
+
+        <el-table-column fixed="right" width="96">
+            <template slot-scope="data">
+
+                <el-button @click="detailClick(data.row.id)"
+                           type="text"
+                           size="small">Detail</el-button>
+
+                <el-button v-if="isAdmin"
+                           @click="editClick(data.row.id)"
+                           type="text"
+                           size="small">Edit</el-button>
+
+            </template>
         </el-table-column>
 
     </el-table>
