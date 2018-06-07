@@ -40,9 +40,19 @@
 
         },
 
+        computed: {
+            isMobile(): boolean {
+                return window.innerWidth <= 768
+            }
+        },
+
         methods: {
+
             detailClick(userId) {
                 this.$router.push({name: 'Profile', params: {id: userId}})
+            },
+            addNewUser() {
+                this.$router.push({name: 'Register'})
             }
         }
 
@@ -52,34 +62,44 @@
 
 <template>
 
-    <el-table :data="usersData"
-              :default-sort = "{prop: 'id', order: 'ascending'}"
-              v-loading="busy"
-              height="250">
+    <div>
 
-        <el-table-column v-for="field in tableFields"
-                         :prop="field.prop"
-                         :label="field.label"
-                         :fixed="field.fixed"
-                         :key="field.prop"
-                         :width="field.width"
-                         sortable>
-        </el-table-column>
+        <el-table :data="usersData"
+                  :default-sort = "{prop: 'id', order: 'ascending'}"
+                  v-loading="busy"
+                  :height="isMobile ? 250 : 500">
 
-        <el-table-column fixed="right" width="96">
-            <template slot-scope="data">
+            <el-table-column v-for="field in tableFields"
+                             :prop="field.prop"
+                             :label="field.label"
+                             :fixed="field.fixed"
+                             :key="field.prop"
+                             :width="field.width"
+                             sortable>
+            </el-table-column>
 
-                <el-button @click="detailClick(data.row.id)"
-                           type="text"
-                           size="small">Detail</el-button>
+            <el-table-column fixed="right" width="96">
+                <template slot-scope="data">
 
-            </template>
-        </el-table-column>
+                    <el-button @click="detailClick(data.row.id)"
+                               type="text"
+                               size="small">Detail</el-button>
 
-    </el-table>
+                </template>
+            </el-table-column>
+
+        </el-table>
+
+        <el-button class="el-button--new-user" @click="addNewUser" type="primary">Add new user</el-button>
+
+    </div>
 
 </template>
 
 <style scoped>
+
+    .el-button--new-user {
+        margin: 10px;
+    }
 
 </style>
