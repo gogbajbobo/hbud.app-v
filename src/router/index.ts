@@ -39,12 +39,13 @@ const login: RouteConfig = {
 };
 
 const profile: RouteConfig = {
-    path: '/profile',
+    path: '/profile/:id?',
     name: 'Profile',
     component: Profile,
     meta: {
         localname: 'Profile page'
-    }
+    },
+    props: true
 };
 
 const settings: RouteConfig = {
