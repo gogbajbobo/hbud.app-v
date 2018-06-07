@@ -42,7 +42,7 @@
 
         methods: {
             detailClick(userId) {
-                console.log('detailClick', userId)
+                this.$router.push({name: 'Profile', params: {id: userId}})
             },
             editClick(userId) {
                 console.log('editClick', userId)
