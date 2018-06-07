@@ -4,11 +4,9 @@ import { getStoreBuilder } from "vuex-typex"
 import PersistedState from 'vuex-persistedstate'
 
 import { AuthState } from './modules/auth'
-import { AsideMenuState } from "./modules/asideMenu";
 
 export interface RootState  {
-    auth: AuthState,
-    asideMenu: AsideMenuState
+    auth: AuthState
 }
 
 Vue.use(Vuex);

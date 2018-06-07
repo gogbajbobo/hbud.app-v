@@ -54,6 +54,7 @@ class NetworkService {
 
         return axiosInstance.post(loginUrl, data)
             .then(response => auth.commitAuthorized(response.data))
+            .catch(err => Promise.reject(err))
 
     }
 
@@ -61,6 +62,36 @@ class NetworkService {
 
         return axiosInstance.get(exchangeTokenUrl)
             .then(response => auth.commitTokenReceived(response.data))
+            .catch(err => Promise.reject(err))
+
+    }
+
+    static register(username: string, password: string, role: string): Promise<any> {
+
+        const data = {
+            username,
+            password,
+            role
+        };
+
+        return axiosInstance.post('/auth/register', data)
+            .catch(err => Promise.reject(err))
+
+    }
+
+    static getUsers(): Promise<any> {
+
+        return axiosInstance.get('/api/users')
+            .then(response => response.data.users)
+            .catch(err => Promise.reject(err))
+
+    }
+
+    static getUserById(userId): Promise<any> {
+
+        return axiosInstance.get(`/api/users/${ userId }`)
+            .then(response => response.data.user)
+            .catch(err => Promise.reject(err))
 
     }
 

@@ -1,8 +1,15 @@
 import { getStoreBuilder } from "vuex-typex"
 import { RootState } from "../"
 
+export interface UserModel {
+    id: number,
+    username: string,
+    role: string,
+    exp: number
+}
+
 export interface AuthState {
-    user?: Object,
+    user?: UserModel,
     accessToken?: string,
     expirationTime?: number
 }
@@ -25,14 +32,14 @@ const authState = getStoreBuilder<RootState>().module<AuthState>("auth", initial
 
 function logout(state: AuthState) {
 
-    console.log('logout');
+    console.log('logout', auth.state.user!.username);
     Object.assign(state, initialAuthState)
 
 }
 
 function authorized(state: AuthState, data: AuthState) {
 
-    console.log('authorized');
+    console.log('authorized', data.user);
     fillUpAuthStore(state, data)
 
 }

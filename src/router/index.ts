@@ -14,7 +14,9 @@ import {
     AccountsIncome,
     AccountsCurrent,
     AccountsExpense,
-    Transactions
+    Transactions,
+    Users,
+    Register
 } from '../components/'
 
 Vue.use(Router);
@@ -38,12 +40,13 @@ const login: RouteConfig = {
 };
 
 const profile: RouteConfig = {
-    path: '/profile',
+    path: '/profile/:id?',
     name: 'Profile',
     component: Profile,
     meta: {
         localname: 'Profile page'
-    }
+    },
+    props: true
 };
 
 const settings: RouteConfig = {
@@ -100,6 +103,24 @@ const transactions: RouteConfig = {
     }
 };
 
+const users: RouteConfig = {
+    path: '/users',
+    name: 'Users',
+    component: Users,
+    meta: {
+        localname: 'Users page'
+    }
+};
+
+const register: RouteConfig = {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    meta: {
+        localname: 'Register page'
+    }
+};
+
 const routes: RouteConfig[] = [
     main,
     login,
@@ -109,7 +130,9 @@ const routes: RouteConfig[] = [
     accountsIncome,
     accountsCurrent,
     accountsExpense,
-    transactions
+    transactions,
+    users,
+    register
 ];
 
 const router = new Router({
