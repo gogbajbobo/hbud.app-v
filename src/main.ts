@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css';
 
 import MintUI from 'mint-ui'
@@ -14,7 +15,7 @@ import store from './store'
 
 Vue.config.productionTip = false;
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, { locale });
 Vue.use(MintUI);
 
 /* eslint-disable no-new */
