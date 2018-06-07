@@ -74,6 +74,14 @@ class NetworkService {
 
     }
 
+    static getUserById(userId): Promise<any> {
+
+        return axiosInstance.get(`/api/users/${ userId }`)
+            .then(response => response.data.user)
+            .catch(err => Promise.reject(err))
+
+    }
+
 }
 
 export default NetworkService;
