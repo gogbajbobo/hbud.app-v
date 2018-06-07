@@ -75,7 +75,7 @@
         },
 
         watch:{
-            $route (to, from){
+            $route (to, from) {
 
                 if (to.name !== 'Accounts') {
                     (this.$refs.asideMenu as any).close('/accounts');
