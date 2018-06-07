@@ -50,13 +50,13 @@
                 (this.$refs['registerForm'] as any).validate()
                     .then(() => {
 
-                        // this.busy = true;
-                        //
-                        // NetworkService
-                        //     .login(this.registerForm.username, this.registerForm.password)
-                        //     .then(() => this.$router.push({name: 'Users'}))
-                        //     .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
-                        //     .then(() => this.busy = false)
+                        this.busy = true;
+
+                        NetworkService
+                            .register(this.registerForm.username, this.registerForm.password, this.registerForm.role)
+                            .then(() => this.$router.push({name: 'Users'}))
+                            .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
+                            .then(() => this.busy = false)
 
                     })
                     .catch(() => console.error('register form validation fail'))

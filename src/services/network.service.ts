@@ -66,6 +66,19 @@ class NetworkService {
 
     }
 
+    static register(username: string, password: string, role: string): Promise<any> {
+
+        const data = {
+            username,
+            password,
+            role
+        };
+
+        return axiosInstance.post('/auth/register', data)
+            .catch(err => Promise.reject(err))
+
+    }
+
     static getUsers(): Promise<any> {
 
         return axiosInstance.get('/api/users')
