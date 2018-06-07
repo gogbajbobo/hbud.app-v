@@ -43,9 +43,6 @@
         methods: {
             detailClick(userId) {
                 this.$router.push({name: 'Profile', params: {id: userId}})
-            },
-            editClick(userId) {
-                console.log('editClick', userId)
             }
         }
 
@@ -75,11 +72,6 @@
                 <el-button @click="detailClick(data.row.id)"
                            type="text"
                            size="small">Detail</el-button>
-
-                <el-button v-if="isAdmin"
-                           @click="editClick(data.row.id)"
-                           type="text"
-                           size="small">Edit</el-button>
 
             </template>
         </el-table-column>
