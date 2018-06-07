@@ -24,18 +24,23 @@
                     password: [
                         { min: 1, message: 'Please enter password', trigger: 'blur' }
                     ]
-                }
+                },
+                isAdmin: <boolean> false
 
             }
         },
 
         created() {
+
+            this.isAdmin = this.user.role === 'admin';
+
             this.profileForm.username = this.user.username
+
         },
 
         methods: {
             editButtonPressed() {
-                this.editMode = true
+                this.editMode = this.isAdmin
             },
             submitForm() {
                 console.log('submitForm')
@@ -54,8 +59,13 @@
     <el-card>
 
         <div slot="header">
+
             <span class="el-card--username">{{ user.username }}</span>
-            <el-button class="el-button--edit" type="text" v-if="!editMode" @click="editButtonPressed">Edit</el-button>
+            <el-button v-if="isAdmin && !editMode"
+                       class="el-button--edit"
+                       type="text"
+                       @click="editButtonPressed">Edit</el-button>
+
         </div>
 
         <template v-if="editMode">
