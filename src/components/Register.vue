@@ -1,6 +1,8 @@
 <script lang="ts">
 
-    import Vue from "vue";
+    import Vue from "vue"
+
+    import NetworkService from '../services/network.service'
 
     export default Vue.extend({
 
@@ -30,7 +32,21 @@
 
         methods: {
             submitForm() {
-                console.log('submitForm')
+
+                (this.$refs['registerForm'] as any).validate()
+                    .then(() => {
+
+                        // this.busy = true;
+                        //
+                        // NetworkService
+                        //     .login(this.registerForm.username, this.registerForm.password)
+                        //     .then(() => this.$router.push({name: 'Users'}))
+                        //     .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
+                        //     .then(() => this.busy = false)
+
+                    })
+                    .catch(() => console.error('register form validation fail'))
+
             }
         }
 
@@ -55,7 +71,7 @@
         </el-form-item>
 
         <el-form-item>
-            <el-button type="primary" @click="submitForm">Login</el-button>
+            <el-button type="primary" @click="submitForm">Register</el-button>
         </el-form-item>
 
     </el-form>
