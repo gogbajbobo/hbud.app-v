@@ -9,6 +9,7 @@ const exchangeTokenUrl = `${ authPath }/token`;
 const axiosInstance = axios.create();
 
 axiosInstance.defaults.baseURL = 'http://maxbook.local:8001';
+// axiosInstance.defaults.baseURL = 'https://max.grigoblin.ru';
 
 axiosInstance.interceptors.request.use(config => {
 
