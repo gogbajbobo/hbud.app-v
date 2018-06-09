@@ -17,13 +17,14 @@
                     {
                         prop: 'id',
                         label: 'Id',
-                        width: '64',
+                        minWidth: 60,
                         fixed: true,
                         sortable: true
                     },
                     {
                         prop: 'username',
                         label: 'Name',
+                        minWidth: 90,
                         sortable: true
                     },
                     {
@@ -90,7 +91,7 @@
         <el-table :data="usersData"
                   :default-sort = "{prop: 'id', order: 'ascending'}"
                   v-loading="busy"
-                  :height="isMobile ? 250 : 500">
+                  :height="isMobile ? 300 : 500">
 
             <el-table-column v-for="field in tableFields"
                              :prop="field.prop"
@@ -98,13 +99,14 @@
                              :fixed="field.fixed"
                              :key="field.prop"
                              :width="field.width"
+                             :min-width="field.minWidth"
                              :sortable="field.sortable"
                              :filters="field.filters"
                              :filter-method="field.filterMethod"
                              filter-placement="bottom-end">
             </el-table-column>
 
-            <el-table-column fixed="right" width="96">
+            <el-table-column fixed="right" :width="isMobile ? 50 : 96">
                 <template slot-scope="data">
 
                     <el-button @click="detailClick(data.row.id)"
@@ -125,7 +127,7 @@
 <style scoped>
 
     .el-button--new-user {
-        margin: 10px;
+        margin: 20px 10px;
     }
 
 </style>
