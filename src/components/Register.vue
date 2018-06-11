@@ -15,7 +15,7 @@
                 registerForm: {
                     username: <string> '',
                     password: <string> '',
-                    role: <string> ''
+                    roles: <Array<string>> []
                 },
                 rules: {
                     username: [
@@ -24,8 +24,8 @@
                     password: [
                         { required: true, message: 'Please enter password', trigger: 'blur' }
                     ],
-                    role: [
-                        { required: true, message: 'Please select role', trigger: 'blur' }
+                    roles: [
+                        { required: true, message: 'Please select roles', trigger: 'blur' }
                     ]
                 },
                 rolesList: []
@@ -51,8 +51,10 @@
 
                         this.busy = true;
 
+                        const form = this.registerForm;
+
                         NetworkService
-                            .register(this.registerForm.username, this.registerForm.password, this.registerForm.role)
+                            .register(form.username, form.password, form.roles)
                             .then(() => this.$router.push({name: 'Users'}))
                             .catch(MessageService.showError)
                             .then(() => this.busy = false)
@@ -79,8 +81,8 @@
             <el-input v-model="registerForm.password" type="password" placeholder="Password"></el-input>
         </el-form-item>
 
-        <el-form-item prop="role">
-            <el-select v-model="registerForm.role" placeholder="Role">
+        <el-form-item prop="roles">
+            <el-select v-model="registerForm.roles" multiple placeholder="Roles">
                 <el-option v-for="role in rolesList" :key="role.id" :value="role.id" :label="role.rolename"></el-option>
             </el-select>
         </el-form-item>

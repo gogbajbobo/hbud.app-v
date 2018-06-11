@@ -76,12 +76,12 @@ class NetworkService {
 
     }
 
-    static register(username: string, password: string, role: string): Promise<any> {
+    static register(username: string, password: string, roles: string[]): Promise<any> {
 
         const data = {
             username,
             password,
-            role
+            roles
         };
 
         return axiosInstance.post('/auth/register', data)
