@@ -3,6 +3,7 @@
     import Vue from "vue"
 
     import NetworkService from '../services/network.service'
+    import MessageService from '../services/message.service'
 
     export default Vue.extend({
 
@@ -37,7 +38,7 @@
                         NetworkService
                             .login(this.loginForm.username, this.loginForm.password)
                             .then(() => this.$router.push({name: 'Main'}))
-                            .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
+                            .catch(MessageService.showError)
                             .then(() => this.busy = false)
 
                     })

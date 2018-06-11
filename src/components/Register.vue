@@ -3,6 +3,7 @@
     import Vue from "vue"
 
     import NetworkService from '../services/network.service'
+    import MessageService from '../services/message.service'
 
     export default Vue.extend({
 
@@ -47,7 +48,7 @@
         created() {
 
             NetworkService.getRoles()
-                .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
+                .catch(MessageService.showError)
 
         },
 
@@ -62,7 +63,7 @@
                         NetworkService
                             .register(this.registerForm.username, this.registerForm.password, this.registerForm.role)
                             .then(() => this.$router.push({name: 'Users'}))
-                            .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
+                            .catch(MessageService.showError)
                             .then(() => this.busy = false)
 
                     })

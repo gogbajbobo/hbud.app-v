@@ -2,6 +2,7 @@
 
     import Vue from "vue"
     import NetworkService from '../services/network.service'
+    import MessageService from '../services/message.service'
     import auth from '../store/modules/auth'
     import User, { UserModel } from '../models'
 
@@ -53,7 +54,7 @@
 
                 NetworkService.getUsers()
                     .then(users => this.usersData = users)
-                    .catch(err => this.$message.error(err.message))
+                    .catch(MessageService.showError)
                     .then(() => this.busy = false)
 
             } else {
