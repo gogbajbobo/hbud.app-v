@@ -2,7 +2,8 @@
 
     import Vue from "vue"
     import NetworkService from '../services/network.service'
-    import auth, { UserModel } from '../store/modules/auth'
+    import auth from '../store/modules/auth'
+    import User, { UserModel } from '../models'
 
     export default Vue.extend({
 
@@ -28,8 +29,8 @@
                         sortable: true
                     },
                     {
-                        prop: 'role',
-                        label: 'Role',
+                        prop: 'roles',
+                        label: 'Roles',
                         filters: [
                             { text: 'Visitor', value: 'visitor' },
                             { text: 'User', value: 'user' },
@@ -44,9 +45,10 @@
 
         created() {
 
-            if (this.user.role === 'admin') {
+            this.isAdmin = User.isAdmin(this.user);
 
-                this.isAdmin = true;
+            if (this.isAdmin) {
+
                 this.busy = true;
 
                 NetworkService.getUsers()
@@ -101,6 +103,7 @@
                              :width="field.width"
                              :min-width="field.minWidth"
                              :sortable="field.sortable"
+                             :formatter="field.formatter"
                              :filters="field.filters"
                              :filter-method="field.filterMethod"
                              filter-placement="bottom-end">
@@ -118,7 +121,12 @@
 
         </el-table>
 
-        <el-button class="el-button--new-user" @click="addNewUser" type="primary">Add new user</el-button>
+        <el-button v-if="isAdmin"
+                   class="el-button--new-user"
+                   @click="addNewUser"
+                   type="primary">
+            Add new user
+        </el-button>
 
     </div>
 

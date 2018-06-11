@@ -2,8 +2,9 @@
 
     import Vue from 'vue'
 
-    import auth, { UserModel } from '../store/modules/auth'
+    import auth from '../store/modules/auth'
     import NetworkService from '../services/network.service'
+    import User, { UserModel } from '../models'
 
     export default Vue.extend({
 
@@ -35,7 +36,7 @@
 
         created() {
 
-            this.isAdmin = auth.state.user!.role === 'admin';
+            this.isAdmin = User.isAdmin(auth.state.user!);
             this.setupComponent()
 
         },
