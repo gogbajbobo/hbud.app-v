@@ -15,7 +15,7 @@
                 registerForm: {
                     username: <string> '',
                     password: <string> '',
-                    role: <string> 'visitor'
+                    role: <string> ''
                 },
                 rules: {
                     username: [
@@ -28,27 +28,18 @@
                         { required: true, message: 'Please select role', trigger: 'blur' }
                     ]
                 },
-                rolesList: [
-                    {
-                        value: 'visitor',
-                        label: 'Visitor'
-                    },
-                    {
-                        value: 'user',
-                        label: 'User'
-                    },
-                    {
-                        value: 'admin',
-                        label: 'Administrator'
-                    }
-                ]
+                rolesList: []
             }
         },
 
         created() {
 
+            this.busy = true;
+
             NetworkService.getRoles()
+                .then(roles => this.rolesList = roles)
                 .catch(MessageService.showError)
+                .then(() => this.busy = false)
 
         },
 
@@ -90,11 +81,7 @@
 
         <el-form-item prop="role">
             <el-select v-model="registerForm.role" placeholder="Role">
-                <el-option v-for="role in rolesList"
-                           :key="role.value"
-                           :label="role.label"
-                           :value="role.value">
-                </el-option>
+                <el-option v-for="role in rolesList" :key="role.id" :value="role.id" :label="role.rolename"></el-option>
             </el-select>
         </el-form-item>
 

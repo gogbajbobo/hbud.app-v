@@ -108,7 +108,7 @@ class NetworkService {
     static getRoles(): Promise<any> {
 
         return axiosInstance.get(`/api/roles`)
-            .then(response => response.data)
+            .then(response => response.data.roles)
             .catch(err => Promise.reject(err))
 
     }
