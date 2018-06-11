@@ -33,6 +33,15 @@ axiosInstance.interceptors.request.use(config => {
 
 }, error => Promise.reject(error));
 
+axiosInstance.interceptors.response.use(response => {
+
+    console.log(`${ response.config.url } response:`);
+    console.log(response);
+    return response
+
+}, error => Promise.reject(error));
+
+
 function authorizedConfig(config) {
 
     const accessToken = auth.state.accessToken;
