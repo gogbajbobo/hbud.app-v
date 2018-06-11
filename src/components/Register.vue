@@ -44,6 +44,13 @@
             }
         },
 
+        created() {
+
+            NetworkService.getRoles()
+                .catch((err: Error) => this.$message.error(`${ err.name }: ${ err.message }`))
+
+        },
+
         methods: {
             submitForm() {
 

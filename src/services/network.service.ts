@@ -105,6 +105,14 @@ class NetworkService {
 
     }
 
+    static getRoles(): Promise<any> {
+
+        return axiosInstance.get(`/api/roles`)
+            .then(response => response.data)
+            .catch(err => Promise.reject(err))
+
+    }
+
 }
 
 export default NetworkService;
