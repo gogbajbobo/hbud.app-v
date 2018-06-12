@@ -78,7 +78,11 @@
             },
             deleteButtonPressed() {
                 MessageService.showConfirmMessage('Delete confirmation', 'Are you sure to delete this user?')
-                    .then(() => NetworkService.deleteUser(this.id))
+                    .then(() => {
+                        NetworkService.deleteUser(this.id)
+                            .then(() => this.$router.push({name: 'Users'}))
+                            .catch(MessageService.showError)
+                    })
                     .catch()
             },
             submitForm() {
