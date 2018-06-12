@@ -31,7 +31,7 @@ axiosInstance.interceptors.request.use(config => {
 
             return TokenService.checkLifetime()
                 .then(() => authorizedConfig(config))
-                .catch(error => Promise.reject(error))
+                .catch(rejectError)
 
         }
 
@@ -45,7 +45,7 @@ axiosInstance.interceptors.response.use(response => {
     LoggerService.log(response);
     return response
 
-}, error => Promise.reject(error));
+}, rejectError);
 
 
 function authorizedConfig(config) {
@@ -55,6 +55,10 @@ function authorizedConfig(config) {
 
     return config
 
+}
+
+function rejectError(error: Error) {
+    return Promise.reject(error)
 }
 
 class NetworkService {
@@ -70,7 +74,7 @@ class NetworkService {
 
         return axiosInstance.post(loginUrl, data)
             .then(response => auth.commitAuthorized(response.data))
-            .catch(err => Promise.reject(err))
+            .catch(rejectError)
 
     }
 
@@ -78,7 +82,7 @@ class NetworkService {
 
         return axiosInstance.get(exchangeTokenUrl)
             .then(response => auth.commitTokenReceived(response.data))
-            .catch(err => Promise.reject(err))
+            .catch(rejectError)
 
     }
 
@@ -91,7 +95,7 @@ class NetworkService {
         };
 
         return axiosInstance.post('/auth/register', data)
-            .catch(err => Promise.reject(err))
+            .catch(rejectError)
 
     }
 
@@ -99,7 +103,7 @@ class NetworkService {
 
         return axiosInstance.get('/api/users')
             .then(response => response.data.users)
-            .catch(err => Promise.reject(err))
+            .catch(rejectError)
 
     }
 
@@ -107,7 +111,7 @@ class NetworkService {
 
         return axiosInstance.get(`/api/users/${ userId }`)
             .then(response => response.data.user)
-            .catch(err => Promise.reject(err))
+            .catch(rejectError)
 
     }
 
@@ -115,7 +119,7 @@ class NetworkService {
 
         return axiosInstance.delete(`/api/users/${ userId }`)
             .then(response => response.data)
-            .catch(err => Promise.reject(err))
+            .catch(rejectError)
 
     }
 
@@ -123,7 +127,7 @@ class NetworkService {
 
         return axiosInstance.get(`/api/roles`)
             .then(response => response.data.roles)
-            .catch(err => Promise.reject(err))
+            .catch(rejectError)
 
     }
 
