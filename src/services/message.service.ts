@@ -13,7 +13,13 @@ class MessageService {
         Message.error(`${ err.name }: ${ err.message }`)
     }
 
-    static showConfirmMessage(title: string, text: string, options: ElMessageBoxOptions): Promise<MessageBoxData> {
+    static showConfirmMessage(title: string, text: string): Promise<MessageBoxData> {
+
+        const options: ElMessageBoxOptions = {
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            type: 'warning'
+        };
 
         return md.phone()
                 ? MessageBoxM.confirm(text, title, options)

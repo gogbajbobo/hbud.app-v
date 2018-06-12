@@ -29,16 +29,7 @@
 
                 if (command === 'Logout') {
 
-                    const
-                        title = 'Logout',
-                        text = 'Are you sure to logout?',
-                        options: ElMessageBoxOptions = {
-                            confirmButtonText: 'Yes',
-                            cancelButtonText: 'No',
-                            type: 'warning'
-                        };
-
-                    return MessageService.showConfirmMessage(title, text, options)
+                    return MessageService.showConfirmMessage('Logout', 'Are you sure to logout?')
                         .then(() => {
                             auth.commitLogout();
                             router.push({name: 'Login'})
