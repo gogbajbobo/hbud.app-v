@@ -78,8 +78,8 @@
             },
             deleteButtonPressed() {
                 MessageService.showConfirmMessage('Delete confirmation', 'Are you sure to delete this user?')
-                    .then(() => console.log('yes'))
-                    .catch(() => console.log('no'))
+                    .then(() => NetworkService.deleteUser(this.id))
+                    .catch()
             },
             submitForm() {
                 console.log('submitForm')

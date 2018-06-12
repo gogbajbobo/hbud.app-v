@@ -111,6 +111,14 @@ class NetworkService {
 
     }
 
+    static deleteUser(userId): Promise<any> {
+
+        return axiosInstance.delete(`/api/users/${ userId }`)
+            .then(response => response.data)
+            .catch(err => Promise.reject(err))
+
+    }
+
     static getRoles(): Promise<any> {
 
         return axiosInstance.get(`/api/roles`)
