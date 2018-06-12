@@ -8,8 +8,11 @@ const exchangeTokenUrl = `${ authPath }/token`;
 
 const axiosInstance = axios.create();
 
-axiosInstance.defaults.baseURL = 'http://maxbook.local:8001';
-// axiosInstance.defaults.baseURL = 'https://server.grigoblin.ru';
+const isProduction = process.env.NODE_ENV === 'production';
+
+axiosInstance.defaults.baseURL = isProduction
+    ? 'https://server.grigoblin.ru'
+    : 'http://maxbook.local:8001';
 
 axiosInstance.interceptors.request.use(config => {
 
