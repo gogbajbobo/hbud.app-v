@@ -35,6 +35,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         new UglifyJsPlugin({
             uglifyOptions: {
                 compress: {
+                    keep_fnames: true,
                     warnings: false
                 }
             },
