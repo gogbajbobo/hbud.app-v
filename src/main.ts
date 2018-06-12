@@ -18,6 +18,8 @@ Vue.config.productionTip = false;
 Vue.use(ElementUI, { locale });
 Vue.use(MintUI);
 
+console.log(process.env);
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
