@@ -1,10 +1,13 @@
 import axios from 'axios'
 import auth from '../store/modules/auth'
-import TokenService from "./token.service";
 
-const authPath = '/auth';
-const loginUrl = `${ authPath }/login`;
-const exchangeTokenUrl = `${ authPath }/token`;
+import TokenService from './token.service'
+import LoggerService from './logger.service'
+
+const
+    authPath = '/auth',
+    loginUrl = `${ authPath }/login`,
+    exchangeTokenUrl = `${ authPath }/token`;
 
 const axiosInstance = axios.create();
 
@@ -16,7 +19,7 @@ axiosInstance.defaults.baseURL = isProduction
 
 axiosInstance.interceptors.request.use(config => {
 
-    console.log('send request', config.method, config.url);
+    LoggerService.log('send request', config.method, config.url);
 
     switch (config.url) {
 
@@ -38,8 +41,8 @@ axiosInstance.interceptors.request.use(config => {
 
 axiosInstance.interceptors.response.use(response => {
 
-    console.log(`${ response.config.url } response:`);
-    console.log(response);
+    LoggerService.log(`${ response.config.method } ${ response.config.url } response:`);
+    LoggerService.log(response);
     return response
 
 }, error => Promise.reject(error));
