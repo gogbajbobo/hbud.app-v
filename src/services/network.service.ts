@@ -1,18 +1,25 @@
 import axios from 'axios'
 import auth from '../store/modules/auth'
-import TokenService from "./token.service";
 
-const authPath = '/auth';
-const loginUrl = `${ authPath }/login`;
-const exchangeTokenUrl = `${ authPath }/token`;
+import TokenService from './token.service'
+import LoggerService from './logger.service'
+
+const
+    authPath = '/auth',
+    loginUrl = `${ authPath }/login`,
+    exchangeTokenUrl = `${ authPath }/token`;
 
 const axiosInstance = axios.create();
 
-axiosInstance.defaults.baseURL = 'http://maxbook.local:8001';
+const isProduction = process.env.NODE_ENV === 'production';
+
+axiosInstance.defaults.baseURL = isProduction
+    ? 'https://server.grigoblin.ru'
+    : 'http://maxbook.local:8001';
 
 axiosInstance.interceptors.request.use(config => {
 
-    console.log('send request', config.method, config.url);
+    LoggerService.log('send request', config.method, config.url);
 
     switch (config.url) {
 
@@ -31,6 +38,15 @@ axiosInstance.interceptors.request.use(config => {
     }
 
 }, error => Promise.reject(error));
+
+axiosInstance.interceptors.response.use(response => {
+
+    LoggerService.log(`${ response.config.method } ${ response.config.url } response:`);
+    LoggerService.log(response);
+    return response
+
+}, error => Promise.reject(error));
+
 
 function authorizedConfig(config) {
 
@@ -66,12 +82,12 @@ class NetworkService {
 
     }
 
-    static register(username: string, password: string, role: string): Promise<any> {
+    static register(username: string, password: string, roles: string[]): Promise<any> {
 
         const data = {
             username,
             password,
-            role
+            roles
         };
 
         return axiosInstance.post('/auth/register', data)
@@ -91,6 +107,22 @@ class NetworkService {
 
         return axiosInstance.get(`/api/users/${ userId }`)
             .then(response => response.data.user)
+            .catch(err => Promise.reject(err))
+
+    }
+
+    static deleteUser(userId): Promise<any> {
+
+        return axiosInstance.delete(`/api/users/${ userId }`)
+            .then(response => response.data)
+            .catch(err => Promise.reject(err))
+
+    }
+
+    static getRoles(): Promise<any> {
+
+        return axiosInstance.get(`/api/roles`)
+            .then(response => response.data.roles)
             .catch(err => Promise.reject(err))
 
     }

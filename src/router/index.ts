@@ -117,6 +117,7 @@ const register: RouteConfig = {
     name: 'Register',
     component: Register,
     meta: {
+        requiresRoles: ['admin'],
         localname: 'Register page'
     }
 };
@@ -151,7 +152,7 @@ router.beforeEach((to, from, next) => {
 
         return TokenService.checkLifetime()
             .then(() =>
-                to.name === 'Login' ? next({name: 'Main'}) : next()
+                to.name === 'Login' ? next({name: 'Main'}) : checkRoles(to, from, next)
             )
             .catch(err => {
                 auth.commitLogout();
@@ -161,5 +162,18 @@ router.beforeEach((to, from, next) => {
     }
 
 });
+
+function checkRoles(to, from, next) {
+
+    if (!to.meta.requiresRoles) return next();
+
+    const user = auth.state.user;
+    const checkRole = (role: string): boolean => to.meta.requiresRoles.includes(role);
+
+    user!.roles.split(',').some(checkRole)
+        ? next()
+        : next({name: 'Main'})
+
+}
 
 export default router

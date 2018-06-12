@@ -86,6 +86,7 @@
             top: 0;
             width: 100%;
             height: 60px;
+            z-index: 1;
         }
 
         .el-aside {
@@ -98,13 +99,12 @@
 
         .el-main {
             position: relative;
-            z-index: -99;
             left: 0;
             top: 30px;
             bottom: 0;
             right: 0;
             margin-left: 70px;
-            margin-bottom: 60px;
+            padding-bottom: 60px;
             overflow-y: scroll;
         }
 

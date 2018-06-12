@@ -1,26 +1,12 @@
 import { getStoreBuilder } from "vuex-typex"
 import { RootState } from "../"
-
-export interface UserModel {
-    id: number,
-    username: string,
-    role: string,
-    exp: number
-}
+import { UserModel } from '../../models'
 
 export interface AuthState {
     user?: UserModel,
     accessToken?: string,
     expirationTime?: number
 }
-
-// function isAuthState(state: any): state is AuthState {
-//
-//     return state.user !== undefined
-//         && state.accessToken !== undefined
-//         && state.expirationTime !== undefined;
-//
-// }
 
 const initialAuthState: AuthState = {
     user: undefined,

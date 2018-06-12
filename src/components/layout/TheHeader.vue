@@ -3,52 +3,40 @@
     import Vue from 'vue'
 
     import MobileDetect from 'mobile-detect' // may be just use window.innerWidth
-    import { MessageBox } from 'mint-ui'
+    import MessageService from '../../services/message.service'
     import { ElMessageBoxOptions } from 'element-ui/lib'
     import auth from '../../store/modules/auth'
     import router from '../../router'
 
-    function confirmLogout(that) {
-
-        const
-            title = 'Logout',
-            text = 'Are you sure to logout?',
-            options: ElMessageBoxOptions = {
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
-                type: 'warning'
-            },
-            messageBoxPromise = that.md.phone()
-                ? MessageBox.confirm(text, title, options)
-                : that.$confirm(text, title, options);
-
-        return messageBoxPromise
-            .then(() => {
-                auth.commitLogout();
-                router.push({name: 'Login'})
-            })
-            .catch(() => {})
-
-    }
-
     export default Vue.extend({
 
         name: "TheHeader",
+
         data() {
             return {
                 md: new MobileDetect(navigator.userAgent)
             }
         },
+
         computed: {
             user(): any {
                 return auth.state.user
             }
         },
+
         methods: {
             handleCommand(command) {
 
-                if (command === 'Logout')
-                    return confirmLogout(this);
+                if (command === 'Logout') {
+
+                    return MessageService.showConfirmMessage('Logout', 'Are you sure to logout?')
+                        .then(() => {
+                            auth.commitLogout();
+                            router.push({name: 'Login'})
+                        })
+                        .catch(() => {});
+
+                }
 
                 router.push({name: command})
 
