@@ -5,6 +5,8 @@
     import NetworkService from '../services/network.service'
     import MessageService from '../services/message.service'
 
+    import roles from '../store/modules/roles'
+
     export default Vue.extend({
 
         name: "Register",
@@ -28,19 +30,12 @@
                         { required: true, message: 'Please select roles', trigger: 'blur' }
                     ]
                 },
-                rolesList: []
+                rolesList: roles.state.rolesList
             }
         },
 
         created() {
-
-            this.busy = true;
-
-            NetworkService.getRoles()
-                .then(roles => this.rolesList = roles)
-                .catch(MessageService.showError)
-                .then(() => this.busy = false)
-
+            roles.dispatchGetRoles()
         },
 
         methods: {

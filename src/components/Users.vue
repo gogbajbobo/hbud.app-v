@@ -4,6 +4,7 @@
     import NetworkService from '../services/network.service'
     import MessageService from '../services/message.service'
     import auth from '../store/modules/auth'
+    import roles from '../store/modules/roles'
     import User, { UserModel } from '../models'
 
     export default Vue.extend({
@@ -14,37 +15,14 @@
             return {
                 user: <UserModel> auth.state.user,
                 busy: <boolean> false,
-                usersData: <Array<Object>> [],
-                tableFields: <Array<Object>> [
-                    {
-                        prop: 'id',
-                        label: 'Id',
-                        minWidth: 60,
-                        fixed: true,
-                        sortable: true
-                    },
-                    {
-                        prop: 'username',
-                        label: 'Name',
-                        minWidth: 90,
-                        sortable: true
-                    },
-                    {
-                        prop: 'roles',
-                        label: 'Roles',
-                        filters: [
-                            { text: 'Visitor', value: 'visitor' },
-                            { text: 'User', value: 'user' },
-                            { text: 'Administrator', value: 'admin' }
-                        ],
-                        filterMethod: (value, row) => row.role === value
-                    }
-                ],
+                usersData: <Array<any>> [],
                 isAdmin: <boolean> false
             }
         },
 
         created() {
+
+            roles.dispatchGetRoles();
 
             this.isAdmin = User.isAdmin(this.user);
 
@@ -64,9 +42,39 @@
         },
 
         computed: {
+
             isMobile(): boolean {
                 return window.innerWidth <= 768
+            },
+
+            tableFields() {
+
+                return [
+                    {
+                        prop: 'id',
+                        label: 'Id',
+                        minWidth: 60,
+                        fixed: true,
+                        sortable: true
+                    },
+                    {
+                        prop: 'username',
+                        label: 'Name',
+                        minWidth: 90,
+                        sortable: true
+                    },
+                    {
+                        prop: 'roles',
+                        label: 'Roles',
+                        filters: roles.state.rolesList.map(role => {
+                            return { text: role.rolename, value: role.rolename }
+                        }),
+                        filterMethod: (value, row) => row.roles.split(',').includes(value)
+                    }
+                ]
+
             }
+
         },
 
         methods: {

@@ -6,6 +6,10 @@ class LoggerService {
         if (!isProduction) console.log(...args)
     }
 
+    static error(...args : any[]): void {
+        if (!isProduction) console.error(...args)
+    }
+
 }
 
 export default LoggerService
