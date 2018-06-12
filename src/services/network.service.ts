@@ -1,5 +1,6 @@
 import axios from 'axios'
 import auth from '../store/modules/auth'
+import router from '../router'
 
 import TokenService from './token.service'
 import LoggerService from './logger.service'
@@ -37,7 +38,7 @@ axiosInstance.interceptors.request.use(config => {
 
     }
 
-}, error => Promise.reject(error));
+}, rejectError);
 
 axiosInstance.interceptors.response.use(response => {
 
@@ -45,7 +46,17 @@ axiosInstance.interceptors.response.use(response => {
     LoggerService.log(response);
     return response
 
-}, rejectError);
+}, error => {
+
+    if (error.response && error.response.status === 401) {
+
+        auth.commitLogout();
+        router.push({name: 'Login'})
+
+    }
+    return rejectError(error)
+
+});
 
 
 function authorizedConfig(config) {
