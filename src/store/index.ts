@@ -4,9 +4,11 @@ import { getStoreBuilder } from "vuex-typex"
 import PersistedState from 'vuex-persistedstate'
 
 import { AuthState } from './modules/auth'
+import { RolesState } from './modules/roles'
 
 export interface RootState  {
-    auth: AuthState
+    auth: AuthState,
+    roles: RolesState
 }
 
 Vue.use(Vuex);
