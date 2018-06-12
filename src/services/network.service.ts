@@ -58,7 +58,6 @@ axiosInstance.interceptors.response.use(response => {
 
 });
 
-
 function authorizedConfig(config) {
 
     const accessToken = auth.state.accessToken;
