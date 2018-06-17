@@ -11,6 +11,12 @@ function connect() {
 
     console.log('connect()');
 
+    socket.on('connect', () => {
+
+        console.log('socket connected')
+
+    });
+
     socket.on('test', () => {
 
         console.log('socket test');
