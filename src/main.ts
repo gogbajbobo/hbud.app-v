@@ -13,6 +13,9 @@ import 'mint-ui/lib/style.css'
 import router from './router'
 import store from './store'
 
+import io from './services/socket.io.service'
+io.connect();
+
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI, { locale });
