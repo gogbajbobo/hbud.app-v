@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 
 const isProduction = process.env.NODE_ENV === 'production';
 const socketURL = isProduction
-    ? 'https://server.grigoblin.ru:8011'
+    ? 'https://server.grigoblin.ru'
     : 'http://maxbook.local:8011';
 
 const socket = io(socketURL);
