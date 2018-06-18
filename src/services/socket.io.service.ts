@@ -5,7 +5,7 @@ const socketURL = isProduction
     ? 'https://server.grigoblin.ru'
     : 'http://maxbook.local:8011';
 
-const socket = io(socketURL);
+const socket = io(socketURL, { transports: ['websocket'] });
 
 function connect() {
 
