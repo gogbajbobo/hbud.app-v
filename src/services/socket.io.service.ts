@@ -7,22 +7,28 @@ const socketURL = isProduction
     ? 'https://server.grigoblin.ru'
     : 'http://maxbook.local:8001';
 
-const socket = io(socketURL, { query: { token: auth.state.accessToken }});
+const socket = io(socketURL);
 
 function connect() {
-
-    console.log('connect()');
 
     socket.on('connect', () => {
 
         logger.log(`socket connected ${ socket.id }`);
 
         const token = auth.state.accessToken;
-        logger.log({ token });
-        socket.emit('authorize', { token }, (data) => {
-            console.log(data)
-        })
+        socket.emit('authentication', { token });
 
+    });
+
+    socket.on('authenticated', () => {
+
+        logger.log(`socket authenticated ${ socket.id }`);
+        socket.emit('authenticated')
+
+    });
+
+    socket.on('unauthorized', err => {
+        logger.log(`authentication error: ${ err.message }`);
     });
 
     socket.on('disconnect', () => {
