@@ -16,7 +16,7 @@ function connect() {
         logger.log(`socket connected ${ socket.id }`);
 
         const token = auth.state.accessToken;
-        socket.emit('authentication', { token });
+        socket.emit('authentication', { token })
 
     });
 
@@ -28,7 +28,7 @@ function connect() {
     });
 
     socket.on('unauthorized', err => {
-        logger.log(`authentication error: ${ err.message }`);
+        logger.log(`authentication error: ${ err.message }`)
     });
 
     socket.on('disconnect', () => {
@@ -36,8 +36,8 @@ function connect() {
     });
 
     socket.on('error', err => {
-        logger.error(err.message);
-    });
+        logger.error(err.message)
+    })
 
 }
 
