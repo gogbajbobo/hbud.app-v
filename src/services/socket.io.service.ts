@@ -30,7 +30,7 @@ function connect() {
     });
 
     socket.on('unauthorized', err => {
-        logger.log(`authentication error: ${ err.message }`)
+        logger.log(`unauthorized | authentication error: ${ err.message }`)
     });
 
     socket.on('disconnect', () => {
