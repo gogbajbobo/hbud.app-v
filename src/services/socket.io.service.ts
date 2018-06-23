@@ -23,7 +23,9 @@ function connect() {
     socket.on('authenticated', () => {
 
         logger.log(`socket authenticated ${ socket.id }`);
-        socket.emit('authenticated')
+        socket.emit('authenticated');
+
+        socket.emit('test', () => logger.log('test received'))
 
     });
 
