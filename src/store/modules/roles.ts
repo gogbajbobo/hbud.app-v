@@ -25,6 +25,10 @@ function fillUpRolesList(state: RolesState, roles: any[]) {
     state.rolesList = roles
 }
 
+function logout(state: RolesState) {
+    Object.assign(state, initialRolesState)
+}
+
 const stateGetter = roleState.state();
 
 const roles = {
@@ -32,6 +36,8 @@ const roles = {
     get state() { return stateGetter() },
 
     commitFillUpRolesList: roleState.commit(fillUpRolesList, 'fillUpRolesList'),
+    commitLogout: roleState.commit(logout, 'logout'),
+
     dispatchGetRoles: roleState.dispatch(getRoles)
 
 };

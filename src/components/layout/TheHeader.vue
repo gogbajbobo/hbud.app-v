@@ -5,6 +5,7 @@
     import MobileDetect from 'mobile-detect' // may be just use window.innerWidth
     import MessageService from '../../services/message.service'
     import { ElMessageBoxOptions } from 'element-ui/lib'
+    import { clearStoreAtLogout } from '../../store'
     import auth from '../../store/modules/auth'
     import router from '../../router'
 
@@ -31,7 +32,7 @@
 
                     return MessageService.showConfirmMessage('Logout', 'Are you sure to logout?')
                         .then(() => {
-                            auth.commitLogout();
+                            clearStoreAtLogout();
                             router.push({name: 'Login'})
                         })
                         .catch(() => {});

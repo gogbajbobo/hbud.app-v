@@ -25,6 +25,10 @@ function fillUpAccountTypes(state: AccountsState, roles: any[]) {
     state.accountTypes = roles
 }
 
+function logout(state: AccountsState) {
+    Object.assign(state, initialAccountsState)
+}
+
 const stateGetter = accountState.state();
 
 const accounts = {
@@ -32,6 +36,8 @@ const accounts = {
     get state() { return stateGetter() },
 
     commitFillUpAccountTypes: accountState.commit(fillUpAccountTypes, 'fillUpAccountTypes'),
+    commitLogout: accountState.commit(logout, 'logout'),
+
     dispatchGetAccountTypes: accountState.dispatch(getAccountTypes)
 
 };
