@@ -1,23 +1,36 @@
-<template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
-</template>
+<script lang='ts'>
 
-<script>
-export default {
-  name: 'App'
-}
+    import Vue from 'vue'
+
+    import TheLayout from './components/layout/TheLayout.vue'
+
+    export default Vue.extend({
+
+        name: 'App',
+
+        components: { TheLayout }
+
+    })
+
 </script>
 
+<template>
+
+    <div id="app">
+        <the-layout>
+            <router-view></router-view>
+        </the-layout>
+    </div>
+
+</template>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+    body {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: black;
+    }
+
 </style>
