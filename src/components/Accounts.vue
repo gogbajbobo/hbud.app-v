@@ -5,6 +5,8 @@
     import NetworkService from '../services/network.service'
     import MessageService from '../services/message.service'
     import accounts from '../store/modules/accounts'
+    import auth from '../store/modules/auth'
+    import User, { UserModel } from '../models'
 
     export default Vue.extend({
 
@@ -12,11 +14,17 @@
 
         data() {
             return {
-                accountTypes: <Array<any>> accounts.state.accountTypes
-                // user: <UserModel> auth.state.user,
+                accountTypes: <Array<any>> accounts.state.accountTypes,
+                user: <UserModel> auth.state.user,
+                isAdmin: <boolean> false,
+                addAccountFormVisible: <boolean> false,
+                formLabelWidth: '100px',
+                addAccountForm: {
+                    name: <string> '',
+                    region: <string> ''
+                }
                 // busy: <boolean> false,
                 // usersData: <Array<any>> [],
-                // isAdmin: <boolean> false
             }
         },
 
@@ -24,10 +32,8 @@
 
             accounts.dispatchGetAccountTypes();
 
-            // roles.dispatchGetRoles();
-            //
-            // this.isAdmin = User.isAdmin(this.user);
-            //
+            this.isAdmin = User.isAdmin(this.user);
+
             // if (this.isAdmin) {
             //
             //     this.busy = true;
@@ -40,6 +46,20 @@
             // } else {
             //     this.usersData = [this.user];
             // }
+
+        },
+
+        methods: {
+
+            addAccount() {
+                if (!this.addAccountFormVisible) this.addAccountFormVisible = true
+            },
+            cancelAddAccountForm() {
+                if (this.addAccountFormVisible) this.addAccountFormVisible = false
+            },
+            confirmAddAccountForm() {
+                console.log('confirmAddAccountForm')
+            }
 
         }
 
@@ -58,10 +78,40 @@
             <el-tab-pane v-for="accountType in accountTypes"
                          :label="accountType.name"
                          :key="accountType.id">
-                {{ accountType.name }}
+
+                <el-button v-if="isAdmin"
+                           class="el-button"
+                           type="primary"
+                           size="mini"
+                           @click="addAccount">
+                    Add account
+                </el-button>
+
             </el-tab-pane>
-            
+
         </el-tabs>
+
+        <el-dialog title="Shipping address"
+                   :visible.sync="addAccountFormVisible"
+                   :append-to-body="true">
+
+            <el-form :model="addAccountForm">
+                <el-form-item label="Promotion name" :label-width="formLabelWidth">
+                    <el-input v-model="addAccountForm.name" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Zones" :label-width="formLabelWidth">
+                    <el-select v-model="addAccountForm.region" placeholder="Please select a zone">
+                        <el-option label="Zone No.1" value="shanghai"></el-option>
+                        <el-option label="Zone No.2" value="beijing"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="cancelAddAccountForm">Cancel</el-button>
+                <el-button type="primary" @click="confirmAddAccountForm">Confirm</el-button>
+            </span>
+
+        </el-dialog>
 
     </div>
 
