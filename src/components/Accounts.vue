@@ -111,7 +111,7 @@
 
             <el-form :model="addAccountForm">
 
-                <el-form-item label="Zones" :label-width="formLabelWidth">
+                <el-form-item label="Type" :label-width="formLabelWidth">
 
                     <el-select v-model="addAccountForm.type" placeholder="Select a type">
 
