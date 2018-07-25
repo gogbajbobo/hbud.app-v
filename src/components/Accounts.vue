@@ -76,8 +76,8 @@
         <el-tabs type="border-card">
 
             <el-tab-pane v-for="accountType in accountTypes"
-                         :label="accountType.name"
-                         :key="accountType.id">
+                         :key="accountType.id"
+                         :label="accountType.name">
 
                 <el-button v-if="isAdmin"
                            class="el-button"
