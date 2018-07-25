@@ -133,7 +133,8 @@
         <el-button v-if="isAdmin"
                    class="el-button--new-user"
                    @click="addNewUser"
-                   type="primary">
+                   type="primary"
+                   size="mini">
             Add new user
         </el-button>
 
