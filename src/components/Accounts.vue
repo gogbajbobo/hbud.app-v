@@ -18,7 +18,7 @@
                 user: <UserModel> auth.state.user,
                 isAdmin: <boolean> false,
                 addAccountFormVisible: <boolean> false,
-                formLabelWidth: '100px',
+                formLabelWidth: '120px',
                 addAccountForm: {
                     name: <string> '',
                     region: <string> ''
