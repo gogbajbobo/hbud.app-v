@@ -14,7 +14,6 @@
 
         data() {
             return {
-                accountTypes: <Array<any>> accounts.state.accountTypes,
                 user: <UserModel> auth.state.user,
                 isAdmin: <boolean> false,
                 addAccountFormVisible: <boolean> false,
@@ -25,6 +24,12 @@
                 }
                 // busy: <boolean> false,
                 // usersData: <Array<any>> [],
+            }
+        },
+
+        computed: {
+            accountTypes () {
+                return accounts.state.accountTypes
             }
         },
 
