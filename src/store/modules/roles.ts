@@ -1,7 +1,7 @@
 import { getStoreBuilder } from "vuex-typex"
 import { RootState } from "../"
 import NetworkServices from '../../services/network.service'
-import LoggerService from '../../services/logger.service'
+import MessageService from '../../services/message.service'
 
 export interface RolesState {
     rolesList: any[]
@@ -17,7 +17,7 @@ function getRoles() {
 
     NetworkServices.getRoles()
         .then(rolesData => roles.commitFillUpRolesList(rolesData))
-        .catch(err => LoggerService.error(err.message))
+        .catch(MessageService.showError)
 
 }
 
