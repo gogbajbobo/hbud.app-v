@@ -144,9 +144,9 @@ class NetworkService {
     static getAccountTypes(): Promise<any> {
 
         return axiosInstance.get(`/api/accounttypes`)
-            .then(response => console.log(response))
+            .then(response => response.data.accountTypes)
             .catch(rejectError)
-        
+
     }
 
 }
