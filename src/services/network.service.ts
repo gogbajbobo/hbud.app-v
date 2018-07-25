@@ -141,6 +141,14 @@ class NetworkService {
 
     }
 
+    static getAccountTypes(): Promise<any> {
+
+        return axiosInstance.get(`/api/accounttypes`)
+            .then(response => console.log(response))
+            .catch(rejectError)
+        
+    }
+
 }
 
 export default NetworkService;
