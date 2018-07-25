@@ -58,7 +58,7 @@
                 if (this.addAccountFormVisible) this.addAccountFormVisible = false
             },
             confirmAddAccountForm() {
-                console.log('confirmAddAccountForm')
+                console.log('confirmAddAccountForm', this.addAccountForm)
             }
 
         }
