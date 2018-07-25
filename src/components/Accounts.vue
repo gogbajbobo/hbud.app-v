@@ -33,6 +33,12 @@
             }
         },
 
+        watch: {
+            accountTypes: function (newAccountTypes, oldAccountTypes) {
+                if (!this.addAccountForm.type && newAccountTypes.length) this.addAccountForm.type = newAccountTypes[0].id
+            }
+        },
+
         created() {
 
             accounts.dispatchGetAccountTypes();
