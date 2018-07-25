@@ -70,6 +70,9 @@
             },
             confirmAddAccountForm() {
                 console.log('confirmAddAccountForm', this.addAccountForm)
+            },
+            tabClick(tab) {
+                this.addAccountForm.type = this.accountTypes.filter(type => type.name === tab.label)[0].id
             }
 
         }
@@ -84,7 +87,7 @@
 
         <h1>Accounts</h1>
 
-        <el-tabs type="border-card">
+        <el-tabs type="border-card" @tab-click="tabClick">
 
             <el-tab-pane v-for="accountType in accountTypes"
                          :key="accountType.id"
