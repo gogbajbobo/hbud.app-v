@@ -21,7 +21,7 @@
                 formLabelWidth: '120px',
                 addAccountForm: {
                     name: <string> '',
-                    region: <string> ''
+                    type: <number> 0
                 }
                 // busy: <boolean> false,
                 // usersData: <Array<any>> [],
