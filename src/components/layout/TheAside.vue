@@ -42,6 +42,11 @@
                         icon: 'el-icon-goods el-icon--red'
                     }
                 ]
+            },
+            {
+                index: '/accounts',
+                title: 'Accounts 1',
+                icon: 'el-icon-goods'
             }
         ]
     };
