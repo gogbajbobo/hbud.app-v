@@ -5,10 +5,12 @@ import PersistedState from 'vuex-persistedstate'
 
 import { AuthState } from './modules/auth'
 import { RolesState } from './modules/roles'
+import { AccountsState } from "./modules/accounts"
 
 export interface RootState  {
     auth: AuthState,
-    roles: RolesState
+    roles: RolesState,
+    accounts: AccountsState
 }
 
 Vue.use(Vuex);
