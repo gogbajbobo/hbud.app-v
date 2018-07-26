@@ -4,11 +4,13 @@ import NetworkServices from '../../services/network.service'
 import MessageService from '../../services/message.service'
 
 export interface AccountsState {
-    accountTypes: any[]
+    accountTypes: any[],
+    accounts: any[]
 }
 
 const initialAccountsState: AccountsState = {
-    accountTypes: []
+    accountTypes: [],
+    accounts: []
 };
 
 const accountState = getStoreBuilder<RootState>().module<AccountsState>("accounts", initialAccountsState);
@@ -21,8 +23,20 @@ function getAccountTypes() {
 
 }
 
-function fillUpAccountTypes(state: AccountsState, roles: any[]) {
-    state.accountTypes = roles
+function getAccounts() {
+
+    NetworkServices.getAccounts()
+        .then(accountsData => accounts.commitFillUpAccounts(accountsData))
+        .catch(MessageService.showError)
+
+}
+
+function fillUpAccountTypes(state: AccountsState, accountTypes: any[]) {
+    state.accountTypes = accountTypes
+}
+
+function fillUpAccounts(state: AccountsState, accounts: any[]) {
+    state.accounts = accounts
 }
 
 function logout(state: AccountsState) {
@@ -36,9 +50,11 @@ const accounts = {
     get state() { return stateGetter() },
 
     commitFillUpAccountTypes: accountState.commit(fillUpAccountTypes, 'fillUpAccountTypes'),
+    commitFillUpAccounts: accountState.commit(fillUpAccounts, 'fillUpAccounts'),
     commitLogout: accountState.commit(logout, 'logout'),
 
-    dispatchGetAccountTypes: accountState.dispatch(getAccountTypes)
+    dispatchGetAccountTypes: accountState.dispatch(getAccountTypes),
+    dispatchGetAccounts: accountState.dispatch(getAccounts)
 
 };
 
