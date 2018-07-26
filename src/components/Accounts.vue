@@ -14,14 +14,22 @@
 
         data() {
             return {
+
                 user: <UserModel> auth.state.user,
                 isAdmin: <boolean> false,
                 addAccountFormVisible: <boolean> false,
                 formLabelWidth: '120px',
+
                 addAccountForm: {
                     name: <string> '',
                     type: <number|undefined> undefined
+                },
+                addAccountFormRules: {
+                    name: [
+                        { required: true, message: 'Please input Account name', trigger: 'blur' }
+                    ]
                 }
+
             }
         },
 
@@ -63,7 +71,11 @@
                 if (this.addAccountFormVisible) this.addAccountFormVisible = false
             },
             confirmAddAccountForm() {
-                console.log('confirmAddAccountForm', this.addAccountForm)
+                (this.$refs['addAccountForm'] as any).validate()
+                    .then(() => {
+                        console.log('form validation success')
+                    })
+                    .catch(() => console.error('add account form validation fail'))
             },
             tabClick(tab) {
                 this.addAccountForm.type = this.accountTypes.filter(type => type.name === tab.label)[0].id
@@ -103,7 +115,7 @@
                    :visible.sync="addAccountFormVisible"
                    :append-to-body="true">
 
-            <el-form :model="addAccountForm">
+            <el-form :model="addAccountForm" :rules="addAccountFormRules" ref="addAccountForm">
 
                 <el-form-item label="Type" :label-width="formLabelWidth">
 
@@ -118,7 +130,7 @@
 
                 </el-form-item>
 
-                <el-form-item label="Account name" :label-width="formLabelWidth">
+                <el-form-item label="Account name" :label-width="formLabelWidth" required prop="name">
                     <el-input v-model="addAccountForm.name" auto-complete="off"></el-input>
                 </el-form-item>
 
