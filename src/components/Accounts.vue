@@ -22,41 +22,35 @@
                     name: <string> '',
                     type: <number|undefined> undefined
                 }
-                // busy: <boolean> false,
-                // usersData: <Array<any>> [],
             }
         },
 
         computed: {
-            accountTypes () {
+
+            accountTypes() {
                 return accounts.state.accountTypes
+            },
+            accounts() {
+                return accounts.state.accounts
             }
+
         },
 
         watch: {
             accountTypes: function (newAccountTypes, oldAccountTypes) {
                 if (!this.addAccountForm.type && newAccountTypes.length) this.addAccountForm.type = newAccountTypes[0].id
+            },
+            accounts: function(newAccounts, oldAccounts) {
+                console.log('accounts updated', newAccounts)
             }
         },
 
         created() {
 
             accounts.dispatchGetAccountTypes();
+            accounts.dispatchGetAccounts();
 
             this.isAdmin = User.isAdmin(this.user);
-
-            // if (this.isAdmin) {
-            //
-            //     this.busy = true;
-            //
-            //     NetworkService.getUsers()
-            //         .then(users => this.usersData = users)
-            //         .catch(MessageService.showError)
-            //         .then(() => this.busy = false)
-            //
-            // } else {
-            //     this.usersData = [this.user];
-            // }
 
         },
 
