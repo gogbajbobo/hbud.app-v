@@ -46,15 +46,6 @@
 
         },
 
-        watch: {
-            accountTypes: function (newAccountTypes, oldAccountTypes) {
-                if (!this.addAccountForm.type && newAccountTypes.length) this.addAccountForm.type = newAccountTypes[0].id
-            },
-            accounts: function(newAccounts, oldAccounts) {
-                console.log('accounts updated', newAccounts)
-            }
-        },
-
         created() {
 
             accounts.dispatchGetAccountTypes();
@@ -64,14 +55,37 @@
 
         },
 
+        watch: {
+
+            accountTypes: function(newAccountTypes) {
+                if (!this.addAccountForm.type && newAccountTypes.length) this.selectedAccountTypeId = newAccountTypes[0].id
+            },
+
+            accounts: function(newAccounts) {
+
+                this.tableData = this.accounts.filter(account => account['type_id'] === this.selectedAccountTypeId)
+
+            },
+
+            selectedAccountTypeId: function() {
+
+                this.addAccountForm.type = this.selectedAccountTypeId;
+                this.tableData = this.accounts.filter(account => account['type_id'] === this.selectedAccountTypeId)
+
+            }
+
+        },
+
         methods: {
 
             addAccount() {
                 if (!this.addAccountFormVisible) this.addAccountFormVisible = true
             },
+
             cancelAddAccountForm() {
                 if (this.addAccountFormVisible) this.addAccountFormVisible = false
             },
+
             confirmAddAccountForm() {
                 (this.$refs['addAccountForm'] as any).validate()
                     .then(() => {
@@ -88,8 +102,9 @@
                     })
                     .catch(() => console.error('add account form validation fail'))
             },
+
             tabClick(tab) {
-                this.addAccountForm.type = this.accountTypes.filter(type => type.name === tab.label)[0].id
+                this.selectedAccountTypeId = this.accountTypes.filter(type => type.name === tab.label)[0].id;
             }
 
         }
