@@ -28,8 +28,9 @@
                     name: [
                         { required: true, message: 'Please input Account name', trigger: 'blur' }
                     ]
-                }
 
+                },
+                tableData: <Array<any>> [],
             }
         },
 
@@ -115,6 +116,10 @@
                            @click="addAccount">
                     Add account
                 </el-button>
+
+                <el-table :data="tableData">
+                    <el-table-column prop="name" label="Account name"></el-table-column>
+                </el-table>
 
             </el-tab-pane>
 
