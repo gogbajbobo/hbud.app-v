@@ -149,6 +149,14 @@ class NetworkService {
 
     }
 
+    static getAccounts(): Promise<any> {
+
+        return axiosInstance.get(`/api/accounts`)
+            .then(response => response.data.accounts)
+            .catch(rejectError)
+
+    }
+
 }
 
 export default NetworkService;
