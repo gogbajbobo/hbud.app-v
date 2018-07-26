@@ -73,7 +73,16 @@
             confirmAddAccountForm() {
                 (this.$refs['addAccountForm'] as any).validate()
                     .then(() => {
-                        console.log('form validation success')
+
+                        console.log('form validation success');
+
+                        const form = this.addAccountForm;
+
+                        NetworkService
+                            .addAccount(form.name, form.type as number)
+                            .then(() => this.addAccountFormVisible = false)
+                            .catch(MessageService.showError)
+
                     })
                     .catch(() => console.error('add account form validation fail'))
             },

@@ -157,6 +157,18 @@ class NetworkService {
 
     }
 
+    static addAccount(name: string, typeId: number): Promise<any> {
+
+        const data = {
+            name,
+            typeId
+        };
+
+        return axiosInstance.post('/api/accounts', data)
+            .catch(rejectError)
+
+    }
+
 }
 
 export default NetworkService;
