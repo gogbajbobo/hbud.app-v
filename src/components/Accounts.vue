@@ -87,7 +87,10 @@
             },
 
             confirmAddAccountForm() {
-                (this.$refs['addAccountForm'] as any).validate()
+
+                const formRef: any = this.$refs['addAccountForm'];
+
+                formRef.validate()
                     .then(() => {
 
                         console.log('form validation success');
@@ -96,7 +99,13 @@
 
                         NetworkService
                             .addAccount(form.name, form.type as number)
-                            .then(() => this.addAccountFormVisible = false)
+                            .then(() => {
+
+                                formRef.resetFields();
+                                accounts.dispatchGetAccounts()
+                                this.addAccountFormVisible = false;
+
+                            })
                             .catch(MessageService.showError)
 
                     })
