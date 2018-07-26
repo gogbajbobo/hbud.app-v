@@ -28,9 +28,10 @@
                     name: [
                         { required: true, message: 'Please input Account name', trigger: 'blur' }
                     ]
-
                 },
                 tableData: <Array<any>> [],
+                selectedAccountTypeId: <number|undefined> undefined
+                
             }
         },
 
