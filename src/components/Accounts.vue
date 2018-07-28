@@ -88,6 +88,10 @@
                 if (!this.addAccountFormVisible) this.addAccountFormVisible = true
             },
 
+            addSubaccount(rowId: number) {
+                console.log(`addSubaccount() ${ rowId }`)
+            },
+
             cancelAddAccountForm() {
                 if (this.addAccountFormVisible) this.addAccountFormVisible = false
             },
@@ -150,6 +154,24 @@
 
                 <el-table :data="tableData">
                     <el-table-column prop="name" label="Account name"></el-table-column>
+                    <el-table-column label="Subaccounts">
+                        <template slot-scope="data">
+                            <el-dropdown>
+                            <span class="el-dropdown-link">
+                                Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item>Action 1</el-dropdown-item>
+                                    <el-dropdown-item>Action 2</el-dropdown-item>
+                                    <el-dropdown-item>Action 3</el-dropdown-item>
+                                    <el-dropdown-item disabled>Action 4</el-dropdown-item>
+                                    <el-dropdown-item divided>
+                                        <el-button type="primary" size="mini" @click="addSubaccount(data.row.id)">Add</el-button>
+                                    </el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </template>
+                    </el-table-column>
                 </el-table>
 
             </el-tab-pane>
