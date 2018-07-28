@@ -109,20 +109,20 @@ class NetworkService {
 
     }
 
-    static getUsers(): Promise<any> {
+    static getData(path: string): Promise<any> {
 
-        return axiosInstance.get('/api/users')
-            .then(response => response.data.users)
+        return axiosInstance.get(`/api/${ path }`)
+            .then(response => response.data)
             .catch(rejectError)
 
     }
 
+    static getUsers(): Promise<any> {
+        return this.getData(`users`).then(data => data.users);
+    }
+
     static getUserById(userId): Promise<any> {
-
-        return axiosInstance.get(`/api/users/${ userId }`)
-            .then(response => response.data.user)
-            .catch(rejectError)
-
+        return this.getData(`users/${ userId }`).then(data => data.user);
     }
 
     static deleteUser(userId): Promise<any> {
@@ -134,27 +134,15 @@ class NetworkService {
     }
 
     static getRoles(): Promise<any> {
-
-        return axiosInstance.get(`/api/roles`)
-            .then(response => response.data.roles)
-            .catch(rejectError)
-
+        return this.getData(`roles`).then(data => data.roles);
     }
 
     static getAccountTypes(): Promise<any> {
-
-        return axiosInstance.get(`/api/accounttypes`)
-            .then(response => response.data.accountTypes)
-            .catch(rejectError)
-
+        return this.getData(`accounttypes`).then(data => data.accountTypes);
     }
 
     static getAccounts(): Promise<any> {
-
-        return axiosInstance.get(`/api/accounts`)
-            .then(response => response.data.accounts)
-            .catch(rejectError)
-
+        return this.getData(`accounts`).then(data => data.accounts);
     }
 
     static addAccount(name: string, typeId: number): Promise<any> {
@@ -170,11 +158,7 @@ class NetworkService {
     }
 
     static getSubaccounts(): Promise<any> {
-
-        return axiosInstance.get(`/api/subaccounts`)
-            .then(response => response.data.subaccounts)
-            .catch(rejectError)
-
+        return this.getData(`subaccounts`).then(data => data.subaccounts);
     }
 
 }
