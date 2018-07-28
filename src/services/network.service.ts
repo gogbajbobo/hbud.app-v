@@ -153,6 +153,10 @@ class NetworkService {
         return this.getData(`subaccounts`).then(data => data.subaccounts);
     }
 
+    static addSubaccount(name: string, accountId: number): Promise<any> {
+        return axiosInstance.post('/api/subaccounts', { name, accountId }).catch(rejectError)
+    }
+
 }
 
 export default NetworkService;
