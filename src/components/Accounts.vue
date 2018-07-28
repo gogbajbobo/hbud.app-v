@@ -31,7 +31,7 @@
                 },
                 tableData: <Array<any>> [],
                 selectedAccountTypeId: <number|undefined> undefined
-                
+
             }
         },
 
@@ -42,6 +42,9 @@
             },
             accounts() {
                 return accounts.state.accounts
+            },
+            subaccounts() {
+                return accounts.state.subaccounts
             }
 
         },
@@ -50,6 +53,7 @@
 
             accounts.dispatchGetAccountTypes();
             accounts.dispatchGetAccounts();
+            accounts.dispatchGetSubaccounts();
 
             this.isAdmin = User.isAdmin(this.user);
 
@@ -61,9 +65,11 @@
                 if (!this.addAccountForm.type && newAccountTypes.length) this.selectedAccountTypeId = newAccountTypes[0].id
             },
 
-            accounts: function(newAccounts) {
-
+            accounts: function() {
                 this.tableData = this.accounts.filter(account => account['type_id'] === this.selectedAccountTypeId)
+            },
+
+            subaccounts: function() {
 
             },
 
@@ -102,7 +108,7 @@
                             .then(() => {
 
                                 formRef.resetFields();
-                                accounts.dispatchGetAccounts()
+                                accounts.dispatchGetAccounts();
                                 this.addAccountFormVisible = false;
 
                             })

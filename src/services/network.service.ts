@@ -169,6 +169,14 @@ class NetworkService {
 
     }
 
+    static getSubaccounts(): Promise<any> {
+
+        return axiosInstance.get(`/api/subaccounts`)
+            .then(response => response.data.subaccounts)
+            .catch(rejectError)
+
+    }
+
 }
 
 export default NetworkService;
