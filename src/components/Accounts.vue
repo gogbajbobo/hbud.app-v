@@ -145,7 +145,6 @@
                          :label="accountType.name">
 
                 <el-button v-if="isAdmin"
-                           class="el-button"
                            type="primary"
                            size="mini"
                            @click="addAccount">
