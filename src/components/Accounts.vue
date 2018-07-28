@@ -152,7 +152,7 @@
                 </el-button>
 
                 <el-table :data="tableData">
-                    <el-table-column prop="name" label="Account name"></el-table-column>
+                    <el-table-column prop="name" label="Name"></el-table-column>
                     <el-table-column label="Subaccounts">
                         <template slot-scope="data">
                             <el-dropdown>
