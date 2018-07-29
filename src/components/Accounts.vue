@@ -18,20 +18,20 @@
                 user: <UserModel> auth.state.user,
                 isAdmin: <boolean> false,
                 formLabelWidth: '120px',
-                addAccountFormVisible: <boolean> false,
-                addSubaccountFormVisible: <boolean> false,
-                addAccountForm: {
+                accountFormVisible: <boolean> false,
+                subaccountFormVisible: <boolean> false,
+                accountForm: {
                     name: <string> '',
                     type: <number|undefined> undefined
                 },
-                addSubaccountForm: {
+                subaccountForm: {
                     name: <string> '',
                     account: <number|undefined> undefined
                 },
-                addAccountFormRules: {
+                accountFormRules: {
                     name: [ { required: true, message: 'Please input Account name', trigger: 'blur' } ]
                 },
-                addSubaccountFormRules: {
+                subaccountFormRules: {
                     name: [ { required: true, message: 'Please input Subaccount name', trigger: 'blur' } ]
                 },
                 tableData: <Array<any>> [],
@@ -69,7 +69,7 @@
         watch: {
 
             accountTypes: function(newAccountTypes) {
-                if (!this.addAccountForm.type && newAccountTypes.length) this.selectedAccountTypeId = newAccountTypes[0].id
+                if (!this.accountForm.type && newAccountTypes.length) this.selectedAccountTypeId = newAccountTypes[0].id
             },
 
             accounts: function() {
@@ -92,13 +92,13 @@
 
             selectedAccountTypeId: function() {
 
-                this.addAccountForm.type = this.selectedAccountTypeId;
+                this.accountForm.type = this.selectedAccountTypeId;
                 this.tableData = this.accounts.filter(account => account['type_id'] === this.selectedAccountTypeId)
 
             },
 
             selectedAccountId: function() {
-                this.addSubaccountForm.account = this.selectedAccountId;
+                this.subaccountForm.account = this.selectedAccountId;
             }
 
         },
@@ -106,40 +106,40 @@
         methods: {
 
             addAccount() {
-                if (!this.addAccountFormVisible) this.addAccountFormVisible = true
+                if (!this.accountFormVisible) this.accountFormVisible = true
             },
 
             addSubaccount(rowId: number) {
 
                 this.selectedAccountId = rowId;
-                if (!this.addSubaccountFormVisible) this.addSubaccountFormVisible = true
+                if (!this.subaccountFormVisible) this.subaccountFormVisible = true
 
             },
 
-            cancelAddAccountForm() {
+            cancelAccountForm() {
 
-                if (this.addAccountFormVisible) this.addAccountFormVisible = false;
-                (this.$refs['addAccountForm'] as any).resetFields()
-
-            },
-
-            cancelAddSubaccountForm() {
-
-                if (this.addSubaccountFormVisible) this.addSubaccountFormVisible = false;
-                (this.$refs['addSubaccountForm'] as any).resetFields()
+                if (this.accountFormVisible) this.accountFormVisible = false;
+                (this.$refs['accountForm'] as any).resetFields()
 
             },
 
-            confirmAddAccountForm() {
+            cancelSubaccountForm() {
 
-                const formRef: any = this.$refs['addAccountForm'];
+                if (this.subaccountFormVisible) this.subaccountFormVisible = false;
+                (this.$refs['subaccountForm'] as any).resetFields()
+
+            },
+
+            confirmAccountForm() {
+
+                const formRef: any = this.$refs['accountForm'];
 
                 formRef.validate()
                     .then(() => {
 
-                        console.log('add account form validation success');
+                        console.log('account form validation success');
 
-                        const form = this.addAccountForm;
+                        const form = this.accountForm;
 
                         NetworkService
                             .addAccount(form.name, form.type as number)
@@ -147,25 +147,25 @@
 
                                 formRef.resetFields();
                                 accounts.dispatchGetAccounts();
-                                this.addAccountFormVisible = false
+                                this.accountFormVisible = false
 
                             })
                             .catch(MessageService.showError)
 
                     })
-                    .catch(() => console.error('add account form validation fail'))
+                    .catch(() => console.error('account form validation fail'))
             },
 
-            confirmAddSubaccountForm() {
+            confirmSubaccountForm() {
 
-                const formRef: any = this.$refs['addSubaccountForm'];
+                const formRef: any = this.$refs['subaccountForm'];
 
                 formRef.validate()
                     .then(() => {
 
-                        console.log('add subaccount form validation success');
+                        console.log('subaccount form validation success');
 
-                        const form = this.addSubaccountForm;
+                        const form = this.subaccountForm;
 
                         if (!form.account) return MessageService.showError(new Error('Have no account id'));
 
@@ -175,13 +175,13 @@
 
                                 formRef.resetFields();
                                 accounts.dispatchGetSubaccounts();
-                                this.addSubaccountFormVisible = false
+                                this.subaccountFormVisible = false
 
                             })
                             .catch(MessageService.showError)
 
                     })
-                    .catch(() => console.error('add subaccount form validation fail'))
+                    .catch(() => console.error('subaccount form validation fail'))
 
             },
 
@@ -207,12 +207,7 @@
                          :key="accountType.id"
                          :label="accountType.name">
 
-                <el-button v-if="isAdmin"
-                           type="primary"
-                           size="mini"
-                           @click="addAccount">
-                    Add account
-                </el-button>
+                <el-button v-if="isAdmin" type="primary" size="mini" icon="el-icon-circle-plus" @click="addAccount">Add account</el-button>
 
                 <el-table :data="tableData">
 
@@ -225,7 +220,8 @@
                             <el-dropdown>
 
                                 <span class="el-dropdown-link">
-                                    {{(subaccountsTableData[data.row.id] || []).length }} subaccounts<i class="el-icon-arrow-down el-icon--right"></i>
+                                    {{(subaccountsTableData[data.row.id] || []).length }} subaccounts
+                                    <i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
 
                                 <el-dropdown-menu slot="dropdown">
@@ -244,48 +240,56 @@
                         </template>
 
                     </el-table-column>
+
+                    <el-table-column label="">
+                        <template slot-scope="data">
+                            <el-button type="warning" size="mini" icon="el-icon-edit" circle @click="editAccount"></el-button>
+                            <el-button type="danger" size="mini" icon="el-icon-delete" circle @click="deleteAccount"></el-button>
+                        </template>
+                    </el-table-column>
+
                 </el-table>
 
             </el-tab-pane>
 
         </el-tabs>
 
-        <el-dialog title="Add account" :visible.sync="addAccountFormVisible" :append-to-body="true">
+        <el-dialog title="Add account" :visible.sync="accountFormVisible" :append-to-body="true">
 
-            <el-form :model="addAccountForm" :rules="addAccountFormRules" ref="addAccountForm">
+            <el-form :model="accountForm" :rules="accountFormRules" ref="accountForm">
 
                 <el-form-item label="Type" :label-width="formLabelWidth">
-                    <el-select v-model="addAccountForm.type" placeholder="Select a type">
+                    <el-select v-model="accountForm.type" placeholder="Select a type">
                         <el-option v-for="at in accountTypes" :label="at.name" :key="at.id" :value="at.id"></el-option>
                     </el-select>
                 </el-form-item>
 
                 <el-form-item label="Account name" :label-width="formLabelWidth" required prop="name">
-                    <el-input v-model="addAccountForm.name" auto-complete="off"></el-input>
+                    <el-input v-model="accountForm.name" auto-complete="off"></el-input>
                 </el-form-item>
 
             </el-form>
 
             <span slot="footer" class="dialog-footer">
-                <el-button @click="cancelAddAccountForm">Cancel</el-button>
-                <el-button type="primary" @click="confirmAddAccountForm">Confirm</el-button>
+                <el-button @click="cancelAccountForm">Cancel</el-button>
+                <el-button type="primary" @click="confirmAccountForm">Confirm</el-button>
             </span>
 
         </el-dialog>
 
-        <el-dialog title="Add subaccount" :visible.sync="addSubaccountFormVisible" :append-to-body="true">
+        <el-dialog title="Add subaccount" :visible.sync="subaccountFormVisible" :append-to-body="true">
 
-            <el-form :model="addSubaccountForm" :rules="addSubaccountFormRules" ref="addSubaccountForm">
+            <el-form :model="subaccountForm" :rules="subaccountFormRules" ref="subaccountForm">
 
                 <el-form-item label="Subaccount name" :label-width="formLabelWidth" required prop="name">
-                    <el-input v-model="addSubaccountForm.name" auto-complete="off"></el-input>
+                    <el-input v-model="subaccountForm.name" auto-complete="off"></el-input>
                 </el-form-item>
 
             </el-form>
 
             <span slot="footer" class="dialog-footer">
-                <el-button @click="cancelAddSubaccountForm">Cancel</el-button>
-                <el-button type="primary" @click="confirmAddSubaccountForm">Confirm</el-button>
+                <el-button @click="cancelSubaccountForm">Cancel</el-button>
+                <el-button type="primary" @click="confirmSubaccountForm">Confirm</el-button>
             </span>
 
         </el-dialog>
