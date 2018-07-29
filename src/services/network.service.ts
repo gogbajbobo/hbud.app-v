@@ -109,20 +109,21 @@ class NetworkService {
 
     }
 
-    static getData(path: string): Promise<any> {
 
-        return axiosInstance.get(`/api/${ path }`)
-            .then(response => response.data)
-            .catch(rejectError)
+    static getData(path: string): Promise<any> {
+        return axiosInstance.get(`/api/${ path }`).then(response => response.data).catch(rejectError)
+    }
+
 
     }
 
+
     static getUsers(): Promise<any> {
-        return this.getData(`users`).then(data => data.users);
+        return this.getData(`users`).then(data => data.users)
     }
 
     static getUserById(userId): Promise<any> {
-        return this.getData(`users/${ userId }`).then(data => data.user);
+        return this.getData(`users/${ userId }`).then(data => data.user)
     }
 
     static deleteUser(userId): Promise<any> {
@@ -134,15 +135,15 @@ class NetworkService {
     }
 
     static getRoles(): Promise<any> {
-        return this.getData(`roles`).then(data => data.roles);
+        return this.getData(`roles`).then(data => data.roles)
     }
 
     static getAccountTypes(): Promise<any> {
-        return this.getData(`accounttypes`).then(data => data.accountTypes);
+        return this.getData(`accounttypes`).then(data => data.accountTypes)
     }
 
     static getAccounts(): Promise<any> {
-        return this.getData(`accounts`).then(data => data.accounts);
+        return this.getData(`accounts`).then(data => data.accounts)
     }
 
     static addAccount(name: string, typeId: number): Promise<any> {
@@ -150,7 +151,7 @@ class NetworkService {
     }
 
     static getSubaccounts(): Promise<any> {
-        return this.getData(`subaccounts`).then(data => data.subaccounts);
+        return this.getData(`subaccounts`).then(data => data.subaccounts)
     }
 
     static addSubaccount(name: string, accountId: number): Promise<any> {
