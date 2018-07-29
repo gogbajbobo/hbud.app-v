@@ -136,8 +136,8 @@
             deleteAccount(accountId: number, accountName: string) {
 
                 MessageService.showConfirmMessage(`Delete account '${ accountName }'`, 'Are you sure?')
-                    .then(() => NetworkService.deleteAccount(accountId).then(accounts.dispatchGetAccounts))
-                    .catch(MessageService.showError)
+                    .then(() => NetworkService.deleteAccount(accountId).then(accounts.dispatchGetAccounts).catch(MessageService.showError))
+                    .catch(() => {})
 
             },
 
