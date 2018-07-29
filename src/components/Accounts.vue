@@ -18,9 +18,11 @@
                 user: <UserModel> auth.state.user,
                 isAdmin: <boolean> false,
                 formLabelWidth: '120px',
+                isAddingAccount: <boolean> false,
                 accountFormVisible: <boolean> false,
                 subaccountFormVisible: <boolean> false,
                 accountForm: {
+                    id: <number|undefined> undefined,
                     name: <string> '',
                     type: <number|undefined> undefined
                 },
@@ -106,9 +108,30 @@
         methods: {
 
             addAccount() {
-                if (!this.accountFormVisible) this.accountFormVisible = true
+
+                if (!this.accountFormVisible) {
+
+                    this.isAddingAccount = true;
+                    this.accountFormVisible = true
+
+                }
+
             },
 
+            editAccount(accountId: number) {
+
+                if (!this.accountFormVisible) {
+
+                    const account: any = this.accounts.filter(account => account.id === accountId)[0];
+
+                    this.accountForm.id = account.id;
+                    this.accountForm.type = account.type_id;
+                    this.accountForm.name = account.name;
+                    this.accountFormVisible = true
+
+                }
+
+            },
 
             deleteAccount(accountId: number, accountName: string) {
 
@@ -118,24 +141,11 @@
 
             },
 
-            addSubaccount(accountId: number) {
-
-                this.selectedAccountId = accountId;
-                if (!this.subaccountFormVisible) this.subaccountFormVisible = true
-
-            },
-
             cancelAccountForm() {
 
                 if (this.accountFormVisible) this.accountFormVisible = false;
+                this.isAddingAccount = false;
                 (this.$refs['accountForm'] as any).resetFields()
-
-            },
-
-            cancelSubaccountForm() {
-
-                if (this.subaccountFormVisible) this.subaccountFormVisible = false;
-                (this.$refs['subaccountForm'] as any).resetFields()
 
             },
 
@@ -150,19 +160,51 @@
 
                         const form = this.accountForm;
 
-                        NetworkService
-                            .addAccount(form.name, form.type as number)
-                            .then(() => {
+                        if (this.isAddingAccount) {
 
-                                formRef.resetFields();
-                                accounts.dispatchGetAccounts();
-                                this.accountFormVisible = false
+                            NetworkService
+                                .addAccount(form.name, form.type as number)
+                                .then(() => {
 
-                            })
-                            .catch(MessageService.showError)
+                                    formRef.resetFields();
+                                    accounts.dispatchGetAccounts();
+                                    this.isAddingAccount = false;
+                                    this.accountFormVisible = false
+
+                                })
+                                .catch(MessageService.showError)
+
+                        } else {
+
+                            NetworkService
+                                .updateAccount(form.id as number, form.name, form.type as number)
+                                .then(() => {
+
+                                    formRef.resetFields();
+                                    accounts.dispatchGetAccounts();
+                                    this.accountFormVisible = false
+
+                                })
+                                .catch(MessageService.showError)
+
+                        }
 
                     })
                     .catch(() => console.error('account form validation fail'))
+            },
+
+            addSubaccount(accountId: number) {
+
+                this.selectedAccountId = accountId;
+                if (!this.subaccountFormVisible) this.subaccountFormVisible = true
+
+            },
+
+            cancelSubaccountForm() {
+
+                if (this.subaccountFormVisible) this.subaccountFormVisible = false;
+                (this.$refs['subaccountForm'] as any).resetFields()
+
             },
 
             confirmSubaccountForm() {
@@ -252,7 +294,7 @@
 
                     <el-table-column label="">
                         <template slot-scope="data">
-                            <el-button type="warning" size="mini" icon="el-icon-edit" circle @click="editAccount"></el-button>
+                            <el-button type="warning" size="mini" icon="el-icon-edit" circle @click="editAccount(data.row.id)"></el-button>
                             <el-button type="danger" size="mini" icon="el-icon-delete" circle @click="deleteAccount(data.row.id, data.row.name)"></el-button>
                         </template>
                     </el-table-column>
