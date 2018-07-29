@@ -109,9 +109,10 @@
                 if (!this.accountFormVisible) this.accountFormVisible = true
             },
 
-            addSubaccount(rowId: number) {
 
-                this.selectedAccountId = rowId;
+            addSubaccount(accountId: number) {
+
+                this.selectedAccountId = accountId;
                 if (!this.subaccountFormVisible) this.subaccountFormVisible = true
 
             },
