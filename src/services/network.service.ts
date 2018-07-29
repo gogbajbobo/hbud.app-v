@@ -114,6 +114,9 @@ class NetworkService {
         return axiosInstance.get(`/api/${ path }`).then(response => response.data).catch(rejectError)
     }
 
+    static postData(path: string, data: any): Promise<any> {
+        return axiosInstance.post(`/api/${ path }`, data).catch(rejectError)
+    }
 
     }
 
@@ -147,7 +150,7 @@ class NetworkService {
     }
 
     static addAccount(name: string, typeId: number): Promise<any> {
-        return axiosInstance.post('/api/accounts', { name, typeId }).catch(rejectError)
+        return this.postData('accounts', { name, typeId })
     }
 
     static getSubaccounts(): Promise<any> {
@@ -155,7 +158,7 @@ class NetworkService {
     }
 
     static addSubaccount(name: string, accountId: number): Promise<any> {
-        return axiosInstance.post('/api/subaccounts', { name, accountId }).catch(rejectError)
+        return this.postData('subaccounts', { name, accountId })
     }
 
 }
