@@ -147,8 +147,8 @@ class NetworkService {
         return this.getData(`accounts`).then(data => data.accounts)
     }
 
-    static addAccount(name: string, typeId: number): Promise<any> {
-        return this.postData('accounts', { name, typeId })
+    static addAccount(name: string, type_id: number): Promise<any> {
+        return this.postData('accounts', { name, type_id })
     }
 
     static deleteAccount(accountId: number): Promise<any> {
