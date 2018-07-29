@@ -35,6 +35,7 @@
                     name: [ { required: true, message: 'Please input Subaccount name', trigger: 'blur' } ]
                 },
                 tableData: <Array<any>> [],
+                subaccountsTableData: <Array<any>> [],
                 selectedAccountTypeId: <number|undefined> undefined,
                 selectedAccountId: <number|undefined> undefined
 
@@ -75,7 +76,17 @@
                 this.tableData = this.accounts.filter(account => account['type_id'] === this.selectedAccountTypeId)
             },
 
-            subaccounts: function() {
+            subaccounts: function(newSubaccounts) {
+
+                this.subaccountsTableData = newSubaccounts.reduce((result, subacc) => {
+
+                    const accId = subacc['account_id'];
+
+                    return Object.assign(result, { [accId]: (result[accId] || []).concat(subacc)})
+
+                }, {});
+
+                console.log('this.subaccountsTableData', this.subaccountsTableData)
 
             },
 
@@ -204,25 +215,34 @@
                 </el-button>
 
                 <el-table :data="tableData">
+
                     <el-table-column prop="id" label="Id"></el-table-column>
                     <el-table-column prop="name" label="Name"></el-table-column>
+
                     <el-table-column label="Subaccounts">
+
                         <template slot-scope="data">
                             <el-dropdown>
-                            <span class="el-dropdown-link">
-                                Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
-                            </span>
+
+                                <span class="el-dropdown-link">
+                                    Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
+                                </span>
+
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>Action 1</el-dropdown-item>
-                                    <el-dropdown-item>Action 2</el-dropdown-item>
-                                    <el-dropdown-item>Action 3</el-dropdown-item>
-                                    <el-dropdown-item disabled>Action 4</el-dropdown-item>
+
+                                    <el-dropdown-item v-for="subacc in subaccountsTableData[data.row.id]" :key="subacc.id">
+                                        {{ subacc.name }}
+                                    </el-dropdown-item>
+
                                     <el-dropdown-item divided>
                                         <el-button type="primary" size="mini" @click="addSubaccount(data.row.id)">Add</el-button>
                                     </el-dropdown-item>
+
                                 </el-dropdown-menu>
+
                             </el-dropdown>
                         </template>
+
                     </el-table-column>
                 </el-table>
 
