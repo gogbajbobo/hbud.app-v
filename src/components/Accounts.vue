@@ -225,7 +225,7 @@
                             <el-dropdown>
 
                                 <span class="el-dropdown-link">
-                                    Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
+                                    {{(subaccountsTableData[data.row.id] || []).length }} subaccounts<i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
 
                                 <el-dropdown-menu slot="dropdown">
