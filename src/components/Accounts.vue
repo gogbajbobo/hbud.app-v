@@ -305,7 +305,7 @@
 
         </el-tabs>
 
-        <el-dialog title="Add account" :visible.sync="accountFormVisible" :append-to-body="true">
+        <el-dialog :title="isAddingAccount ? `Add account` : `Edit account`" :visible.sync="accountFormVisible" :append-to-body="true">
 
             <el-form :model="accountForm" :rules="accountFormRules" ref="accountForm">
 
