@@ -118,6 +118,8 @@ class NetworkService {
         return axiosInstance.post(`/api/${ path }`, data).catch(rejectError)
     }
 
+    static deleteData(path: string): Promise<any> {
+        return axiosInstance.delete(`/api/${ path }`).catch(rejectError)
     }
 
 
@@ -130,11 +132,7 @@ class NetworkService {
     }
 
     static deleteUser(userId): Promise<any> {
-
-        return axiosInstance.delete(`/api/users/${ userId }`)
-            .then(response => response.data)
-            .catch(rejectError)
-
+        return this.deleteData(`users/${ userId }`)
     }
 
     static getRoles(): Promise<any> {
