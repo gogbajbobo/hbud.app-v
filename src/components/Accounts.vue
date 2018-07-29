@@ -21,6 +21,7 @@
                 isAddingAccount: <boolean> false,
                 accountFormVisible: <boolean> false,
                 subaccountFormVisible: <boolean> false,
+                subaccountActionsListVisible: <boolean> false,
                 accountForm: {
                     id: <number|undefined> undefined,
                     name: <string> '',
@@ -200,6 +201,14 @@
 
             },
 
+            editSubaccount() {
+
+            },
+
+            deleteSubaccount() {
+
+            },
+
             cancelSubaccountForm() {
 
                 if (this.subaccountFormVisible) this.subaccountFormVisible = false;
@@ -238,6 +247,17 @@
 
             tabClick(tab) {
                 this.selectedAccountTypeId = this.accountTypes.filter(type => type.name === tab.label)[0].id;
+            },
+
+            handleSubaccDropdownCommand(subaccId) {
+
+                console.log(`handleDropdownCommand ${ subaccId }`);
+                this.subaccountActionsListVisible = true
+                
+            },
+
+            cancelSubaccountActionsList() {
+                this.subaccountActionsListVisible = false
             }
 
         }
@@ -268,7 +288,7 @@
                     <el-table-column label="Subaccounts">
 
                         <template slot-scope="data">
-                            <el-dropdown>
+                            <el-dropdown @command="handleSubaccDropdownCommand">
 
                                 <span class="el-dropdown-link">
                                     {{(subaccountsTableData[data.row.id] || []).length }} subaccounts
@@ -277,7 +297,7 @@
 
                                 <el-dropdown-menu slot="dropdown">
 
-                                    <el-dropdown-item v-for="subacc in subaccountsTableData[data.row.id]" :key="subacc.id">
+                                    <el-dropdown-item v-for="subacc in subaccountsTableData[data.row.id]" :key="subacc.id" :command="subacc.id">
                                         {{ subacc.name }}
                                     </el-dropdown-item>
 
@@ -341,6 +361,16 @@
             <span slot="footer" class="dialog-footer">
                 <el-button @click="cancelSubaccountForm">Cancel</el-button>
                 <el-button type="primary" @click="confirmSubaccountForm">Confirm</el-button>
+            </span>
+
+        </el-dialog>
+
+        <el-dialog title="Subaccount actions list" :visible.sync="subaccountActionsListVisible" :append-to-body="true">
+
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="cancelSubaccountActionsList">Cancel</el-button>
+                <el-button type="primary" @click="editSubaccount">Edit</el-button>
+                <el-button type="warning" @click="deleteSubaccount">Delete</el-button>
             </span>
 
         </el-dialog>
