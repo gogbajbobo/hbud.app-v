@@ -110,6 +110,14 @@
             },
 
 
+            deleteAccount(accountId: number, accountName: string) {
+
+                MessageService.showConfirmMessage(`Delete account '${ accountName }'`, 'Are you sure?')
+                    .then(() => NetworkService.deleteAccount(accountId).then(accounts.dispatchGetAccounts))
+                    .catch(MessageService.showError)
+
+            },
+
             addSubaccount(accountId: number) {
 
                 this.selectedAccountId = accountId;
@@ -245,7 +253,7 @@
                     <el-table-column label="">
                         <template slot-scope="data">
                             <el-button type="warning" size="mini" icon="el-icon-edit" circle @click="editAccount"></el-button>
-                            <el-button type="danger" size="mini" icon="el-icon-delete" circle @click="deleteAccount"></el-button>
+                            <el-button type="danger" size="mini" icon="el-icon-delete" circle @click="deleteAccount(data.row.id, data.row.name)"></el-button>
                         </template>
                     </el-table-column>
 

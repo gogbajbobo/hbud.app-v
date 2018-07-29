@@ -151,6 +151,10 @@ class NetworkService {
         return this.postData('accounts', { name, typeId })
     }
 
+    static deleteAccount(accountId: number): Promise<any> {
+        return this.deleteData(`accounts/${ accountId }`)
+    }
+
     static getSubaccounts(): Promise<any> {
         return this.getData(`subaccounts`).then(data => data.subaccounts)
     }
