@@ -18,25 +18,29 @@
                 user: <UserModel> auth.state.user,
                 isAdmin: <boolean> false,
                 formLabelWidth: '120px',
+
                 isAddingAccount: <boolean> false,
                 accountFormVisible: <boolean> false,
-                subaccountFormVisible: <boolean> false,
-                subaccountActionsListVisible: <boolean> false,
                 accountForm: {
                     id: <number|undefined> undefined,
                     name: <string> '',
                     type: <number|undefined> undefined
                 },
+                accountFormRules: {
+                    name: [ { required: true, message: 'Please input Account name', trigger: 'blur' } ]
+                },
+
+                isAddingSubaccount: <boolean> false,
+                subaccountFormVisible: <boolean> false,
+                subaccountActionsListVisible: <boolean> false,
                 subaccountForm: {
                     name: <string> '',
                     account: <number|undefined> undefined
                 },
-                accountFormRules: {
-                    name: [ { required: true, message: 'Please input Account name', trigger: 'blur' } ]
-                },
                 subaccountFormRules: {
                     name: [ { required: true, message: 'Please input Subaccount name', trigger: 'blur' } ]
                 },
+
                 tableData: <Array<any>> [],
                 subaccountsTableData: <Array<any>> [],
                 selectedAccountTypeId: <number|undefined> undefined,
