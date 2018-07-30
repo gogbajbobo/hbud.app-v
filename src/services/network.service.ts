@@ -167,6 +167,10 @@ class NetworkService {
         return this.postData('subaccounts', { name, accountId })
     }
 
+    static deleteSubaccount(subaccountId: number): Promise<any> {
+        return this.deleteData(`subaccounts/${ subaccountId }`)
+    }
+
 }
 
 export default NetworkService;

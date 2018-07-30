@@ -40,7 +40,8 @@
                 tableData: <Array<any>> [],
                 subaccountsTableData: <Array<any>> [],
                 selectedAccountTypeId: <number|undefined> undefined,
-                selectedAccountId: <number|undefined> undefined
+                selectedAccountId: <number|undefined> undefined,
+                selectedSubaccountId: <number|undefined> undefined
 
             }
         },
@@ -207,6 +208,22 @@
 
             deleteSubaccount() {
 
+                this.subaccountActionsListVisible = false;
+
+                if (!this.selectedSubaccountId) return;
+
+                const subaccId: number = this.selectedSubaccountId as number;
+                const subaccName: string = this.subaccounts.filter(subacc => subacc.id === subaccId)[0].name;
+
+                MessageService.showConfirmMessage(`Delete subaccount '${ subaccName }'`, 'Are you sure?')
+                    .then(() => NetworkService.deleteSubaccount(subaccId).then(() => {
+
+                        accounts.dispatchGetSubaccounts();
+                        this.selectedSubaccountId = undefined
+
+                    }).catch(MessageService.showError))
+                    .catch(() => {})
+
             },
 
             cancelSubaccountForm() {
@@ -251,13 +268,18 @@
 
             handleSubaccDropdownCommand(subaccId) {
 
-                console.log(`handleDropdownCommand ${ subaccId }`);
+                if (!subaccId) return;
+
+                this.selectedSubaccountId = subaccId;
                 this.subaccountActionsListVisible = true
-                
+
             },
 
             cancelSubaccountActionsList() {
+
+                this.selectedSubaccountId = undefined;
                 this.subaccountActionsListVisible = false
+
             }
 
         }
