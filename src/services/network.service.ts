@@ -171,6 +171,10 @@ class NetworkService {
         return this.deleteData(`subaccounts/${ subaccountId }`)
     }
 
+    static updateSubaccount(subaccountId: number, name: string, account_id: number): Promise<any> {
+        return axiosInstance.put(`/api/subaccounts/${ subaccountId }`, { name, account_id }).catch(rejectError)
+    }
+
 }
 
 export default NetworkService;

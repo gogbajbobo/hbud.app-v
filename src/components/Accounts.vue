@@ -202,11 +202,24 @@
             addSubaccount(accountId: number) {
 
                 this.selectedAccountId = accountId;
+                this.isAddingSubaccount = true;
                 if (!this.subaccountFormVisible) this.subaccountFormVisible = true
 
             },
 
             editSubaccount() {
+
+                this.subaccountActionsListVisible = false;
+
+                if (!this.selectedSubaccountId) return;
+
+                const subaccId: number = this.selectedSubaccountId as number;
+                const subacc = this.subaccounts.filter(subacc => subacc.id === subaccId)[0];
+                
+                this.subaccountForm.name = subacc.name;
+                this.subaccountForm.account = subacc['account_id'];
+
+                this.subaccountFormVisible = true;
 
             },
 
@@ -233,6 +246,7 @@
             cancelSubaccountForm() {
 
                 if (this.subaccountFormVisible) this.subaccountFormVisible = false;
+                this.isAddingSubaccount = false;
                 (this.$refs['subaccountForm'] as any).resetFields()
 
             },
@@ -250,16 +264,36 @@
 
                         if (!form.account) return MessageService.showError(new Error('Have no account id'));
 
-                        NetworkService
-                            .addSubaccount(form.name, form.account as number)
-                            .then(() => {
+                        if (this.isAddingSubaccount) {
 
-                                formRef.resetFields();
-                                accounts.dispatchGetSubaccounts();
-                                this.subaccountFormVisible = false
+                            NetworkService
+                                .addSubaccount(form.name, form.account as number)
+                                .then(() => {
 
-                            })
-                            .catch(MessageService.showError)
+                                    formRef.resetFields();
+                                    accounts.dispatchGetSubaccounts();
+                                    this.isAddingSubaccount = false;
+                                    this.subaccountFormVisible = false
+
+                                })
+                                .catch(MessageService.showError)
+
+                        } else {
+
+                            if (!this.selectedSubaccountId) return MessageService.showError(new Error('Have no subaccount id'));
+
+                            NetworkService
+                                .updateSubaccount(this.selectedSubaccountId, form.name, form.account)
+                                .then(() => {
+
+                                    formRef.resetFields();
+                                    accounts.dispatchGetSubaccounts();
+                                    this.subaccountFormVisible = false
+
+                                })
+                                .catch(MessageService.showError)
+
+                        }
 
                     })
                     .catch(() => console.error('subaccount form validation fail'))
