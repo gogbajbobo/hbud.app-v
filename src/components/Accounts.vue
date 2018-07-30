@@ -215,7 +215,7 @@
 
                 const subaccId: number = this.selectedSubaccountId as number;
                 const subacc = this.subaccounts.filter(subacc => subacc.id === subaccId)[0];
-                
+
                 this.subaccountForm.name = subacc.name;
                 this.subaccountForm.account = subacc['account_id'];
 
@@ -342,7 +342,7 @@
 
                 <el-table :data="tableData">
 
-                    <el-table-column prop="id" label="Id"></el-table-column>
+                    <el-table-column prop="id" label="Id" width="60px"></el-table-column>
                     <el-table-column prop="name" label="Name"></el-table-column>
 
                     <el-table-column label="Subaccounts">
