@@ -14,7 +14,8 @@
                 transaction: {
                     from: <string> '',
                     to: <string> ''
-                }
+                },
+                activeStep: <number> 1
             }
         },
 
@@ -71,6 +72,12 @@
 
             <span>{{ transaction.from }}</span>
             <span>{{ transaction.to }}</span>
+
+            <el-steps :active="activeStep" simple>
+                <el-step title="From" icon="el-icon-goods"></el-step>
+                <el-step title="To" icon="el-icon-goods"></el-step>
+                <el-step title="Value" icon="el-icon-question"></el-step>
+            </el-steps>
 
             <span slot="footer" class="dialog-footer">
                 <el-button @click="cancelAddTransaction">Cancel</el-button>
