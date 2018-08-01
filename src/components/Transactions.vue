@@ -41,6 +41,10 @@
 
                 this.addTransactionDialogVisible = true
 
+            },
+
+            cancelAddTransaction() {
+                this.addTransactionDialogVisible = false
             }
         }
 
@@ -69,7 +73,7 @@
             <span>{{ transaction.to }}</span>
 
             <span slot="footer" class="dialog-footer">
-                <el-button >Cancel</el-button>
+                <el-button @click="cancelAddTransaction">Cancel</el-button>
                 <el-button type="primary">Done</el-button>
             </span>
 
