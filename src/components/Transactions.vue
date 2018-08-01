@@ -18,9 +18,10 @@
                     to: <string> '',
                     type: <string> 'income'
                 },
-                activeStep: <number> 1,
+                activeStep: <number> 0,
                 activeStepAccounts: <Array<any>> [],
-                fromAccountId: <number|undefined> undefined
+                fromAccountId: <number|undefined> undefined,
+                toAccountId: <number|undefined> undefined
             }
         },
 
@@ -56,6 +57,10 @@
             },
 
             subaccounts: function(newSubaccounts) {
+            },
+
+            activeStep: function() {
+                this.refreshActiveStepAccounts()
             }
 
         },
@@ -91,7 +96,10 @@
             },
 
             cancelAddTransaction() {
-                this.addTransactionDialogVisible = false
+
+                this.addTransactionDialogVisible = false;
+                this.activeStep = 0
+
             },
 
             refreshActiveStepAccounts() {
@@ -100,16 +108,24 @@
 
                     switch (this.transaction.type) {
 
-                        case 'income': { return this.activeStep === 1 ? account.type_id === 1 : account.type_id === 2 }
+                        case 'income': { return this.activeStep === 0 ? account.type_id === 1 : account.type_id === 2 }
 
                         case 'transfer': { return account.type_id === 2 }
 
-                        case 'expense': { return this.activeStep === 1 ? account.type_id === 2 : account.type_id === 3 }
+                        case 'expense': { return this.activeStep === 0 ? account.type_id === 2 : account.type_id === 3 }
 
                     }
 
                 })
 
+            },
+
+            nextStep() {
+                this.activeStep < 2 ? this.activeStep++ : this.activeStep = 2
+            },
+
+            previousStep() {
+                this.activeStep > 0 ? this.activeStep-- : this.activeStep = 0
             }
 
         }
@@ -144,13 +160,18 @@
                 <el-step title="Value" icon="el-icon-question"></el-step>
             </el-steps>
 
-            <el-select v-model="fromAccountId" placeholder="From" v-if="activeStep === 1">
+            <el-select v-model="fromAccountId" placeholder="From" v-if="activeStep === 0">
+                <el-option v-for="item in activeStepAccounts" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+
+            <el-select v-model="toAccountId" placeholder="To" v-if="activeStep === 1">
                 <el-option v-for="item in activeStepAccounts" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
 
             <span slot="footer" class="dialog-footer">
                 <el-button @click="cancelAddTransaction">Cancel</el-button>
-                <el-button type="primary">Done</el-button>
+                <el-button type="primary" @click="previousStep">Previous</el-button>
+                <el-button type="primary" @click="nextStep">Next</el-button>
             </span>
 
         </el-dialog>
