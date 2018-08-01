@@ -93,7 +93,7 @@
                     return Object.assign(result, { [accId]: (result[accId] || []).concat(subacc)})
 
                 }, {});
-                
+
             },
 
             selectedAccountTypeId: function() {

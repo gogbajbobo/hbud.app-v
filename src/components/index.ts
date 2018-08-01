@@ -16,9 +16,6 @@ export {
     Profile,
     Settings,
     Accounts,
-    AccountsIncome,
-    AccountsCurrent,
-    AccountsExpense,
     Transactions,
     Users,
     Register

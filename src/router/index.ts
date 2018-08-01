@@ -11,9 +11,6 @@ import {
     Profile,
     Settings,
     Accounts,
-    AccountsIncome,
-    AccountsCurrent,
-    AccountsExpense,
     Transactions,
     Users,
     Register
@@ -67,33 +64,6 @@ const accounts: RouteConfig = {
     }
 };
 
-const accountsIncome: RouteConfig = {
-    path: '/accounts-income',
-    name: 'AccountsIncome',
-    component: AccountsIncome,
-    meta: {
-        localname: 'Income accounts page'
-    }
-};
-
-const accountsCurrent: RouteConfig = {
-    path: '/accounts-current',
-    name: 'AccountsCurrent',
-    component: AccountsCurrent,
-    meta: {
-        localname: 'Current accounts page'
-    }
-};
-
-const accountsExpense: RouteConfig = {
-    path: '/accounts-expense',
-    name: 'AccountsExpense',
-    component: AccountsExpense,
-    meta: {
-        localname: 'Expense accounts page'
-    }
-};
-
 const transactions: RouteConfig = {
     path: '/transactions',
     name: 'Transactions',
@@ -128,9 +98,6 @@ const routes: RouteConfig[] = [
     profile,
     settings,
     accounts,
-    accountsIncome,
-    accountsCurrent,
-    accountsExpense,
     transactions,
     users,
     register
