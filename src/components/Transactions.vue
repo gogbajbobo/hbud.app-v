@@ -2,6 +2,8 @@
 
     import Vue from 'vue'
 
+    import accounts from '../store/modules/accounts'
+
     export default Vue.extend({
 
         name: "Transactions",
@@ -13,40 +15,103 @@
                 addTransactionDialogVisible: <boolean> false,
                 transaction: {
                     from: <string> '',
-                    to: <string> ''
+                    to: <string> '',
+                    type: <string> 'income'
                 },
-                activeStep: <number> 1
+                activeStep: <number> 1,
+                activeStepAccounts: <Array<any>> [],
+                fromAccountId: <number|undefined> undefined
             }
         },
 
+        computed: {
+
+            accountTypes() {
+                return accounts.state.accountTypes
+            },
+            accounts() {
+                return accounts.state.accounts
+            },
+            subaccounts() {
+                return accounts.state.subaccounts
+            }
+
+        },
+
+        created() {
+
+            accounts.dispatchGetAccountTypes();
+            accounts.dispatchGetAccounts();
+            accounts.dispatchGetSubaccounts();
+
+        },
+
+        watch: {
+
+            accountTypes: function(newAccountTypes) {
+            },
+
+            accounts: function(newAccounts) {
+                this.refreshActiveStepAccounts()
+            },
+
+            subaccounts: function(newSubaccounts) {
+            }
+
+        },
+
         methods: {
+
             cardClick(card) {
 
                 switch (card.title) {
                     case 'Incomes': {
                         this.transaction.from = 'Income';
                         this.transaction.to = 'Current';
+                        this.transaction.type = 'income';
                         break;
                     }
                     case 'Transfers': {
                         this.transaction.from = 'Current';
                         this.transaction.to = 'Current';
+                        this.transaction.type = 'transfer';
                         break;
                     }
                     case 'Expenses': {
                         this.transaction.from = 'Current';
                         this.transaction.to = 'Expense';
+                        this.transaction.type = 'expense';
                         break;
                     }
                 }
 
+                this.refreshActiveStepAccounts();
                 this.addTransactionDialogVisible = true
 
             },
 
             cancelAddTransaction() {
                 this.addTransactionDialogVisible = false
+            },
+
+            refreshActiveStepAccounts() {
+
+                this.activeStepAccounts = this.accounts.filter(account => {
+
+                    switch (this.transaction.type) {
+
+                        case 'income': { return this.activeStep === 1 ? account.type_id === 1 : account.type_id === 2 }
+
+                        case 'transfer': { return account.type_id === 2 }
+
+                        case 'expense': { return this.activeStep === 1 ? account.type_id === 2 : account.type_id === 3 }
+
+                    }
+
+                })
+
             }
+
         }
 
     })
@@ -78,6 +143,10 @@
                 <el-step title="To" icon="el-icon-goods"></el-step>
                 <el-step title="Value" icon="el-icon-question"></el-step>
             </el-steps>
+
+            <el-select v-model="fromAccountId" placeholder="From" v-if="activeStep === 1">
+                <el-option v-for="item in activeStepAccounts" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
 
             <span slot="footer" class="dialog-footer">
                 <el-button @click="cancelAddTransaction">Cancel</el-button>
