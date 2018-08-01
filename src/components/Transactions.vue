@@ -10,7 +10,7 @@
             return {
                 isMobile: <boolean> (window.innerWidth <= 768),
                 cards: [{title: 'Incomes'}, {title: 'Transfers'}, {title: 'Expenses'}],
-                transactionDialogVisible: <boolean> false,
+                addTransactionDialogVisible: <boolean> false,
                 transaction: {
                     from: <string> '',
                     to: <string> ''
@@ -39,8 +39,8 @@
                     }
                 }
 
-                this.transactionDialogVisible = true;
-                
+                this.addTransactionDialogVisible = true
+
             }
         }
 
@@ -63,7 +63,7 @@
             </el-col>
         </el-row>
 
-        <el-dialog title="Transaction" :visible.sync="transactionDialogVisible" :append-to-body="true">
+        <el-dialog title="Transaction" :visible.sync="addTransactionDialogVisible" :append-to-body="true">
 
             <span>{{ transaction.from }}</span>
             <span>{{ transaction.to }}</span>
