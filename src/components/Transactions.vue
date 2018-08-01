@@ -102,6 +102,15 @@
 
             },
 
+            confirmAddTransaction() {
+
+                console.log('confirmAddTransaction');
+                
+                this.addTransactionDialogVisible = false;
+                this.activeStep = 0
+
+            },
+
             refreshActiveStepAccounts() {
 
                 this.activeStepAccounts = this.accounts.filter(account => {
