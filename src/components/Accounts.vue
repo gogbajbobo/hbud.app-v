@@ -93,9 +93,7 @@
                     return Object.assign(result, { [accId]: (result[accId] || []).concat(subacc)})
 
                 }, {});
-
-                console.log('this.subaccountsTableData', this.subaccountsTableData)
-
+                
             },
 
             selectedAccountTypeId: function() {
