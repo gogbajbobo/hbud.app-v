@@ -178,9 +178,10 @@
             </el-select>
 
             <span slot="footer" class="dialog-footer">
-                <el-button @click="cancelAddTransaction">Cancel</el-button>
-                <el-button type="primary" @click="previousStep">Previous</el-button>
-                <el-button type="primary" @click="nextStep">Next</el-button>
+                <el-button type="warning" @click="cancelAddTransaction">Cancel</el-button>
+                <el-button type="" @click="previousStep" :disabled="activeStep === 0">Previous</el-button>
+                <el-button type="primary" v-if="activeStep !== 2" @click="nextStep">Next</el-button>
+                <el-button type="success" v-if="activeStep === 2" @click="confirmAddTransaction">Done</el-button>
             </span>
 
         </el-dialog>
