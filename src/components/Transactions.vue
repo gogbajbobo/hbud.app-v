@@ -4,6 +4,14 @@
 
     import accounts from '../store/modules/accounts'
 
+    const initialTransaction = {
+        from: <string> '',
+        to: <string> '',
+        type: <string> 'income',
+        fromAccountId: <number|undefined> undefined,
+        toAccountId: <number|undefined> undefined
+    };
+
     export default Vue.extend({
 
         name: "Transactions",
@@ -13,15 +21,9 @@
                 isMobile: <boolean> (window.innerWidth <= 768),
                 cards: [{title: 'Incomes'}, {title: 'Transfers'}, {title: 'Expenses'}],
                 addTransactionDialogVisible: <boolean> false,
-                transaction: {
-                    from: <string> '',
-                    to: <string> '',
-                    type: <string> 'income'
-                },
+                transaction: initialTransaction,
                 activeStep: <number> 0,
-                activeStepAccounts: <Array<any>> [],
-                fromAccountId: <number|undefined> undefined,
-                toAccountId: <number|undefined> undefined
+                activeStepAccounts: <Array<any>> []
             }
         },
 
@@ -98,16 +100,18 @@
             cancelAddTransaction() {
 
                 this.addTransactionDialogVisible = false;
-                this.activeStep = 0
+                this.activeStep = 0;
+                this.transaction = initialTransaction
 
             },
 
             confirmAddTransaction() {
 
                 console.log('confirmAddTransaction');
-                
+
                 this.addTransactionDialogVisible = false;
-                this.activeStep = 0
+                this.activeStep = 0;
+                this.transaction = initialTransaction
 
             },
 
@@ -169,11 +173,11 @@
                 <el-step title="Value" icon="el-icon-question"></el-step>
             </el-steps>
 
-            <el-select v-model="fromAccountId" placeholder="From" v-if="activeStep === 0">
+            <el-select v-model="transaction.fromAccountId" placeholder="From" v-if="activeStep === 0">
                 <el-option v-for="item in activeStepAccounts" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
 
-            <el-select v-model="toAccountId" placeholder="To" v-if="activeStep === 1">
+            <el-select v-model="transaction.toAccountId" placeholder="To" v-if="activeStep === 1">
                 <el-option v-for="item in activeStepAccounts" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
 
