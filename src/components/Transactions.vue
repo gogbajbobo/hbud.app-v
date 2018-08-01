@@ -23,7 +23,8 @@
                 addTransactionDialogVisible: <boolean> false,
                 transaction: initialTransaction,
                 activeStep: <number> 0,
-                activeStepAccounts: <Array<any>> []
+                activeStepAccounts: <Array<any>> [],
+                accountCascaderProps: { value: 'id', label: 'name' }
             }
         },
 
@@ -153,6 +154,14 @@
 
                 }
 
+            },
+
+            fromAccountIdChange(value) {
+                this.transaction.fromAccountId = value[0];
+            },
+
+            toAccountIdChange(value) {
+                this.transaction.toAccountId = value[0];
             }
 
         }
@@ -187,13 +196,23 @@
                 <el-step title="Value" icon="el-icon-question"></el-step>
             </el-steps>
 
-            <el-select v-model="transaction.fromAccountId" placeholder="From" v-if="activeStep === 0">
-                <el-option v-for="item in activeStepAccounts" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+            <el-cascader v-if="activeStep === 0"
+                         placeholder="From"
+                         :options="activeStepAccounts"
+                         :props="accountCascaderProps"
+                         :value="[transaction.fromAccountId]"
+                         filterable
+                         change-on-select
+                         @change="fromAccountIdChange"></el-cascader>
 
-            <el-select v-model="transaction.toAccountId" placeholder="To" v-if="activeStep === 1">
-                <el-option v-for="item in activeStepAccounts" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+            <el-cascader v-if="activeStep === 1"
+                         placeholder="To"
+                         :options="activeStepAccounts"
+                         :props="accountCascaderProps"
+                         :value="[transaction.toAccountId]"
+                         filterable
+                         change-on-select
+                         @change="toAccountIdChange"></el-cascader>
 
             <span slot="footer" class="dialog-footer">
                 <el-button type="warning" @click="cancelAddTransaction">Cancel</el-button>
