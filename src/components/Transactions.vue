@@ -4,13 +4,13 @@
 
     import accounts from '../store/modules/accounts'
 
-    const initialTransaction = {
+    const initialTransaction = () => ({
         from: <string> '',
         to: <string> '',
         type: <string> 'income',
         fromAccountId: <number|undefined> undefined,
         toAccountId: <number|undefined> undefined
-    };
+    });
 
     export default Vue.extend({
 
@@ -21,7 +21,7 @@
                 isMobile: <boolean> (window.innerWidth <= 768),
                 cards: [{title: 'Incomes'}, {title: 'Transfers'}, {title: 'Expenses'}],
                 addTransactionDialogVisible: <boolean> false,
-                transaction: initialTransaction,
+                transaction: initialTransaction(),
                 activeStep: <number> 0,
                 activeStepAccounts: <Array<any>> [],
                 accountCascaderProps: { value: 'id', label: 'name' }
