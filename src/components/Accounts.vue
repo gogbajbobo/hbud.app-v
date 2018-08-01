@@ -70,36 +70,37 @@
             accounts.dispatchGetAccounts();
             accounts.dispatchGetSubaccounts();
 
+            this.refreshAccountTypes();
+            this.refreshTableData();
+            this.refreshSubaccountsTableData();
+
             this.isAdmin = User.isAdmin(this.user);
+
+        },
+
+        mounted() {
+
 
         },
 
         watch: {
 
-            accountTypes: function(newAccountTypes) {
-                if (!this.accountForm.type && newAccountTypes.length) this.selectedAccountTypeId = newAccountTypes[0].id
+            accountTypes: function() {
+                this.refreshAccountTypes()
             },
 
             accounts: function() {
-                this.tableData = this.accounts.filter(account => account['type_id'] === this.selectedAccountTypeId)
+                this.refreshTableData()
             },
 
-            subaccounts: function(newSubaccounts) {
-
-                this.subaccountsTableData = newSubaccounts.reduce((result, subacc) => {
-
-                    const accId = subacc['account_id'];
-
-                    return Object.assign(result, { [accId]: (result[accId] || []).concat(subacc)})
-
-                }, {});
-
+            subaccounts: function() {
+                this.refreshSubaccountsTableData()
             },
 
             selectedAccountTypeId: function() {
 
                 this.accountForm.type = this.selectedAccountTypeId;
-                this.tableData = this.accounts.filter(account => account['type_id'] === this.selectedAccountTypeId)
+                this.refreshTableData()
 
             },
 
@@ -110,6 +111,26 @@
         },
 
         methods: {
+
+            refreshAccountTypes() {
+                if (!this.accountForm.type && this.accountTypes.length) this.selectedAccountTypeId = this.accountTypes[0].id
+            },
+
+            refreshTableData() {
+                this.tableData = (this.accounts || []).filter(account => account['type_id'] === this.selectedAccountTypeId)
+            },
+
+            refreshSubaccountsTableData() {
+
+                this.subaccountsTableData = (this.subaccounts || []).reduce((result, subacc) => {
+
+                    const accId = subacc['account_id'];
+
+                    return Object.assign(result, { [accId]: (result[accId] || []).concat(subacc)})
+
+                }, {});
+
+            },
 
             addAccount() {
 
@@ -126,7 +147,7 @@
 
                 if (!this.accountFormVisible) {
 
-                    const account: any = this.accounts.filter(account => account.id === accountId)[0];
+                    const account: any = (this.accounts || []).filter(account => account.id === accountId)[0];
 
                     this.accountForm.id = account.id;
                     this.accountForm.type = account.type_id;
@@ -171,7 +192,7 @@
                                 .then(() => {
 
                                     formRef.resetFields();
-                                    accounts.dispatchGetAccounts();
+                                    accounts.dispatchRefreshAccounts();
                                     this.isAddingAccount = false;
                                     this.accountFormVisible = false
 
@@ -185,7 +206,7 @@
                                 .then(() => {
 
                                     formRef.resetFields();
-                                    accounts.dispatchGetAccounts();
+                                    accounts.dispatchRefreshAccounts();
                                     this.accountFormVisible = false
 
                                 })
@@ -212,7 +233,7 @@
                 if (!this.selectedSubaccountId) return;
 
                 const subaccId: number = this.selectedSubaccountId as number;
-                const subacc = this.subaccounts.filter(subacc => subacc.id === subaccId)[0];
+                const subacc = (this.subaccounts || []).filter(subacc => subacc.id === subaccId)[0];
 
                 this.subaccountForm.name = subacc.name;
                 this.subaccountForm.account = subacc['account_id'];
@@ -228,7 +249,7 @@
                 if (!this.selectedSubaccountId) return;
 
                 const subaccId: number = this.selectedSubaccountId as number;
-                const subaccName: string = this.subaccounts.filter(subacc => subacc.id === subaccId)[0].name;
+                const subaccName: string = (this.subaccounts || []).filter(subacc => subacc.id === subaccId)[0].name;
 
                 MessageService.showConfirmMessage(`Delete subaccount '${ subaccName }'`, 'Are you sure?')
                     .then(() => NetworkService.deleteSubaccount(subaccId).then(() => {
@@ -269,7 +290,7 @@
                                 .then(() => {
 
                                     formRef.resetFields();
-                                    accounts.dispatchGetSubaccounts();
+                                    accounts.dispatchRefreshSubaccounts();
                                     this.isAddingSubaccount = false;
                                     this.subaccountFormVisible = false
 
@@ -285,7 +306,7 @@
                                 .then(() => {
 
                                     formRef.resetFields();
-                                    accounts.dispatchGetSubaccounts();
+                                    accounts.dispatchRefreshSubaccounts();
                                     this.subaccountFormVisible = false
 
                                 })
@@ -299,7 +320,7 @@
             },
 
             tabClick(tab) {
-                this.selectedAccountTypeId = this.accountTypes.filter(type => type.name === tab.label)[0].id;
+                this.selectedAccountTypeId = (this.accountTypes || []).filter(type => type.name === tab.label)[0].id;
             },
 
             handleSubaccDropdownCommand(subaccId) {

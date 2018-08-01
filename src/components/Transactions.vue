@@ -118,7 +118,7 @@
 
             refreshActiveStepAccounts() {
 
-                this.activeStepAccounts = this.accounts.filter(account => {
+                this.activeStepAccounts = (this.accounts || []).filter(account => {
 
                     switch (this.transaction.type) {
 

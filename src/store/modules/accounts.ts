@@ -4,20 +4,29 @@ import NetworkServices from '../../services/network.service'
 import MessageService from '../../services/message.service'
 
 export interface AccountsState {
-    accountTypes: any[],
-    accounts: any[],
-    subaccounts: any[]
+    accountTypes: any[] | undefined,
+    accounts: any[] | undefined,
+    subaccounts: any[] | undefined
 }
 
 const initialAccountsState: AccountsState = {
-    accountTypes: [],
-    accounts: [],
-    subaccounts: []
+    accountTypes: undefined,
+    accounts: undefined,
+    subaccounts: undefined
 };
 
 const accountState = getStoreBuilder<RootState>().module<AccountsState>("accounts", initialAccountsState);
 
+function refreshAccountTypes() {
+
+    accounts.commitFillUpAccountTypes(undefined);
+    accounts.dispatchGetAccountTypes();
+
+}
+
 function getAccountTypes() {
+
+    if (accounts.state.accountTypes) return Promise.resolve(accounts.state.accountTypes);
 
     NetworkServices.getAccountTypes()
         .then(accountTypesData => accounts.commitFillUpAccountTypes(accountTypesData))
@@ -25,7 +34,16 @@ function getAccountTypes() {
 
 }
 
+function refreshAccounts() {
+
+    accounts.commitFillUpAccounts(undefined);
+    accounts.dispatchGetAccounts();
+
+}
+
 function getAccounts() {
+
+    if (accounts.state.accounts) return Promise.resolve(accounts.state.accounts);
 
     NetworkServices.getAccounts()
         .then(accountsData => accounts.commitFillUpAccounts(accountsData))
@@ -33,7 +51,16 @@ function getAccounts() {
 
 }
 
+function refreshSubaccounts() {
+
+    accounts.commitFillUpSubaccounts(undefined);
+    accounts.dispatchGetSubaccounts();
+
+}
+
 function getSubaccounts() {
+
+    if (accounts.state.subaccounts) return Promise.resolve(accounts.state.subaccounts);
 
     NetworkServices.getSubaccounts()
         .then(subaccountsData => accounts.commitFillUpSubaccounts(subaccountsData))
@@ -41,15 +68,15 @@ function getSubaccounts() {
 
 }
 
-function fillUpAccountTypes(state: AccountsState, accountTypes: any[]) {
+function fillUpAccountTypes(state: AccountsState, accountTypes: any[] | undefined) {
     state.accountTypes = accountTypes
 }
 
-function fillUpAccounts(state: AccountsState, accounts: any[]) {
+function fillUpAccounts(state: AccountsState, accounts: any[] | undefined) {
     state.accounts = accounts
 }
 
-function fillUpSubaccounts(state: AccountsState, subaccounts: any[]) {
+function fillUpSubaccounts(state: AccountsState, subaccounts: any[] | undefined) {
     state.subaccounts = subaccounts
 }
 
@@ -70,8 +97,11 @@ const accounts = {
     commitLogout: accountState.commit(logout, 'logout'),
 
     dispatchGetAccountTypes: accountState.dispatch(getAccountTypes),
+    dispatchRefreshAccountTypes: accountState.dispatch(refreshAccountTypes),
     dispatchGetAccounts: accountState.dispatch(getAccounts),
-    dispatchGetSubaccounts: accountState.dispatch(getSubaccounts)
+    dispatchRefreshAccounts: accountState.dispatch(refreshAccounts),
+    dispatchGetSubaccounts: accountState.dispatch(getSubaccounts),
+    dispatchRefreshSubaccounts: accountState.dispatch(refreshSubaccounts)
 
 };
 
