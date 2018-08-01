@@ -64,6 +64,13 @@
 
             activeStep: function() {
                 this.refreshActiveStepAccounts()
+            },
+
+            addTransactionDialogVisible: function() {
+
+                this.activeStep = 0;
+                this.addTransactionDialogVisible || (this.transaction = initialTransaction());
+
             }
 
         },
@@ -99,20 +106,13 @@
             },
 
             cancelAddTransaction() {
-
-                this.addTransactionDialogVisible = false;
-                this.activeStep = 0;
-                this.transaction = initialTransaction
-
+                this.addTransactionDialogVisible = false
             },
 
             confirmAddTransaction() {
 
-                console.log('confirmAddTransaction');
-
-                this.addTransactionDialogVisible = false;
-                this.activeStep = 0;
-                this.transaction = initialTransaction
+                console.log(`confirmAddTransaction ${ this.transaction }`);
+                this.addTransactionDialogVisible = false
 
             },
 
