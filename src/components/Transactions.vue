@@ -139,6 +139,20 @@
 
             previousStep() {
                 this.activeStep > 0 ? this.activeStep-- : this.activeStep = 0
+            },
+
+            shouldDisableNextButton() {
+
+                if (this.activeStep === 0) {
+
+                    return this.transaction.fromAccountId === undefined
+
+                } else  {
+
+                    return this.transaction.toAccountId === undefined
+
+                }
+
             }
 
         }
@@ -184,7 +198,7 @@
             <span slot="footer" class="dialog-footer">
                 <el-button type="warning" @click="cancelAddTransaction">Cancel</el-button>
                 <el-button type="" @click="previousStep" :disabled="activeStep === 0">Previous</el-button>
-                <el-button type="primary" v-if="activeStep !== 2" @click="nextStep">Next</el-button>
+                <el-button type="primary" v-if="activeStep !== 2" @click="nextStep" :disabled="shouldDisableNextButton()">Next</el-button>
                 <el-button type="success" v-if="activeStep === 2" @click="confirmAddTransaction">Done</el-button>
             </span>
 
