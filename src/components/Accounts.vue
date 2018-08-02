@@ -191,10 +191,15 @@
                                 .addAccount(form.name, form.type as number)
                                 .then(() => {
 
-                                    formRef.resetFields();
-                                    accounts.dispatchRefreshAccounts();
-                                    this.isAddingAccount = false;
-                                    this.accountFormVisible = false
+                                    return accounts.dispatchRefreshAccounts()
+                                        .then(() => {
+
+                                            formRef.resetFields();
+                                            this.isAddingAccount = false;
+                                            this.accountFormVisible = false
+
+                                        })
+                                        .catch(err => Promise.reject(err))
 
                                 })
                                 .catch(MessageService.showError)
@@ -205,9 +210,14 @@
                                 .updateAccount(form.id as number, form.name, form.type as number)
                                 .then(() => {
 
-                                    formRef.resetFields();
-                                    accounts.dispatchRefreshAccounts();
-                                    this.accountFormVisible = false
+                                    return accounts.dispatchRefreshAccounts()
+                                        .then(() => {
+
+                                            formRef.resetFields();
+                                            this.accountFormVisible = false
+
+                                        })
+                                        .catch(err => Promise.reject(err))
 
                                 })
                                 .catch(MessageService.showError)
@@ -289,10 +299,15 @@
                                 .addSubaccount(form.name, form.account as number)
                                 .then(() => {
 
-                                    formRef.resetFields();
-                                    accounts.dispatchRefreshSubaccounts();
-                                    this.isAddingSubaccount = false;
-                                    this.subaccountFormVisible = false
+                                    return accounts.dispatchRefreshSubaccounts()
+                                        .then(() => {
+
+                                            formRef.resetFields();
+                                            this.isAddingSubaccount = false;
+                                            this.subaccountFormVisible = false
+
+                                        })
+                                        .catch(err => Promise.reject(err))
 
                                 })
                                 .catch(MessageService.showError)
@@ -305,9 +320,14 @@
                                 .updateSubaccount(this.selectedSubaccountId, form.name, form.account)
                                 .then(() => {
 
-                                    formRef.resetFields();
-                                    accounts.dispatchRefreshSubaccounts();
-                                    this.subaccountFormVisible = false
+                                    return accounts.dispatchRefreshSubaccounts()
+                                        .then(() => {
+
+                                            formRef.resetFields();
+                                            this.subaccountFormVisible = false
+
+                                        })
+                                        .catch(err => Promise.reject(err))
 
                                 })
                                 .catch(MessageService.showError)

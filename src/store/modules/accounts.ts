@@ -20,7 +20,7 @@ const accountState = getStoreBuilder<RootState>().module<AccountsState>("account
 function refreshAccountTypes() {
 
     accounts.commitFillUpAccountTypes(undefined);
-    accounts.dispatchGetAccountTypes();
+    return accounts.dispatchGetAccountTypes();
 
 }
 
@@ -37,7 +37,7 @@ function getAccountTypes() {
 function refreshAccounts() {
 
     accounts.commitFillUpAccounts(undefined);
-    accounts.dispatchGetAccounts();
+    return accounts.dispatchGetAccounts();
 
 }
 
@@ -54,7 +54,7 @@ function getAccounts() {
 function refreshSubaccounts() {
 
     accounts.commitFillUpSubaccounts(undefined);
-    accounts.dispatchGetSubaccounts();
+    return accounts.dispatchGetSubaccounts();
 
 }
 
@@ -98,8 +98,10 @@ const accounts = {
 
     dispatchGetAccountTypes: accountState.dispatch(getAccountTypes),
     dispatchRefreshAccountTypes: accountState.dispatch(refreshAccountTypes),
+
     dispatchGetAccounts: accountState.dispatch(getAccounts),
     dispatchRefreshAccounts: accountState.dispatch(refreshAccounts),
+
     dispatchGetSubaccounts: accountState.dispatch(getSubaccounts),
     dispatchRefreshSubaccounts: accountState.dispatch(refreshSubaccounts)
 
