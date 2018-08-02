@@ -161,7 +161,7 @@
             deleteAccount(accountId: number, accountName: string) {
 
                 MessageService.showConfirmMessage(`Delete account '${ accountName }'`, 'Are you sure?')
-                    .then(() => NetworkService.deleteAccount(accountId).then(accounts.dispatchGetAccounts).catch(MessageService.showError))
+                    .then(() => NetworkService.deleteAccount(accountId).then(accounts.dispatchRefreshAccounts).catch(MessageService.showError))
                     .catch(() => {})
 
             },
@@ -254,7 +254,7 @@
                 MessageService.showConfirmMessage(`Delete subaccount '${ subaccName }'`, 'Are you sure?')
                     .then(() => NetworkService.deleteSubaccount(subaccId).then(() => {
 
-                        accounts.dispatchGetSubaccounts();
+                        accounts.dispatchRefreshSubaccounts();
                         this.selectedSubaccountId = undefined
 
                     }).catch(MessageService.showError))
