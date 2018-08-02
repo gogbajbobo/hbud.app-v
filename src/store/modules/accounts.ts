@@ -51,6 +51,22 @@ function getAccounts() {
 
 }
 
+function addAccount(context: any, { name, type_id }) {
+
+    return NetworkServices.addAccount(name, type_id)
+        .then(accounts.dispatchRefreshAccounts)
+        .catch(err => Promise.reject(err))
+
+}
+
+function updateAccount(context: any, { accountId, name, type_id }) {
+
+    return NetworkServices.updateAccount(accountId, name, type_id)
+        .then(accounts.dispatchRefreshAccounts)
+        .catch(err => Promise.reject(err))
+
+}
+
 function refreshSubaccounts() {
 
     accounts.commitFillUpSubaccounts(undefined);
@@ -98,6 +114,8 @@ const accounts = {
 
     dispatchGetAccountTypes: accountState.dispatch(getAccountTypes),
     dispatchRefreshAccountTypes: accountState.dispatch(refreshAccountTypes),
+    dispatchAddAccount: accountState.dispatch(addAccount),
+    dispatchUpdateAccount: accountState.dispatch(updateAccount),
 
     dispatchGetAccounts: accountState.dispatch(getAccounts),
     dispatchRefreshAccounts: accountState.dispatch(refreshAccounts),

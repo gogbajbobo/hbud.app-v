@@ -187,37 +187,23 @@
 
                         if (this.isAddingAccount) {
 
-                            NetworkService
-                                .addAccount(form.name, form.type as number)
+                            accounts.dispatchAddAccount({name: form.name, type_id: form.type})
                                 .then(() => {
 
-                                    return accounts.dispatchRefreshAccounts()
-                                        .then(() => {
-
-                                            formRef.resetFields();
-                                            this.isAddingAccount = false;
-                                            this.accountFormVisible = false
-
-                                        })
-                                        .catch(err => Promise.reject(err))
+                                    formRef.resetFields();
+                                    this.isAddingAccount = false;
+                                    this.accountFormVisible = false
 
                                 })
                                 .catch(MessageService.showError)
 
                         } else {
 
-                            NetworkService
-                                .updateAccount(form.id as number, form.name, form.type as number)
+                            accounts.dispatchUpdateAccount({accountId: form.id, name: form.name, type_id: form.type})
                                 .then(() => {
 
-                                    return accounts.dispatchRefreshAccounts()
-                                        .then(() => {
-
-                                            formRef.resetFields();
-                                            this.accountFormVisible = false
-
-                                        })
-                                        .catch(err => Promise.reject(err))
+                                    formRef.resetFields();
+                                    this.accountFormVisible = false
 
                                 })
                                 .catch(MessageService.showError)
