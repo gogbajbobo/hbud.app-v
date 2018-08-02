@@ -84,6 +84,22 @@ function getSubaccounts() {
 
 }
 
+function addSubaccount(context: any, { name, accountId }) {
+
+    return NetworkServices.addSubaccount(name, accountId)
+        .then(accounts.dispatchRefreshSubaccounts)
+        .catch(err => Promise.reject(err))
+
+}
+
+function updateSubaccount(context: any, { subaccountId, name, account_id }) {
+
+    return NetworkServices.updateSubaccount(subaccountId, name, account_id)
+        .then(accounts.dispatchRefreshSubaccounts)
+        .catch(err => Promise.reject(err))
+
+}
+
 function fillUpAccountTypes(state: AccountsState, accountTypes: any[] | undefined) {
     state.accountTypes = accountTypes
 }
@@ -114,14 +130,16 @@ const accounts = {
 
     dispatchGetAccountTypes: accountState.dispatch(getAccountTypes),
     dispatchRefreshAccountTypes: accountState.dispatch(refreshAccountTypes),
-    dispatchAddAccount: accountState.dispatch(addAccount),
-    dispatchUpdateAccount: accountState.dispatch(updateAccount),
 
     dispatchGetAccounts: accountState.dispatch(getAccounts),
     dispatchRefreshAccounts: accountState.dispatch(refreshAccounts),
+    dispatchAddAccount: accountState.dispatch(addAccount),
+    dispatchUpdateAccount: accountState.dispatch(updateAccount),
 
     dispatchGetSubaccounts: accountState.dispatch(getSubaccounts),
-    dispatchRefreshSubaccounts: accountState.dispatch(refreshSubaccounts)
+    dispatchRefreshSubaccounts: accountState.dispatch(refreshSubaccounts),
+    dispatchAddSubaccount: accountState.dispatch(addSubaccount),
+    dispatchUpdateSubaccount: accountState.dispatch(updateSubaccount)
 
 };
 

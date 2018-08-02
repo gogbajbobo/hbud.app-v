@@ -281,19 +281,12 @@
 
                         if (this.isAddingSubaccount) {
 
-                            NetworkService
-                                .addSubaccount(form.name, form.account as number)
+                            accounts.dispatchAddSubaccount({name: form.name, accountId: form.account})
                                 .then(() => {
 
-                                    return accounts.dispatchRefreshSubaccounts()
-                                        .then(() => {
-
-                                            formRef.resetFields();
-                                            this.isAddingSubaccount = false;
-                                            this.subaccountFormVisible = false
-
-                                        })
-                                        .catch(err => Promise.reject(err))
+                                    formRef.resetFields();
+                                    this.isAddingSubaccount = false;
+                                    this.subaccountFormVisible = false
 
                                 })
                                 .catch(MessageService.showError)
@@ -302,18 +295,11 @@
 
                             if (!this.selectedSubaccountId) return MessageService.showError(new Error('Have no subaccount id'));
 
-                            NetworkService
-                                .updateSubaccount(this.selectedSubaccountId, form.name, form.account)
+                            accounts.dispatchUpdateSubaccount({subaccountId: this.selectedSubaccountId, name: form.name, account_id: form.account})
                                 .then(() => {
 
-                                    return accounts.dispatchRefreshSubaccounts()
-                                        .then(() => {
-
-                                            formRef.resetFields();
-                                            this.subaccountFormVisible = false
-
-                                        })
-                                        .catch(err => Promise.reject(err))
+                                    formRef.resetFields();
+                                    this.subaccountFormVisible = false
 
                                 })
                                 .catch(MessageService.showError)
