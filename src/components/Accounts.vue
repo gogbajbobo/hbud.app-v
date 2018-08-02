@@ -2,7 +2,6 @@
 
     import Vue from 'vue'
 
-    import NetworkService from '../services/network.service'
     import MessageService from '../services/message.service'
     import accounts from '../store/modules/accounts'
     import auth from '../store/modules/auth'
@@ -161,7 +160,7 @@
             deleteAccount(accountId: number, accountName: string) {
 
                 MessageService.showConfirmMessage(`Delete account '${ accountName }'`, 'Are you sure?')
-                    .then(() => NetworkService.deleteAccount(accountId).then(accounts.dispatchRefreshAccounts).catch(MessageService.showError))
+                    .then(() => accounts.dispatchDeleteAccount({ accountId }).catch(MessageService.showError))
                     .catch(() => {})
 
             },
@@ -248,12 +247,13 @@
                 const subaccName: string = (this.subaccounts || []).filter(subacc => subacc.id === subaccId)[0].name;
 
                 MessageService.showConfirmMessage(`Delete subaccount '${ subaccName }'`, 'Are you sure?')
-                    .then(() => NetworkService.deleteSubaccount(subaccId).then(() => {
+                    .then(() => {
 
-                        accounts.dispatchRefreshSubaccounts();
-                        this.selectedSubaccountId = undefined
+                        return accounts.dispatchDeleteSubaccount({ subaccountId: subaccId })
+                            .then(() => { this.selectedSubaccountId = undefined })
+                            .catch(MessageService.showError)
 
-                    }).catch(MessageService.showError))
+                    })
                     .catch(() => {})
 
             },

@@ -67,6 +67,14 @@ function updateAccount(context: any, { accountId, name, type_id }) {
 
 }
 
+function deleteAccount(context: any, { accountId }) {
+
+    return NetworkServices.deleteAccount(accountId)
+        .then(accounts.dispatchRefreshAccounts)
+        .catch(err => Promise.reject(err))
+
+}
+
 function refreshSubaccounts() {
 
     accounts.commitFillUpSubaccounts(undefined);
@@ -95,6 +103,14 @@ function addSubaccount(context: any, { name, accountId }) {
 function updateSubaccount(context: any, { subaccountId, name, account_id }) {
 
     return NetworkServices.updateSubaccount(subaccountId, name, account_id)
+        .then(accounts.dispatchRefreshSubaccounts)
+        .catch(err => Promise.reject(err))
+
+}
+
+function deleteSubaccount(context: any, { subaccountId }) {
+
+    return NetworkServices.deleteSubaccount(subaccountId)
         .then(accounts.dispatchRefreshSubaccounts)
         .catch(err => Promise.reject(err))
 
@@ -135,11 +151,13 @@ const accounts = {
     dispatchRefreshAccounts: accountState.dispatch(refreshAccounts),
     dispatchAddAccount: accountState.dispatch(addAccount),
     dispatchUpdateAccount: accountState.dispatch(updateAccount),
+    dispatchDeleteAccount: accountState.dispatch(deleteAccount),
 
     dispatchGetSubaccounts: accountState.dispatch(getSubaccounts),
     dispatchRefreshSubaccounts: accountState.dispatch(refreshSubaccounts),
     dispatchAddSubaccount: accountState.dispatch(addSubaccount),
-    dispatchUpdateSubaccount: accountState.dispatch(updateSubaccount)
+    dispatchUpdateSubaccount: accountState.dispatch(updateSubaccount),
+    dispatchDeleteSubaccount: accountState.dispatch(deleteSubaccount)
 
 };
 
